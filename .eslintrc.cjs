@@ -21,6 +21,7 @@ module.exports = {
         case: 'camelCase',
       },
     ],
+    'import/no-cycle': 'warn',
   },
   overrides: [
     {
