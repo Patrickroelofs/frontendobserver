@@ -12,6 +12,8 @@ export interface Config {
   };
   collections: {
     pages: Page;
+    inspirations: Inspiration;
+    authors: Author;
     users: User;
     media: Media;
     'payload-locked-documents': PayloadLockedDocument;
@@ -21,6 +23,8 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
+    inspirations: InspirationsSelect<false> | InspirationsSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -83,22 +87,62 @@ export interface SimpleTextType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "inspirations".
  */
-export interface User {
+export interface Inspiration {
   id: number;
-  image: number | Media;
-  role: 'admin' | 'author';
+  /**
+   * This will be featured on the homepage
+   */
+  featured?: boolean | null;
+  slug: string;
+  authors: (number | Author)[];
+  name: string;
+  url: string;
+  content?: {
+    blocks?: SimpleTextType[] | null;
+  };
+  details?: {
+    screenshot?: (number | null) | Media;
+    description?: string | null;
+    categories?: ('portfolio' | 'blog')[] | null;
+  };
   updatedAt: string;
   createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  isCompany?: boolean | null;
+  image?: (number | null) | Media;
+  name: string;
+  socials?:
+    | {
+        platform?: ('website' | 'linkedin' | 'youtube' | 'github') | null;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -121,6 +165,23 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -129,6 +190,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'inspirations';
+        value: number | Inspiration;
+      } | null)
+    | ({
+        relationTo: 'authors';
+        value: number | Author;
       } | null)
     | ({
         relationTo: 'users';
@@ -206,11 +275,57 @@ export interface SimpleTextTypeSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inspirations_select".
+ */
+export interface InspirationsSelect<T extends boolean = true> {
+  featured?: T;
+  slug?: T;
+  authors?: T;
+  name?: T;
+  url?: T;
+  content?:
+    | T
+    | {
+        blocks?:
+          | T
+          | {
+              SimpleText?: T | SimpleTextTypeSelect<T>;
+            };
+      };
+  details?:
+    | T
+    | {
+        screenshot?: T;
+        description?: T;
+        categories?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  isCompany?: T;
+  image?: T;
+  name?: T;
+  socials?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  bio?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  image?: T;
-  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
