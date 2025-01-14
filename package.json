@@ -1,7 +1,7 @@
 {
-  "name": "",
+  "name": "eightspire",
   "version": "1.0.0",
-  "description": "A blank template to get started with Payload 3.0",
+  "description": "Eightspire is a project...",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -12,30 +12,44 @@
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
+    "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
+    "migrate:reset": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:fresh",
+    "ci": "payload migrate && pnpm build"
   },
   "dependencies": {
+    "@payloadcms/ui": "latest",
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
     "@payloadcms/richtext-lexical": "latest",
+    "@payloadcms/storage-vercel-blob": "latest",
+    "@payloadcms/db-vercel-postgres": "latest",
+    "@phosphor-icons/core": "latest",
+    "@phosphor-icons/react": "latest",
+    "class-variance-authority": "latest",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
-    "next": "15.1.0",
+    "next": "latest",
     "payload": "latest",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "sharp": "0.32.6",
-    "@payloadcms/db-vercel-postgres": "latest"
+    "sharp": "0.32.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@types/node": "^22.5.4",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
-    "eslint": "^9.16.0",
+    "eslint": "^8.57.1",
+    "@tailwindcss/typography": "^0.5.16",
+    "@vercel/style-guide": "^6.0.0",
     "eslint-config-next": "15.1.0",
+    "autoprefixer": "^10.4.20",
     "prettier": "^3.4.2",
-    "typescript": "5.7.2"
+    "typescript": "5.7.2",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
   },
   "engines": {
     "node": "^18.20.2 || >=20.9.0"
