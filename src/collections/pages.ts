@@ -1,5 +1,6 @@
 import { type CollectionConfig } from 'payload'
 import { SimpleText } from '@/blocks/simpleText'
+import { slugField } from '@/fields/slug'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -13,16 +14,7 @@ export const Pages: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    {
-      name: 'slug',
-      label: 'Slug',
-      type: 'text',
-      required: true,
-      unique: true,
-      admin: {
-        position: 'sidebar',
-      },
-    },
+    slugField(),
     {
       name: 'blocks',
       label: 'Blocks',
