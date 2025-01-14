@@ -54,18 +54,14 @@ export async function generateStaticParams() {
       })
 
     if (!pages) {
-      return {
-        paths: [],
-      }
+      return []
     }
 
     return pages.map((page) => ({
       slug: page.slug,
     }))
   } catch (error) {
-    return {
-      paths: [],
-    }
+    return []
   }
 }
 
