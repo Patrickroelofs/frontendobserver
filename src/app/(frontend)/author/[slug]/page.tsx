@@ -54,18 +54,14 @@ export async function generateStaticParams() {
       })
 
     if (!authors) {
-      return {
-        paths: [],
-      }
+      return []
     }
 
     return authors.map((author) => ({
       slug: author.slug,
     }))
   } catch (error) {
-    return {
-      paths: [],
-    }
+    return []
   }
 }
 
