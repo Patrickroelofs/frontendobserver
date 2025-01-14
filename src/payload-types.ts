@@ -87,6 +87,8 @@ export interface SimpleTextType {
  */
 export interface User {
   id: number;
+  image: number | Media;
+  role: 'admin' | 'author';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -207,6 +209,8 @@ export interface SimpleTextTypeSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  image?: T;
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
