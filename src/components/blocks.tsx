@@ -1,13 +1,15 @@
 import { type ComponentType, type ReactElement } from 'react'
-import { SimpleText } from '@/blocks/simpleText'
-import { type SimpleTextType } from '@/payload-types'
+import { type ContainerType, type SimpleTextType } from '@/payload-types'
+import { SimpleText } from '@/components/simpleText/simpleText'
+import { Container } from '@/components/container'
 
 interface BlocksProps {
-  blocks: SimpleTextType[] | null | undefined
+  blocks: (SimpleTextType | ContainerType)[] | null | undefined
 }
 
 const blockComponents = {
   SimpleText,
+  Container,
 }
 
 function Blocks({ blocks }: BlocksProps): ReactElement | null {

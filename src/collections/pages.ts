@@ -1,6 +1,6 @@
 import { type CollectionConfig } from 'payload'
-import { SimpleText } from '@/blocks/simpleText'
 import { slugField } from '@/fields/slug'
+import { Container } from '@/blocks/container'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -19,7 +19,7 @@ export const Pages: CollectionConfig = {
       name: 'blocks',
       label: 'Blocks',
       type: 'blocks',
-      blocks: [SimpleText],
+      blocks: [Container],
     },
   ],
 }

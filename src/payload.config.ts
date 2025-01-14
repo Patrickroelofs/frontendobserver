@@ -11,6 +11,8 @@ import { Pages } from '@/collections/pages'
 import { Showcase } from '@/collections/showcase'
 import { Authors } from '@/collections/authors'
 import { Blog } from '@/collections/blog'
+import { Navigation } from '@/globals/navigation'
+import { Footer } from '@/globals/footer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,6 +25,7 @@ export default buildConfig({
     },
   },
   collections: [Pages, Showcase, Blog, Authors, Users, Media],
+  globals: [Navigation, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET ?? '',
   typescript: {

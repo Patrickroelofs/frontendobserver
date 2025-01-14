@@ -1,11 +1,23 @@
 import '@/styles/globals.css'
+import '@fontsource-variable/inter'
+import '@fontsource-variable/inter/opsz.css'
+import '@fontsource-variable/inter/opsz-italic.css'
+import '@fontsource-variable/inter/wght-italic.css'
 
 import React, { type ReactElement, type ReactNode } from 'react'
+import { Navigation } from '@/patterns/navigation/navigation'
+import { Footer } from '@/patterns/footer/footer'
 
 export default function RootLayout({ children }: { children: ReactNode }): ReactElement {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className="bg-ginger">
+      <body>
+        <Navigation />
+        <main>
+          <div className="border-black border-l-2 border-r-2 container">{children}</div>
+        </main>
+        <Footer />
+      </body>
     </html>
   )
 }
