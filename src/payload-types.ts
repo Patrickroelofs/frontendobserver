@@ -12,7 +12,8 @@ export interface Config {
   };
   collections: {
     pages: Page;
-    inspirations: Inspiration;
+    showcase: Showcase;
+    blog: Blog;
     authors: Author;
     users: User;
     media: Media;
@@ -23,7 +24,8 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
-    inspirations: InspirationsSelect<false> | InspirationsSelect<true>;
+    showcase: ShowcaseSelect<false> | ShowcaseSelect<true>;
+    blog: BlogSelect<false> | BlogSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -87,9 +89,9 @@ export interface SimpleTextType {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "inspirations".
+ * via the `definition` "showcase".
  */
-export interface Inspiration {
+export interface Showcase {
   id: number;
   /**
    * This will be featured on the homepage
@@ -117,6 +119,7 @@ export interface Inspiration {
 export interface Author {
   id: number;
   isCompany?: boolean | null;
+  slug: string;
   image?: (number | null) | Media;
   name: string;
   socials?:
@@ -165,6 +168,40 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog".
+ */
+export interface Blog {
+  id: number;
+  /**
+   * This will be featured on the homepage
+   */
+  featured?: boolean | null;
+  slug: string;
+  authors: (number | Author)[];
+  date: string;
+  name: string;
+  excerpt: string;
+  coverImage: number | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -192,8 +229,12 @@ export interface PayloadLockedDocument {
         value: number | Page;
       } | null)
     | ({
-        relationTo: 'inspirations';
-        value: number | Inspiration;
+        relationTo: 'showcase';
+        value: number | Showcase;
+      } | null)
+    | ({
+        relationTo: 'blog';
+        value: number | Blog;
       } | null)
     | ({
         relationTo: 'authors';
@@ -275,9 +316,9 @@ export interface SimpleTextTypeSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "inspirations_select".
+ * via the `definition` "showcase_select".
  */
-export interface InspirationsSelect<T extends boolean = true> {
+export interface ShowcaseSelect<T extends boolean = true> {
   featured?: T;
   slug?: T;
   authors?: T;
@@ -304,10 +345,27 @@ export interface InspirationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog_select".
+ */
+export interface BlogSelect<T extends boolean = true> {
+  featured?: T;
+  slug?: T;
+  authors?: T;
+  date?: T;
+  name?: T;
+  excerpt?: T;
+  coverImage?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "authors_select".
  */
 export interface AuthorsSelect<T extends boolean = true> {
   isCompany?: T;
+  slug?: T;
   image?: T;
   name?: T;
   socials?:

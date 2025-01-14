@@ -1,7 +1,7 @@
 {
-  "name": "eightspire",
+  "name": "frontendobserver",
   "version": "1.0.0",
-  "description": "Eightspire is a project...",
+  "description": "Frontendobserver is a project...",
   "license": "MIT",
   "type": "module",
   "scripts": {

@@ -61,8 +61,8 @@ const Sidebar: Field[] = [
   },
 ]
 
-const Inspirations: CollectionConfig = {
-  slug: 'inspirations',
+const Showcase: CollectionConfig = {
+  slug: 'showcase',
   admin: {
     useAsTitle: 'name',
   },
@@ -96,4 +96,4 @@ const Inspirations: CollectionConfig = {
   ],
 }
 
-export { Inspirations }
+export { Showcase }

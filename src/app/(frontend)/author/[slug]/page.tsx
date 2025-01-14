@@ -1,20 +1,20 @@
 import { type ReactElement } from 'react'
 import { draftMode } from 'next/headers'
 import { type Metadata } from 'next'
-import { type Inspiration } from '@/payload-types'
+import { type Author } from '@/payload-types'
 import { payload } from '@/util/getPayloadConfig'
-import { InspirationTemplate } from '@/app/(frontend)/inspirations/[slug]/page.template'
+import { AuthorTemplate } from '@/app/(frontend)/author/[slug]/page.template'
 
 async function Page({ params }: { params: Promise<{ slug: string }> }): Promise<ReactElement> {
   const { isEnabled: draft } = await draftMode()
   const { slug } = await params
 
-  let page: Inspiration | null = null
+  let page: Author | null = null
 
   try {
     page = await payload
       .find({
-        collection: 'inspirations',
+        collection: 'authors',
         draft,
         where: {
           slug: {
@@ -33,7 +33,7 @@ async function Page({ params }: { params: Promise<{ slug: string }> }): Promise<
 
     if (!page) return <p>404</p>
 
-    return <InspirationTemplate page={page} />
+    return <AuthorTemplate page={page} />
   } catch (error) {
     return <p>500</p>
   }
@@ -41,9 +41,9 @@ async function Page({ params }: { params: Promise<{ slug: string }> }): Promise<
 
 export async function generateStaticParams() {
   try {
-    const pages = await payload
+    const authors = await payload
       .find({
-        collection: 'inspirations',
+        collection: 'authors',
       })
       .then((result) => {
         if (result.docs.length === 0) {
@@ -53,14 +53,14 @@ export async function generateStaticParams() {
         return result.docs
       })
 
-    if (!pages) {
+    if (!authors) {
       return {
         paths: [],
       }
     }
 
-    return pages.map((page) => ({
-      slug: page.slug,
+    return authors.map((author) => ({
+      slug: author.slug,
     }))
   } catch (error) {
     return {

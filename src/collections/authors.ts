@@ -1,4 +1,5 @@
 import { type CollectionConfig } from 'payload'
+import { slugField } from '@/fields/slug'
 
 const Authors: CollectionConfig = {
   slug: 'authors',
@@ -19,6 +20,9 @@ const Authors: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    slugField({
+      trackingField: 'name',
+    }),
     {
       name: 'image',
       type: 'upload',
