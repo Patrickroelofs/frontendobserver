@@ -37,7 +37,7 @@ function BlogTemplate(props: BlogProps): ReactElement {
           <Blocks blocks={blocks} />
         </div>
         <div className="row-start-1 md:row-start-none md:col-start-3 md:col-end-3">
-          <div className="border-b-2 border-black">
+          <div className="border-b-2 border-black sticky top-[70px]">
             {authors.map((author) => {
               if (typeof author === 'number') return null
 
