@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { Authors } from '@/collections/authors'
 import { RichText } from '@/blocks/richText'
+import { Code } from '@/blocks/code'
 
 const Sidebar: Field[] = [
   {
@@ -65,7 +66,7 @@ const Blog: CollectionConfig = {
       name: 'blocks',
       label: 'Blocks',
       type: 'blocks',
-      blocks: [RichText],
+      blocks: [RichText, Code],
     },
   ],
   hooks: {

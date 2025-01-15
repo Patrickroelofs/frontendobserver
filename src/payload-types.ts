@@ -89,7 +89,7 @@ export interface Page {
  */
 export interface ContainerType {
   spacing: 'py-4' | 'py-8' | 'py-16' | 'py-24' | 'py-32' | 'py-48' | 'py-64' | '';
-  blocks?: (RichTextType | BlogListType)[] | null;
+  blocks?: (RichTextType | BlogListType | CodeType)[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Container';
@@ -144,7 +144,7 @@ export interface Blog {
   name: string;
   excerpt: string;
   coverImage: number | Media;
-  blocks?: RichTextType[] | null;
+  blocks?: (RichTextType | CodeType)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -180,6 +180,236 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeType".
+ */
+export interface CodeType {
+  spacing: 'py-4' | 'py-8' | 'py-16' | 'py-24' | 'py-32' | 'py-48' | 'py-64' | '';
+  codeLanguage:
+    | 'abap'
+    | 'actionscript-3'
+    | 'ada'
+    | 'angular-html'
+    | 'angular-ts'
+    | 'apache'
+    | 'apex'
+    | 'apl'
+    | 'applescript'
+    | 'ara'
+    | 'asciidoc'
+    | 'asm'
+    | 'astro'
+    | 'awk'
+    | 'ballerina'
+    | 'bat'
+    | 'beancount'
+    | 'berry'
+    | 'bibtex'
+    | 'bicep'
+    | 'blade'
+    | 'bsl'
+    | 'c'
+    | 'cadence'
+    | 'cairo'
+    | 'clarity'
+    | 'clojure'
+    | 'cmake'
+    | 'cobol'
+    | 'codeowners'
+    | 'codeql'
+    | 'coffee'
+    | 'common-lisp'
+    | 'coq'
+    | 'cpp'
+    | 'crystal'
+    | 'csharp'
+    | 'css'
+    | 'csv'
+    | 'cue'
+    | 'cypher'
+    | 'd'
+    | 'dart'
+    | 'dax'
+    | 'desktop'
+    | 'diff'
+    | 'docker'
+    | 'dotenv'
+    | 'dream-maker'
+    | 'edge'
+    | 'elixir'
+    | 'elm'
+    | 'emacs-lisp'
+    | 'erb'
+    | 'erlang'
+    | 'fennel'
+    | 'fish'
+    | 'fluent'
+    | 'fortran-fixed-form'
+    | 'fortran-free-form'
+    | 'fsharp'
+    | 'gdresource'
+    | 'gdscript'
+    | 'gdshader'
+    | 'genie'
+    | 'gherkin'
+    | 'git-commit'
+    | 'git-rebase'
+    | 'gleam'
+    | 'glimmer-js'
+    | 'glimmer-ts'
+    | 'glsl'
+    | 'gnuplot'
+    | 'go'
+    | 'graphql'
+    | 'groovy'
+    | 'hack'
+    | 'haml'
+    | 'handlebars'
+    | 'haskell'
+    | 'haxe'
+    | 'hcl'
+    | 'hjson'
+    | 'hlsl'
+    | 'html'
+    | 'html-derivative'
+    | 'http'
+    | 'hxml'
+    | 'hy'
+    | 'imba'
+    | 'ini'
+    | 'java'
+    | 'javascript'
+    | 'jinja'
+    | 'jison'
+    | 'json'
+    | 'json5'
+    | 'jsonc'
+    | 'jsonl'
+    | 'jsonnet'
+    | 'jssm'
+    | 'jsx'
+    | 'julia'
+    | 'kotlin'
+    | 'kusto'
+    | 'latex'
+    | 'lean'
+    | 'less'
+    | 'liquid'
+    | 'log'
+    | 'logo'
+    | 'lua'
+    | 'luau'
+    | 'make'
+    | 'markdown'
+    | 'marko'
+    | 'matlab'
+    | 'mdc'
+    | 'mdx'
+    | 'mermaid'
+    | 'mipsasm'
+    | 'mojo'
+    | 'move'
+    | 'narrat'
+    | 'nextflow'
+    | 'nginx'
+    | 'nim'
+    | 'nix'
+    | 'nushell'
+    | 'objective-c'
+    | 'objective-cpp'
+    | 'ocaml'
+    | 'pascal'
+    | 'perl'
+    | 'php'
+    | 'plsql'
+    | 'po'
+    | 'polar'
+    | 'postcss'
+    | 'powerquery'
+    | 'powershell'
+    | 'prisma'
+    | 'prolog'
+    | 'proto'
+    | 'pug'
+    | 'puppet'
+    | 'purescript'
+    | 'python'
+    | 'qml'
+    | 'qmldir'
+    | 'qss'
+    | 'r'
+    | 'racket'
+    | 'raku'
+    | 'razor'
+    | 'reg'
+    | 'regexp'
+    | 'rel'
+    | 'riscv'
+    | 'rst'
+    | 'ruby'
+    | 'rust'
+    | 'sas'
+    | 'sass'
+    | 'scala'
+    | 'scheme'
+    | 'scss'
+    | 'sdbl'
+    | 'shaderlab'
+    | 'shellscript'
+    | 'shellsession'
+    | 'smalltalk'
+    | 'solidity'
+    | 'soy'
+    | 'sparql'
+    | 'splunk'
+    | 'sql'
+    | 'ssh-config'
+    | 'stata'
+    | 'stylus'
+    | 'svelte'
+    | 'swift'
+    | 'system-verilog'
+    | 'systemd'
+    | 'talonscript'
+    | 'tasl'
+    | 'tcl'
+    | 'templ'
+    | 'terraform'
+    | 'tex'
+    | 'toml'
+    | 'ts-tags'
+    | 'tsv'
+    | 'tsx'
+    | 'turtle'
+    | 'twig'
+    | 'typescript'
+    | 'typespec'
+    | 'typst'
+    | 'v'
+    | 'vala'
+    | 'vb'
+    | 'verilog'
+    | 'vhdl'
+    | 'viml'
+    | 'vue'
+    | 'vue-html'
+    | 'vyper'
+    | 'wasm'
+    | 'wenyan'
+    | 'wgsl'
+    | 'wikitext'
+    | 'wolfram'
+    | 'xml'
+    | 'xsl'
+    | 'yaml'
+    | 'zenscript'
+    | 'zig';
+  code: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -322,6 +552,7 @@ export interface ContainerTypeSelect<T extends boolean = true> {
     | {
         RichText?: T | RichTextTypeSelect<T>;
         BlogList?: T | BlogListTypeSelect<T>;
+        Code?: T | CodeTypeSelect<T>;
       };
   id?: T;
   blockName?: T;
@@ -341,6 +572,17 @@ export interface RichTextTypeSelect<T extends boolean = true> {
  */
 export interface BlogListTypeSelect<T extends boolean = true> {
   posts?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeType_select".
+ */
+export interface CodeTypeSelect<T extends boolean = true> {
+  spacing?: T;
+  codeLanguage?: T;
+  code?: T;
   id?: T;
   blockName?: T;
 }
@@ -389,6 +631,7 @@ export interface BlogSelect<T extends boolean = true> {
     | T
     | {
         RichText?: T | RichTextTypeSelect<T>;
+        Code?: T | CodeTypeSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
