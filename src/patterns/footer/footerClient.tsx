@@ -43,7 +43,7 @@ function FooterClient(props: Footer): ReactElement {
 
                 return (
                   <Link
-                    href={slug === 'home' ? '/' : slug}
+                    href={slug === 'home' ? '/' : `/${slug}`}
                     className="hover:underline text-lg p-4"
                     key={title}
                   >

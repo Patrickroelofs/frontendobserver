@@ -17,7 +17,7 @@ function NavigationClient(props: Navigation): ReactElement {
 
             return (
               <li key={title}>
-                <Link href={slug === 'home' ? '/' : slug} className="text-xl font-bold">
+                <Link href={slug === 'home' ? '/' : `/${slug}`} className="text-xl font-bold">
                   {title}
                 </Link>
               </li>
