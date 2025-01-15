@@ -1,7 +1,7 @@
 'use client'
 
-import React, { type ChangeEvent, type ReactElement, useEffect, useRef } from 'react'
-import { TextInput, useField } from '@payloadcms/ui'
+import React, { type ChangeEvent, type ReactElement, useEffect, useRef, useState } from 'react'
+import { Button, TextInput, useField } from '@payloadcms/ui'
 import { toKebabCase } from 'payload/shared'
 
 export interface SlugInputProps {
@@ -11,6 +11,7 @@ export interface SlugInputProps {
 function SlugInput(props: SlugInputProps): ReactElement {
   const { trackingField } = props
 
+  const [isEditable, setIsEditable] = useState(false)
   const { value: slugValue = '', setValue: setSlugValue } = useField<string>({
     path: 'slug',
   })
@@ -39,11 +40,12 @@ function SlugInput(props: SlugInputProps): ReactElement {
   }, [setSlugValue, slugValue, trackingField, trackingFieldValue])
 
   return (
-    <div>
+    <div className="slugFieldWrapper">
       <TextInput
+        className="slugFieldTextField"
         path="slug"
         label="Slug"
-        readOnly
+        readOnly={!isEditable}
         description={
           slugValue
             ? `Auto generated based on ${trackingField}`
@@ -55,6 +57,14 @@ function SlugInput(props: SlugInputProps): ReactElement {
           stopTrackingRef.current = true
         }}
       />
+      <Button
+        buttonStyle="pill"
+        onClick={() => {
+          setIsEditable(!isEditable)
+        }}
+      >
+        {isEditable ? 'Cancel' : 'Edit'}
+      </Button>
     </div>
   )
 }
