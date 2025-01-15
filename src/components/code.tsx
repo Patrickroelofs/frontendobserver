@@ -11,13 +11,12 @@ async function Code(props: CodeType): Promise<ReactElement> {
   })
 
   return (
-    <div className="p-4 border-2 border-black">
-      <div
-        dangerouslySetInnerHTML={{
-          __html: html,
-        }}
-      />
-    </div>
+    <div
+      className="p-4 bg-[#1E1E1E] text-sm"
+      dangerouslySetInnerHTML={{
+        __html: html,
+      }}
+    />
   )
 }
 
