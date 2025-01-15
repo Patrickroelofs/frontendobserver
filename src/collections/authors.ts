@@ -1,4 +1,5 @@
 import { type CollectionConfig } from 'payload'
+import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
 
 const Authors: CollectionConfig = {
@@ -39,6 +40,22 @@ const Authors: CollectionConfig = {
       required: true,
     },
   ],
+  hooks: {
+    afterChange: [
+      ({
+        doc,
+      }: {
+        doc: {
+          slug: string
+        }
+      }) => {
+        if (doc.slug) {
+          console.warn(`Page revalidating at: /author/${doc.slug}`)
+          revalidatePath(`/author/${doc.slug}`)
+        }
+      },
+    ],
+  },
 }
 
 export { Authors }
