@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
 import { draftMode } from 'next/headers'
 import { type Metadata } from 'next'
-import { type Blog } from '@/payload-types'
+import { type Blog, type Media } from '@/payload-types'
 import { payload } from '@/util/getPayloadConfig'
 import { BlogTemplate } from '@/app/(frontend)/blog/[slug]/page.template'
 
@@ -65,8 +65,51 @@ export async function generateStaticParams() {
   }
 }
 
-export function generateMetadata(): Metadata {
-  return {}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+
+  const page = await payload
+    .find({
+      collection: 'blog',
+      where: {
+        slug: {
+          equals: slug,
+        },
+      },
+      limit: 1,
+    })
+    .then((result) => {
+      if (result.docs.length === 0) {
+        return null
+      }
+
+      return result.docs[0] ?? null
+    })
+
+  if (!page) {
+    return {}
+  }
+
+  const coverImage = page.coverImage as Media
+
+  return {
+    title: page.name,
+    description: page.excerpt,
+    openGraph: {
+      title: page.name,
+      description: page.excerpt,
+      images: [
+        {
+          url: coverImage.url ?? '',
+          alt: coverImage.alt,
+        },
+      ],
+    },
+  }
 }
 
 export default Page
