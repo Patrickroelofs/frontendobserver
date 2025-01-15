@@ -3,10 +3,10 @@ import { codeToHtml } from 'shiki'
 import { type CodeType } from '@/payload-types'
 
 async function Code(props: CodeType): Promise<ReactElement> {
-  const { code, language } = props
+  const { code, codeLanguage } = props
 
   const html = await codeToHtml(code, {
-    lang: language,
+    lang: codeLanguage,
     theme: 'dark-plus',
   })
 
