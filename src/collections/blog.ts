@@ -4,6 +4,7 @@ import { slugField } from '@/fields/slug'
 import { Authors } from '@/collections/authors'
 import { RichText } from '@/blocks/richText'
 import { Code } from '@/blocks/code'
+import { isAdmin } from '@/util/permissionsHandler'
 
 const Sidebar: Field[] = [
   {
@@ -35,6 +36,12 @@ const Sidebar: Field[] = [
 
 const Blog: CollectionConfig = {
   slug: 'blog',
+  access: {
+    create: isAdmin,
+    delete: isAdmin,
+    update: isAdmin,
+    read: () => true,
+  },
   admin: {
     useAsTitle: 'name',
   },

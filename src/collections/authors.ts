@@ -1,9 +1,16 @@
 import { type CollectionConfig } from 'payload'
 import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
+import { isAdmin } from '@/util/permissionsHandler'
 
 const Authors: CollectionConfig = {
   slug: 'authors',
+  access: {
+    create: isAdmin,
+    delete: isAdmin,
+    update: isAdmin,
+    read: () => true,
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'isCompany'],

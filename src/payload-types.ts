@@ -443,6 +443,7 @@ export interface Showcase {
  */
 export interface User {
   id: number;
+  permissions: 'readonly' | 'admin';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -655,6 +656,7 @@ export interface AuthorsSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  permissions?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

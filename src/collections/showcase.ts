@@ -3,6 +3,7 @@ import { slugField } from '@/fields/slug'
 import { Media } from '@/collections/media'
 import { RichText } from '@/blocks/richText'
 import { Authors } from '@/collections/authors'
+import { isAdmin } from '@/util/permissionsHandler'
 
 const Content: Tab = {
   name: 'content',
@@ -63,6 +64,12 @@ const Sidebar: Field[] = [
 
 const Showcase: CollectionConfig = {
   slug: 'showcase',
+  access: {
+    create: isAdmin,
+    delete: isAdmin,
+    update: isAdmin,
+    read: () => true,
+  },
   admin: {
     useAsTitle: 'name',
   },

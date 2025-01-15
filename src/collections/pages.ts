@@ -2,9 +2,16 @@ import { type CollectionConfig } from 'payload'
 import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { Container } from '@/blocks/container'
+import { isAdmin } from '@/util/permissionsHandler'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
+  access: {
+    create: isAdmin,
+    delete: isAdmin,
+    update: isAdmin,
+    read: () => true,
+  },
   admin: {
     useAsTitle: 'title',
   },
