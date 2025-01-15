@@ -28,6 +28,9 @@ export default buildConfig({
   globals: [Navigation, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET ?? '',
+  graphQL: {
+    disable: true,
+  },
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
