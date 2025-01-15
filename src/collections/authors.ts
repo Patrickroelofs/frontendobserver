@@ -33,36 +33,6 @@ const Authors: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    {
-      label: 'Author information',
-      type: 'collapsible',
-      fields: [
-        {
-          name: 'socials',
-          type: 'array',
-          fields: [
-            {
-              name: 'platform',
-              type: 'select',
-              options: [
-                { label: 'Website', value: 'website' },
-                { label: 'LinkedIn', value: 'linkedin' },
-                { label: 'YouTube', value: 'youtube' },
-                { label: 'GitHub', value: 'github' },
-              ],
-            },
-            {
-              name: 'url',
-              type: 'text',
-            },
-          ],
-        },
-        {
-          name: 'bio',
-          type: 'richText',
-        },
-      ],
-    },
   ],
 }
 

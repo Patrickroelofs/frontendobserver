@@ -89,64 +89,17 @@ export interface Page {
  */
 export interface ContainerType {
   spacing: 'py-4' | 'py-8' | 'py-16' | 'py-24' | 'py-32' | 'py-48' | 'py-64' | '';
-  blocks?: SimpleTextType[] | null;
+  blocks?: (RichTextType | BlogListType)[] | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'Container';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SimpleTextType".
+ * via the `definition` "RichTextType".
  */
-export interface SimpleTextType {
-  text?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'SimpleText';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "showcase".
- */
-export interface Showcase {
-  id: number;
-  /**
-   * This will be featured on the homepage
-   */
-  featured?: boolean | null;
-  slug: string;
-  authors: (number | Author)[];
-  name: string;
-  url: string;
-  content?: {
-    blocks?: SimpleTextType[] | null;
-  };
-  details?: {
-    screenshot?: (number | null) | Media;
-    description?: string | null;
-    categories?: ('portfolio' | 'blog')[] | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors".
- */
-export interface Author {
-  id: number;
-  isCompany?: boolean | null;
-  slug: string;
-  image?: (number | null) | Media;
-  name: string;
-  socials?:
-    | {
-        platform?: ('website' | 'linkedin' | 'youtube' | 'github') | null;
-        url?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  bio?: {
+export interface RichTextType {
+  richText?: {
     root: {
       type: string;
       children: {
@@ -161,27 +114,19 @@ export interface Author {
     };
     [k: string]: unknown;
   } | null;
-  updatedAt: string;
-  createdAt: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'RichText';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
+ * via the `definition` "BlogListType".
  */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
+export interface BlogListType {
+  posts?: (number | Blog)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'BlogList';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -199,20 +144,64 @@ export interface Blog {
   name: string;
   excerpt: string;
   coverImage: number | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
+  blocks?: RichTextType[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  isCompany?: boolean | null;
+  slug: string;
+  image?: (number | null) | Media;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  blurData?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "showcase".
+ */
+export interface Showcase {
+  id: number;
+  /**
+   * This will be featured on the homepage
+   */
+  featured?: boolean | null;
+  slug: string;
+  authors: (number | Author)[];
+  name: string;
+  url: string;
+  content?: {
+    blocks?: RichTextType[] | null;
+  };
+  details?: {
+    screenshot?: (number | null) | Media;
+    description?: string | null;
+    categories?: ('portfolio' | 'blog')[] | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -331,17 +320,27 @@ export interface ContainerTypeSelect<T extends boolean = true> {
   blocks?:
     | T
     | {
-        SimpleText?: T | SimpleTextTypeSelect<T>;
+        RichText?: T | RichTextTypeSelect<T>;
+        BlogList?: T | BlogListTypeSelect<T>;
       };
   id?: T;
   blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SimpleTextType_select".
+ * via the `definition` "RichTextType_select".
  */
-export interface SimpleTextTypeSelect<T extends boolean = true> {
-  text?: T;
+export interface RichTextTypeSelect<T extends boolean = true> {
+  richText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BlogListType_select".
+ */
+export interface BlogListTypeSelect<T extends boolean = true> {
+  posts?: T;
   id?: T;
   blockName?: T;
 }
@@ -361,7 +360,7 @@ export interface ShowcaseSelect<T extends boolean = true> {
         blocks?:
           | T
           | {
-              SimpleText?: T | SimpleTextTypeSelect<T>;
+              RichText?: T | RichTextTypeSelect<T>;
             };
       };
   details?:
@@ -386,7 +385,11 @@ export interface BlogSelect<T extends boolean = true> {
   name?: T;
   excerpt?: T;
   coverImage?: T;
-  content?: T;
+  blocks?:
+    | T
+    | {
+        RichText?: T | RichTextTypeSelect<T>;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
@@ -399,14 +402,6 @@ export interface AuthorsSelect<T extends boolean = true> {
   slug?: T;
   image?: T;
   name?: T;
-  socials?:
-    | T
-    | {
-        platform?: T;
-        url?: T;
-        id?: T;
-      };
-  bio?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -431,6 +426,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  blurData?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -496,7 +492,6 @@ export interface Navigation {
  */
 export interface Footer {
   id: number;
-  excerpt: string;
   links?:
     | {
         link?: (number | null) | Page;
@@ -526,7 +521,6 @@ export interface NavigationSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  excerpt?: T;
   links?:
     | T
     | {

@@ -13,9 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }): React
     <html lang="en" className="bg-ginger">
       <body>
         <Navigation />
-        <main>
-          <div className="border-black border-l-2 border-r-2 container">{children}</div>
-        </main>
+        <main className="border-black border-l-2 border-r-2 container p-0">{children}</main>
         <Footer />
       </body>
     </html>

@@ -33,6 +33,7 @@
     "graphql": "^16.8.1",
     "next": "latest",
     "payload": "latest",
+    "plaiceholder": "^3.0.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "sharp": "0.32.6"

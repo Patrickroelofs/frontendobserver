@@ -1,6 +1,7 @@
 import { type CollectionConfig, type CollectionSlug, type Field } from 'payload'
 import { slugField } from '@/fields/slug'
 import { Authors } from '@/collections/authors'
+import { RichText } from '@/blocks/richText'
 
 const Sidebar: Field[] = [
   {
@@ -60,10 +61,10 @@ const Blog: CollectionConfig = {
       required: true,
     },
     {
-      name: 'content',
-      label: 'Content',
-      type: 'richText',
-      required: true,
+      name: 'blocks',
+      label: 'Blocks',
+      type: 'blocks',
+      blocks: [RichText],
     },
   ],
 }

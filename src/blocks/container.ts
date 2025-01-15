@@ -1,6 +1,7 @@
 import { type Block } from 'payload'
-import { SimpleText } from '@/blocks/simpleText'
+import { RichText } from '@/blocks/richText'
 import { spacingField } from '@/fields/spacing'
+import { BlogList } from '@/blocks/blogList'
 
 const Container: Block = {
   slug: 'Container',
@@ -11,7 +12,7 @@ const Container: Block = {
       name: 'blocks',
       label: 'Blocks',
       type: 'blocks',
-      blocks: [SimpleText],
+      blocks: [RichText, BlogList],
     },
   ],
 }
