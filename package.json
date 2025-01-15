@@ -28,6 +28,7 @@
     "@payloadcms/ui": "latest",
     "@phosphor-icons/core": "latest",
     "@phosphor-icons/react": "latest",
+    "@vercel/analytics": "^1.4.1",
     "class-variance-authority": "latest",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
