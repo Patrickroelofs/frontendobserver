@@ -29,6 +29,11 @@ const Authors: CollectionConfig = {
       relationTo: 'media',
     },
     {
+      name: 'coverImage',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
       name: 'name',
       type: 'text',
       required: true,

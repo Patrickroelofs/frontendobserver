@@ -8,26 +8,33 @@ interface AuthorProps {
 
 function AuthorTemplate(props: AuthorProps): ReactElement {
   const { name } = props.page
-  const { image } = props.page as {
+  const { coverImage, image } = props.page as {
+    coverImage: Media | null
     image: Media | null
   }
+
   return (
     <header>
-      {image ? (
+      {coverImage ? (
         <div className="relative w-full h-[240px] md:h-[580px]">
           <Image
             placeholder="blur"
             className="object-cover bg-center pixelated"
-            src={image.url ?? ''}
-            blurDataURL={image.blurData ?? ''}
-            alt={image.alt}
+            src={coverImage.url ?? ''}
+            blurDataURL={coverImage.blurData ?? ''}
+            alt={coverImage.alt}
             fill
             priority
           />
         </div>
       ) : null}
-      <h2 className="text-5xl font-bold py-8 px-4 md:px-0 md:max-w-[75%] mx-auto leading-snug">
-        {name}
+      <h2 className="text-5xl font-bold py-8 px-4 md:px-0 md:max-w-[75%] mx-auto leading-snug flex gap-4 items-center">
+        {image ? (
+          <div className="w-[128px] h-[128px] relative">
+            <Image src={image.url ?? ''} alt={image.alt} fill className="block" />
+          </div>
+        ) : null}
+        <span>{name}</span>
       </h2>
     </header>
   )

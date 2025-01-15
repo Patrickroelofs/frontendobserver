@@ -157,6 +157,7 @@ export interface Author {
   isCompany?: boolean | null;
   slug: string;
   image?: (number | null) | Media;
+  coverImage?: (number | null) | Media;
   name: string;
   updatedAt: string;
   createdAt: string;
@@ -644,6 +645,7 @@ export interface AuthorsSelect<T extends boolean = true> {
   isCompany?: T;
   slug?: T;
   image?: T;
+  coverImage?: T;
   name?: T;
   updatedAt?: T;
   createdAt?: T;
