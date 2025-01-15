@@ -1,4 +1,5 @@
 import { type CollectionConfig, type CollectionSlug, type Field } from 'payload'
+import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { Authors } from '@/collections/authors'
 import { RichText } from '@/blocks/richText'
@@ -67,6 +68,22 @@ const Blog: CollectionConfig = {
       blocks: [RichText],
     },
   ],
+  hooks: {
+    afterChange: [
+      ({
+        doc,
+      }: {
+        doc: {
+          slug: string
+        }
+      }) => {
+        if (doc.slug) {
+          console.warn(`Page revalidating at: /blog/${doc.slug}`)
+          revalidatePath(`/blog/${doc.slug}`)
+        }
+      },
+    ],
+  },
 }
 
 export { Blog }

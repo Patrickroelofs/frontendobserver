@@ -22,6 +22,7 @@ module.exports = {
       },
     ],
     'import/no-cycle': 'warn',
+    'no-console': 'warn',
   },
   overrides: [
     {

@@ -1,4 +1,5 @@
 import { type CollectionConfig } from 'payload'
+import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { Container } from '@/blocks/container'
 
@@ -22,4 +23,24 @@ export const Pages: CollectionConfig = {
       blocks: [Container],
     },
   ],
+  hooks: {
+    afterChange: [
+      ({
+        doc,
+      }: {
+        doc: {
+          slug: string
+        }
+      }) => {
+        if (doc.slug) {
+          console.warn(`Page revalidating at: /${doc.slug}`)
+          if (doc.slug === 'home') {
+            revalidatePath('/')
+          } else {
+            revalidatePath(`/${doc.slug}`)
+          }
+        }
+      },
+    ],
+  },
 }
