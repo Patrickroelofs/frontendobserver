@@ -8,7 +8,7 @@ function RichText(props: RichTextType): ReactElement {
     richText: SerializedEditorState
   }
 
-  return <LexicalRichText data={richText} className="prose prose-lg prose-percy w-full mx-auto" />
+  return <LexicalRichText data={richText} className="prose prose-base prose-percy w-full mx-auto" />
 }
 
 export { RichText }
