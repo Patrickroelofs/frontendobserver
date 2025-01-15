@@ -10,9 +10,6 @@ export const Media: CollectionConfig = {
     update: isAdmin,
     read: () => true,
   },
-  access: {
-    read: () => true,
-  },
   fields: [
     {
       name: 'alt',

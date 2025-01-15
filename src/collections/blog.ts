@@ -45,9 +45,6 @@ const Blog: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
   },
-  access: {
-    read: () => true,
-  },
   fields: [
     ...Sidebar,
     {

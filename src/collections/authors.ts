@@ -15,9 +15,6 @@ const Authors: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'isCompany'],
   },
-  access: {
-    read: () => true,
-  },
   fields: [
     {
       name: 'isCompany',

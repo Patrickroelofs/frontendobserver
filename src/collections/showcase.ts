@@ -73,9 +73,6 @@ const Showcase: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
   },
-  access: {
-    read: () => true,
-  },
   fields: [
     ...Sidebar,
     {
