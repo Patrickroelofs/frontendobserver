@@ -6,6 +6,7 @@ import '@fontsource-variable/inter/wght-italic.css'
 
 import React, { type ReactElement, type ReactNode } from 'react'
 import { Analytics } from '@vercel/analytics/react'
+import { type Metadata } from 'next'
 import { Navigation } from '@/components/navigation/navigation'
 import { Footer } from '@/components/footer/footer'
 
@@ -21,4 +22,33 @@ export default function RootLayout({ children }: { children: ReactNode }): React
       </body>
     </html>
   )
+}
+
+export const metadata: Metadata = {
+  icons: {
+    icon: [
+      {
+        rel: 'icon',
+        type: 'image/ico',
+        url: '/favicon/favicon.ico',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        url: '/favicon/icon.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/svg',
+        url: '/favicon/icon.svg',
+      },
+      {
+        rel: 'apple-touch-icon',
+        type: 'image/png',
+        url: '/favicon/apple-touch-icon.png',
+      },
+    ],
+  },
+
+  manifest: './favicon/manifest.json',
 }

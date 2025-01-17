@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="242" height="156"><svg width="242" height="156" viewBox="0 0 242 156" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_18_23)">
+<path d="M234 77.8277C234 97.8095 228.09 115.575 218.931 128.15C209.768 140.733 197.785 147.655 185.318 147.655C172.851 147.655 160.868 140.733 151.704 128.15C142.546 115.575 136.636 97.8095 136.636 77.8277C136.636 57.8459 142.546 40.08 151.704 27.5049C160.868 14.9225 172.851 8 185.318 8C197.785 8 209.768 14.9225 218.931 27.5049C228.09 40.08 234 57.8459 234 77.8277Z" fill="white" stroke="black" stroke-width="16"></path>
+<ellipse cx="162.116" cy="77.8276" rx="30.5437" ry="36.1238" fill="black"></ellipse>
+<ellipse cx="162.116" cy="54.6262" rx="6.46116" ry="7.04854" fill="white"></ellipse>
+<path d="M105.364 77.8277C105.364 97.8095 99.454 115.575 90.2956 128.15C81.1318 140.733 69.1493 147.655 56.682 147.655C44.2148 147.655 32.2323 140.733 23.0685 128.15C13.91 115.575 8 97.8095 8 77.8277C8 57.8459 13.91 40.08 23.0685 27.5049C32.2323 14.9225 44.2148 8 56.682 8C69.1493 8 81.1318 14.9225 90.2956 27.5049C99.454 40.08 105.364 57.8459 105.364 77.8277Z" fill="white" stroke="black" stroke-width="16"></path>
+<ellipse cx="33.4807" cy="77.8276" rx="30.5437" ry="36.1238" fill="black"></ellipse>
+<ellipse cx="33.4807" cy="54.6262" rx="6.46116" ry="7.04854" fill="white"></ellipse>
+</g>
+<defs>
+<clipPath id="SvgjsClipPath1179">
+<rect width="242" height="156" fill="white"></rect>
+</clipPath>
+</defs>
+</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>
