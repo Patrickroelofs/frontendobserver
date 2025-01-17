@@ -11,8 +11,6 @@ import { Pages } from '@/collections/pages'
 import { Showcase } from '@/collections/showcase'
 import { Authors } from '@/collections/authors'
 import { Blog } from '@/collections/blog'
-import { Navigation } from '@/globals/navigation'
-import { Footer } from '@/globals/footer'
 import { SiteSettings } from '@/globals/siteSettings'
 
 const filename = fileURLToPath(import.meta.url)
@@ -26,7 +24,7 @@ export default buildConfig({
     },
   },
   collections: [Pages, Showcase, Blog, Authors, Users, Media],
-  globals: [Navigation, Footer, SiteSettings],
+  globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET ?? '',
   graphQL: {
