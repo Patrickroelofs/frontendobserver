@@ -10,6 +10,7 @@ export default {
     extend: {
       colors: {
         ginger: 'rgba(249, 228, 214, 1)',
+        redleather: 'rgba(173, 76, 78, 1)',
       },
       typography: (theme) => ({
         percy: {

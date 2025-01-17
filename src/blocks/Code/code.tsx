@@ -33,7 +33,7 @@ async function Code(props: CodeType): Promise<ReactElement> {
       })}
     >
       <div
-        className="p-4 bg-[#1E1E1E] text-sm overflow-x-scroll"
+        className="p-4 bg-[#1E1E1E] text-sm overflow-x-auto"
         dangerouslySetInnerHTML={{
           __html: html,
         }}

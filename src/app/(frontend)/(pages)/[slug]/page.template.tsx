@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 import { type Page } from '@/payload-types'
-import { Blocks } from '@/components/blocks'
+import { Blocks } from '@/blocks/blocks'
 
 interface PageProps {
   page: Page

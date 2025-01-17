@@ -6,11 +6,11 @@ import {
   type HeroType,
   type RichTextType,
 } from '@/payload-types'
-import { Container } from '@/components/container'
-import { RichText } from '@/components/richText'
-import { BlogList } from '@/components/blogList'
-import { Code } from '@/components/code'
-import { Hero } from '@/components/hero'
+import { RichText } from '@/blocks/RichText/richText'
+import { BlogList } from '@/blocks/BlogList/blogList'
+import { Code } from '@/blocks/Code/code'
+import { Hero } from '@/blocks/Hero/hero'
+import { Container } from '@/blocks/Container/container'
 
 interface BlocksProps {
   blocks: (RichTextType | ContainerType | BlogListType | CodeType | HeroType)[] | null | undefined

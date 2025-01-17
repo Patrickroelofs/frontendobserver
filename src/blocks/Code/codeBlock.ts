@@ -2,7 +2,7 @@ import { type Block } from 'payload'
 import { grammars } from 'tm-grammars'
 import { spacingField } from '@/fields/spacing'
 
-export const Code: Block = {
+export const CodeBlock: Block = {
   slug: 'Code',
   interfaceName: 'CodeType',
   fields: [

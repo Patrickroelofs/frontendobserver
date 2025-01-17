@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react'
-import { FooterClient } from '@/patterns/footer/footerClient'
+import { FooterClient } from '@/components/footer/footerClient'
 import { payload } from '@/util/getPayloadConfig'
 
 async function Footer(): Promise<ReactElement> {

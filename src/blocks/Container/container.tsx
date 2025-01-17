@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
 import { cva } from 'class-variance-authority'
 import { type ContainerType } from '@/payload-types'
-import { Blocks } from '@/components/blocks'
+import { Blocks } from '@/blocks/blocks'
 
 const ContainerStyling = cva(['container'], {
   variants: {

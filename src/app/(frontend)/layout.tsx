@@ -6,8 +6,8 @@ import '@fontsource-variable/inter/wght-italic.css'
 
 import React, { type ReactElement, type ReactNode } from 'react'
 import { Analytics } from '@vercel/analytics/react'
-import { Navigation } from '@/patterns/navigation/navigation'
-import { Footer } from '@/patterns/footer/footer'
+import { Navigation } from '@/components/navigation/navigation'
+import { Footer } from '@/components/footer/footer'
 
 export default function RootLayout({ children }: { children: ReactNode }): ReactElement {
   return (

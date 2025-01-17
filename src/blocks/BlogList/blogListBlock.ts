@@ -1,6 +1,6 @@
 import { type Block } from 'payload'
 
-export const BlogList: Block = {
+export const BlogListBlock: Block = {
   slug: 'BlogList',
   interfaceName: 'BlogListType',
   fields: [

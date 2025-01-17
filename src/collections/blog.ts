@@ -2,8 +2,8 @@ import { type CollectionConfig, type CollectionSlug, type Field } from 'payload'
 import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { Authors } from '@/collections/authors'
-import { RichText } from '@/blocks/richText'
-import { Code } from '@/blocks/code'
+import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
+import { CodeBlock } from '@/blocks/Code/codeBlock'
 import { isAdmin } from '@/util/permissionsHandler'
 
 const Sidebar: Field[] = [
@@ -72,7 +72,7 @@ const Blog: CollectionConfig = {
       name: 'blocks',
       label: 'Blocks',
       type: 'blocks',
-      blocks: [RichText, Code],
+      blocks: [RichTextBlock, CodeBlock],
     },
   ],
   hooks: {

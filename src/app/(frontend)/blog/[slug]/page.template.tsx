@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
 import Image from 'next/image'
 import { type Blog, type Media } from '@/payload-types'
-import { Blocks } from '@/components/blocks'
+import { Blocks } from '@/blocks/blocks'
 import { Author } from '@/components/author'
 
 interface BlogProps {
@@ -37,7 +37,7 @@ function BlogTemplate(props: BlogProps): ReactElement {
           <Blocks blocks={blocks} />
         </div>
         <div className="row-start-1 md:row-start-none md:col-start-3 md:col-end-3">
-          <div className="border-b-2 border-black sticky top-[70px]">
+          <div className="border-b-2 border-black sticky top-[67px]">
             {authors.map((author) => {
               if (typeof author === 'number') return null
 

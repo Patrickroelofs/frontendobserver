@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react'
-import { NavigationClient } from '@/patterns/navigation/navigationClient'
+import { NavigationClient } from '@/components/navigation/navigationClient'
 import { payload } from '@/util/getPayloadConfig'
 
 async function Navigation(): Promise<ReactElement> {

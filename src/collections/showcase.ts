@@ -1,7 +1,7 @@
 import { type CollectionConfig, type CollectionSlug, type Field, type Tab } from 'payload'
 import { slugField } from '@/fields/slug'
 import { Media } from '@/collections/media'
-import { RichText } from '@/blocks/richText'
+import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
 import { Authors } from '@/collections/authors'
 import { isAdmin } from '@/util/permissionsHandler'
 
@@ -11,7 +11,7 @@ const Content: Tab = {
     {
       name: 'blocks',
       type: 'blocks',
-      blocks: [RichText],
+      blocks: [RichTextBlock],
     },
   ],
 }
