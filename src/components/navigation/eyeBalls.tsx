@@ -8,6 +8,7 @@ function EyeBalls(): ReactElement {
   const eyeBallRightRef = useRef<SVGPathElement>(null)
   const [leftEyePosition, setLeftEyePosition] = useState({ x: 0, y: 0 })
   const [rightEyePosition, setRightEyePosition] = useState({ x: 0, y: 0 })
+  const [isSelected, setIsSelected] = useState(false)
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent): void => {
@@ -36,16 +37,32 @@ function EyeBalls(): ReactElement {
       }
     }
 
+    const handleSelectStart = (): void => {
+      setIsSelected(true)
+    }
+
+    const handleSelectEnd = (): void => {
+      setIsSelected(false)
+    }
+
     window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('selectstart', handleSelectStart)
+    window.addEventListener('selectend', handleSelectEnd)
+    window.addEventListener('mouseup', handleSelectEnd)
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('selectstart', handleSelectStart)
+      window.removeEventListener('selectend', handleSelectEnd)
+      window.removeEventListener('mouseup', handleSelectEnd)
     }
   }, [])
 
   return (
     <svg
-      className="absolute top-8 drop-shadow-xl hidden lg:block"
+      className={`absolute top-8 drop-shadow-xl hidden lg:block transition-transform duration-300 ${
+        isSelected ? 'scale-[1.35]' : ''
+      }`}
       ref={svgRef}
       width="85"
       height="55"
