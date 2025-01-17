@@ -12,7 +12,7 @@ function NavigationClient(props: SiteSetting['navigation']): ReactElement {
           <span className="text-4xl leading-none">👀</span> Frontend Observer
         </Link>
         <ul className="flex space-x-6">
-          {props?.links?.map((item) => {
+          {props.links.map((item) => {
             return (
               <li key={item.id}>
                 <Link href={item.link} className="text-xl font-bold">
