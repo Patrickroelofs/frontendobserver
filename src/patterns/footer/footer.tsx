@@ -4,11 +4,11 @@ import { payload } from '@/util/getPayloadConfig'
 
 async function Footer(): Promise<ReactElement> {
   const footer = await payload.findGlobal({
-    slug: 'footer',
+    slug: 'siteSettings',
     depth: 1,
   })
 
-  return <FooterClient {...footer} />
+  return <FooterClient {...footer.footer} />
 }
 
 export { Footer }

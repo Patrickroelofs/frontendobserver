@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import { type ReactElement } from 'react'
-import { type Navigation, type Page } from '@/payload-types'
+import { type SiteSetting } from '@/payload-types'
 
-function NavigationClient(props: Navigation): ReactElement {
+function NavigationClient(props: SiteSetting['navigation']): ReactElement {
   return (
     <nav className="sticky top-0 mt-12 z-50">
       <div className="container mx-auto flex justify-between items-center border-2 bg-ginger border-black py-4">
@@ -12,13 +12,11 @@ function NavigationClient(props: Navigation): ReactElement {
           <span className="text-4xl leading-none">👀</span> Frontend Observer
         </Link>
         <ul className="flex space-x-6">
-          {props.items?.map((item) => {
-            const { title, slug } = item.link as Page
-
+          {props?.links?.map((item) => {
             return (
-              <li key={title}>
-                <Link href={slug === 'home' ? '/' : `/${slug}`} className="text-xl font-bold">
-                  {title}
+              <li key={item.id}>
+                <Link href={item.link} className="text-xl font-bold">
+                  {item.label}
                 </Link>
               </li>
             )

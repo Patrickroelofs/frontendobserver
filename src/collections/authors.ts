@@ -12,7 +12,9 @@ const Authors: CollectionConfig = {
     read: () => true,
   },
   admin: {
+    group: 'Content',
     useAsTitle: 'name',
+    description: 'Authors of articles, blog posts, etc.',
     defaultColumns: ['name', 'isCompany'],
   },
   fields: [

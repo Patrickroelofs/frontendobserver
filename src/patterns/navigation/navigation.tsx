@@ -4,11 +4,11 @@ import { payload } from '@/util/getPayloadConfig'
 
 async function Navigation(): Promise<ReactElement> {
   const navigation = await payload.findGlobal({
-    slug: 'navigation',
+    slug: 'siteSettings',
     depth: 1,
   })
 
-  return <NavigationClient {...navigation} />
+  return <NavigationClient {...navigation.navigation} />
 }
 
 export { Navigation }

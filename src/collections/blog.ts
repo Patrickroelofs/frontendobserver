@@ -43,6 +43,8 @@ const Blog: CollectionConfig = {
     read: () => true,
   },
   admin: {
+    group: 'Content',
+    description: 'Blog posts',
     useAsTitle: 'name',
   },
   fields: [

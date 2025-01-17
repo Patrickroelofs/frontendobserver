@@ -3,27 +3,16 @@
 import { type ReactElement } from 'react'
 import Link from 'next/link'
 import { GithubLogo } from '@phosphor-icons/react'
-import { type Footer, type Page } from '@/payload-types'
+import { type SiteSetting } from '@/payload-types'
+import { RichText } from '@/components/richText'
 
-function FooterClient(props: Footer): ReactElement {
+function FooterClient(props: SiteSetting['footer']): ReactElement {
   return (
     <footer>
       <div className="container border-t-2 border-l-2 border-r-2 border-black">
         <div className="grid md:grid-cols-3">
           <div className="space-y-4 border-r-2 border-black pt-4 pb-8">
-            <div className="flex items-center gap-2 text-3xl">
-              <span className="font-bold">Frontend Observer</span>
-            </div>
-            <p className="max-w-xs pb-8">
-              Keeping an eye on the latest frontend development trends and best practices.
-            </p>
-            <p className="max-w-xs">
-              Created by{' '}
-              <Link href="https://patrickroelofs.com" target="_blank" className="hover:underline">
-                Patrick Roelofs
-              </Link>{' '}
-              ❤️.
-            </p>
+            <RichText blockType="RichText" richText={props.text} />
             <nav className="flex flex-row gap-4">
               <Link
                 href="https://github.com/Patrickroelofs"
@@ -38,19 +27,15 @@ function FooterClient(props: Footer): ReactElement {
 
           <div className="border-black">
             <nav className="flex flex-col text-sm">
-              {props.links?.map((link) => {
-                const { title, slug } = link.link as Page
-
-                return (
-                  <Link
-                    href={slug === 'home' ? '/' : `/${slug}`}
-                    className="hover:underline text-lg p-4"
-                    key={title}
-                  >
-                    {title}
-                  </Link>
-                )
-              })}
+              {props.links.map((item) => (
+                <Link
+                  key={item.id}
+                  href={item.link}
+                  className="font-bold hover:underline text-lg p-4"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
           </div>
         </div>

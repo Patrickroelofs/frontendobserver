@@ -3,15 +3,17 @@ import {
   type BlogListType,
   type CodeType,
   type ContainerType,
+  type HeroType,
   type RichTextType,
 } from '@/payload-types'
 import { Container } from '@/components/container'
 import { RichText } from '@/components/richText'
 import { BlogList } from '@/components/blogList'
 import { Code } from '@/components/code'
+import { Hero } from '@/components/hero'
 
 interface BlocksProps {
-  blocks: (RichTextType | ContainerType | BlogListType | CodeType)[] | null | undefined
+  blocks: (RichTextType | ContainerType | BlogListType | CodeType | HeroType)[] | null | undefined
 }
 
 const blockComponents = {
@@ -19,6 +21,7 @@ const blockComponents = {
   Container,
   BlogList,
   Code,
+  Hero,
 }
 
 function Blocks({ blocks }: BlocksProps): ReactElement | null {

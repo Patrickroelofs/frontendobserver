@@ -71,6 +71,8 @@ const Showcase: CollectionConfig = {
     read: () => true,
   },
   admin: {
+    group: 'Content',
+    description: 'A showcase page, awesome websites to check out',
     useAsTitle: 'name',
   },
   fields: [

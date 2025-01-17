@@ -4,6 +4,10 @@ import { isAdmin } from '@/util/permissionsHandler'
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  admin: {
+    group: 'Media',
+    description: 'Media files',
+  },
   access: {
     create: isAdmin,
     delete: isAdmin,

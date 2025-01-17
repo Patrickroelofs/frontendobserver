@@ -8,31 +8,35 @@ function BlogList(props: BlogListType): ReactElement {
     posts: Blog[]
   }
   return (
-    <div className="grid sm:grid-cols-2 md:grid-cols-4">
-      {posts.map((post) => {
-        const { coverImage } = post as {
-          coverImage: Media
-        }
+    <div>
+      <h2 className="mt-6 text-6xl font-bold mb-6 leading-none">Blog</h2>
 
-        return (
-          <article key={post.id} className="border-2 border-black">
-            <Link href={`/blog/${post.slug}`}>
-              <div className="relative w-full h-56 border-b-2 border-black">
-                <Image
-                  fill
-                  src={coverImage.url ?? ''}
-                  alt={coverImage.alt}
-                  className="object-cover object-center"
-                />
-              </div>
-              <div className="p-2">
-                <h2 className="text-lg font-medium mb-2">{post.name}</h2>
-                <p>{post.excerpt}</p>
-              </div>
-            </Link>
-          </article>
-        )
-      })}
+      <div className="grid sm:grid-cols-2 md:grid-cols-4">
+        {posts.map((post) => {
+          const { coverImage } = post as {
+            coverImage: Media
+          }
+
+          return (
+            <article key={post.id} className="border-2 border-black">
+              <Link href={`/blog/${post.slug}`}>
+                <div className="relative w-full h-56 border-b-2 border-black">
+                  <Image
+                    fill
+                    src={coverImage.url ?? ''}
+                    alt={coverImage.alt}
+                    className="object-cover object-center"
+                  />
+                </div>
+                <div className="p-4">
+                  <h2 className="text-lg font-medium mb-2">{post.name}</h2>
+                  <p>{post.excerpt}</p>
+                </div>
+              </Link>
+            </article>
+          )
+        })}
+      </div>
     </div>
   )
 }

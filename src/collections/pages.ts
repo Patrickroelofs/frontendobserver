@@ -3,6 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { Container } from '@/blocks/container'
 import { isAdmin } from '@/util/permissionsHandler'
+import { Hero } from '@/blocks/hero'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -13,6 +14,8 @@ export const Pages: CollectionConfig = {
     read: () => true,
   },
   admin: {
+    group: 'Content',
+    description: 'A page on the website',
     useAsTitle: 'title',
   },
   fields: [
@@ -27,7 +30,7 @@ export const Pages: CollectionConfig = {
       name: 'blocks',
       label: 'Blocks',
       type: 'blocks',
-      blocks: [Container],
+      blocks: [Container, Hero],
     },
   ],
   hooks: {
