@@ -1,11 +1,16 @@
 import type { GlobalConfig } from 'payload'
 import { iconField } from '@/fields/icons'
+import { isAdmin } from '@/util/permissionsHandler'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'siteSettings',
   admin: {
     description: 'Site Settings',
     group: 'Administration',
+  },
+  access: {
+    update: isAdmin,
+    read: () => true,
   },
   fields: [
     {
