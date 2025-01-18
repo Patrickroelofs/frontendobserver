@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { revalidatePath } from 'next/cache'
 import { iconField } from '@/fields/icons'
 import { isAdmin } from '@/util/permissionsHandler'
 
@@ -115,4 +116,20 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [
+      ({
+        doc,
+      }: {
+        doc: {
+          slug: string
+        }
+      }) => {
+        if (doc.slug) {
+          console.warn(`Revalidating everything`)
+          revalidatePath('/', 'layout')
+        }
+      },
+    ],
+  },
 }
