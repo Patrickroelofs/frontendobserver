@@ -1,6 +1,5 @@
 import { type CollectionConfig } from 'payload'
 import { revalidatePath } from 'next/cache'
-import { draftMode } from 'next/headers'
 import { slugField } from '@/fields/slug'
 import { isAdmin } from '@/util/permissionsHandler'
 import { HeroBlock } from '@/blocks/Hero/heroBlock'
@@ -19,15 +18,6 @@ export const Pages: CollectionConfig = {
     group: 'Content',
     description: 'A page on the website',
     useAsTitle: 'title',
-    livePreview: {
-      url: async ({ data }) => {
-        const draft = await draftMode()
-        draft.enable()
-
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- This is a template string
-        return `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${data.slug !== 'home' ? `/${data.slug ?? ''}` : '/'}`
-      },
-    },
   },
   fields: [
     {

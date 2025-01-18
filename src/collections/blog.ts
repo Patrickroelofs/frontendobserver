@@ -1,6 +1,5 @@
 import { type CollectionConfig, type CollectionSlug, type Field } from 'payload'
 import { revalidatePath } from 'next/cache'
-import { draftMode } from 'next/headers'
 import { slugField } from '@/fields/slug'
 import { Authors } from '@/collections/authors'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
@@ -47,15 +46,6 @@ const Blog: CollectionConfig = {
     group: 'Content',
     description: 'Blog posts',
     useAsTitle: 'name',
-    livePreview: {
-      url: async ({ data }) => {
-        const draft = await draftMode()
-        draft.enable()
-
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- This is a template string
-        return `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${data.slug !== 'home' ? `/${data.slug ?? ''}` : '/'}`
-      },
-    },
   },
   fields: [
     ...Sidebar,
