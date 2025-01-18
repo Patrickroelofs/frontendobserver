@@ -7,7 +7,7 @@ import { type Blog, type Media } from '@/payload-types'
 
 function BlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       {props.docs.map((post) => {
         const { coverImage } = post as {
           coverImage: Media

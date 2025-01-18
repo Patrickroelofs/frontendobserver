@@ -28,7 +28,7 @@ function BlogTemplate(props: BlogProps): ReactElement {
             priority
           />
         </div>
-        <h2 className="text-5xl font-bold my-8 px-4 md:px-0 md:max-w-[75%] mx-auto leading-snug">
+        <h2 className="text-5xl font-bold my-8 px-4 md:px-0 max-w-7xl mx-auto leading-snug text-pretty">
           {name}
         </h2>
       </header>

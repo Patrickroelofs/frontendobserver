@@ -34,7 +34,10 @@ function FooterClient(props: SiteSetting['footer']): ReactElement {
                 )
               })}
             </ul>
-            <Link href="#" className="text-8xl absolute -bottom-2 left-0 font-black">
+            <Link
+              href="#"
+              className="text-4xl xl:text-6xl 2xl:text-8xl absolute -bottom-2 left-0 font-black"
+            >
               Frontend Observer
             </Link>
           </div>

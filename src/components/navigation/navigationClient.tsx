@@ -8,7 +8,7 @@ function NavigationClient(props: SiteSetting['navigation']): ReactElement {
     <nav className="sticky top-0 mt-12 z-50">
       <div className="relative container mx-auto grid grid-cols-3 border-2 bg-ginger border-black py-4 items-center">
         <div>
-          <Link href="/" className="text-2xl font-bold">
+          <Link href="/" className="text-base md:text-xl lg:text-2xl font-bold">
             Frontend Observer
           </Link>
         </div>

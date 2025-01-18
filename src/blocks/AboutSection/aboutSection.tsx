@@ -8,12 +8,14 @@ function AboutSection(props: AboutSectionType): ReactElement {
     <div className="bg-black p-7 text-white relative">
       <div className="container grid grid-cols-4 gap-8 mb-12">
         <div className="col-end-2">
-          <h2 className="text-7xl font-black sticky top-[65px] pt-4">{props.title}</h2>
+          <h2 className="text-3xl lg:text-7xl font-bold lg:font-black sticky top-[65px] pt-4">
+            {props.title}
+          </h2>
         </div>
         <div className="col-start-2 col-end-5 text-lg text-white">
           <LexicalRichText
             data={props.content}
-            className="prose prose-xl prose-percy text-white w-full mx-auto break-words columns-2 max-w-full"
+            className="prose prose-xl prose-percy text-white w-full mx-auto break-words columns-1 lg:columns-2 max-w-full"
           />
         </div>
       </div>
