@@ -28,6 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }): React
 }
 
 export const metadata: Metadata = {
+  title: 'Frontend Observer',
   icons: {
     icon: [
       {
