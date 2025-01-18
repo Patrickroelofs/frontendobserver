@@ -244,6 +244,7 @@ export interface RichTextType {
  */
 export interface Blog {
   id: number;
+  state: 'draft' | 'published';
   /**
    * This will be featured on the homepage
    */
@@ -691,6 +692,7 @@ export interface RichTextTypeSelect<T extends boolean = true> {
  * via the `definition` "blog_select".
  */
 export interface BlogSelect<T extends boolean = true> {
+  state?: T;
   featured?: T;
   slug?: T;
   authors?: T;

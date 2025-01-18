@@ -11,6 +11,9 @@ async function BlogPosts(props: BlogPostsType): Promise<ReactElement> {
       featured: {
         equals: true,
       },
+      state: {
+        equals: 'published',
+      },
     },
   })
 

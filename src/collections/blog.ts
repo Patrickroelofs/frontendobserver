@@ -8,6 +8,16 @@ import { isAdmin } from '@/util/permissionsHandler'
 
 const Sidebar: Field[] = [
   {
+    name: 'state',
+    type: 'select',
+    required: true,
+    defaultValue: 'draft',
+    options: [
+      { label: 'Draft', value: 'draft' },
+      { label: 'Published', value: 'published' },
+    ],
+  },
+  {
     name: 'featured',
     type: 'checkbox',
     defaultValue: false,
