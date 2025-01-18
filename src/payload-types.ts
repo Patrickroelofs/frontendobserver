@@ -82,6 +82,7 @@ export interface Page {
   blocks?: (HeroType | AboutSectionType | TitleWithBlocksType)[] | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -244,7 +245,6 @@ export interface RichTextType {
  */
 export interface Blog {
   id: number;
-  state: 'draft' | 'published';
   /**
    * This will be featured on the homepage
    */
@@ -258,6 +258,7 @@ export interface Blog {
   blocks?: (RichTextType | CodeType)[] | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -598,6 +599,7 @@ export interface PagesSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -692,7 +694,6 @@ export interface RichTextTypeSelect<T extends boolean = true> {
  * via the `definition` "blog_select".
  */
 export interface BlogSelect<T extends boolean = true> {
-  state?: T;
   featured?: T;
   slug?: T;
   authors?: T;
@@ -708,6 +709,7 @@ export interface BlogSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -20,9 +20,6 @@ async function Page({ params }: { params: Promise<{ slug: string }> }): Promise<
           slug: {
             equals: slug,
           },
-          state: {
-            equals: 'published',
-          },
         },
         limit: 1,
       })
@@ -47,11 +44,6 @@ export async function generateStaticParams() {
     const pages = await payload
       .find({
         collection: 'blog',
-        where: {
-          state: {
-            equals: 'published',
-          },
-        },
       })
       .then((result) => {
         if (result.docs.length === 0) {
@@ -86,9 +78,6 @@ export async function generateMetadata({
       where: {
         slug: {
           equals: slug,
-        },
-        state: {
-          equals: 'published',
         },
       },
       limit: 1,

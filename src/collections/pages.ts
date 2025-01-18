@@ -1,5 +1,6 @@
 import { type CollectionConfig } from 'payload'
 import { revalidatePath } from 'next/cache'
+import { draftMode } from 'next/headers'
 import { slugField } from '@/fields/slug'
 import { isAdmin } from '@/util/permissionsHandler'
 import { HeroBlock } from '@/blocks/Hero/heroBlock'
@@ -18,6 +19,14 @@ export const Pages: CollectionConfig = {
     group: 'Content',
     description: 'A page on the website',
     useAsTitle: 'title',
+    livePreview: {
+      url: async ({ data }) => {
+        const draft = await draftMode()
+        draft.enable()
+
+        return `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${data.slug !== 'home' ? `/${data.slug}` : '/'}`
+      },
+    },
   },
   fields: [
     {
@@ -26,7 +35,9 @@ export const Pages: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    slugField(),
+    slugField({
+      trackingField: 'title',
+    }),
     {
       name: 'blocks',
       label: 'Blocks',
@@ -34,6 +45,11 @@ export const Pages: CollectionConfig = {
       blocks: [HeroBlock, AboutSectionBlock, TitleWithBlocksBlock],
     },
   ],
+  versions: {
+    drafts: {
+      autosave: true,
+    },
+  },
   hooks: {
     afterChange: [
       ({

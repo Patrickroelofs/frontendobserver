@@ -13,11 +13,13 @@ import { Analytics } from '@vercel/analytics/react'
 import { type Metadata } from 'next'
 import { Navigation } from '@/components/navigation/navigation'
 import { Footer } from '@/components/footer/footer'
+import { RefreshRouteOnSave } from '@/util/refreshRouteOnSave'
 
 export default function RootLayout({ children }: { children: ReactNode }): ReactElement {
   return (
     <html lang="en" className="bg-ginger font-serif">
       <body>
+        <RefreshRouteOnSave />
         <Navigation />
         <main className="border-black border-l-2 border-r-2 container p-0">{children}</main>
         <Footer />

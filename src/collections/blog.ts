@@ -1,5 +1,6 @@
 import { type CollectionConfig, type CollectionSlug, type Field } from 'payload'
 import { revalidatePath } from 'next/cache'
+import { draftMode } from 'next/headers'
 import { slugField } from '@/fields/slug'
 import { Authors } from '@/collections/authors'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
@@ -7,16 +8,6 @@ import { CodeBlock } from '@/blocks/Code/codeBlock'
 import { isAdmin } from '@/util/permissionsHandler'
 
 const Sidebar: Field[] = [
-  {
-    name: 'state',
-    type: 'select',
-    required: true,
-    defaultValue: 'draft',
-    options: [
-      { label: 'Draft', value: 'draft' },
-      { label: 'Published', value: 'published' },
-    ],
-  },
   {
     name: 'featured',
     type: 'checkbox',
@@ -56,6 +47,14 @@ const Blog: CollectionConfig = {
     group: 'Content',
     description: 'Blog posts',
     useAsTitle: 'name',
+    livePreview: {
+      url: async ({ data }) => {
+        const draft = await draftMode()
+        draft.enable()
+
+        return `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}/blog/${data.slug}`
+      },
+    },
   },
   fields: [
     ...Sidebar,
@@ -85,6 +84,11 @@ const Blog: CollectionConfig = {
       blocks: [RichTextBlock, CodeBlock],
     },
   ],
+  versions: {
+    drafts: {
+      autosave: true,
+    },
+  },
   hooks: {
     afterChange: [
       ({
