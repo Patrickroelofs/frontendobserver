@@ -116,20 +116,4 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
   ],
-  hooks: {
-    afterChange: [
-      ({
-        doc,
-      }: {
-        doc: {
-          slug: string
-        }
-      }) => {
-        if (doc.slug) {
-          console.warn(`Revalidating everything`)
-          revalidatePath('/', 'layout')
-        }
-      },
-    ],
-  },
 }
