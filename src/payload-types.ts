@@ -79,7 +79,7 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  blocks?: (ContainerType | HeroType)[] | null;
+  blocks?: (ContainerType | HeroType | AboutSectionType)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -429,6 +429,33 @@ export interface HeroType {
   blockType: 'Hero';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutSectionType".
+ */
+export interface AboutSectionType {
+  title: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  buttonText: string;
+  buttonLink: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'AboutSection';
+}
+/**
  * A showcase page, awesome websites to check out
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -560,6 +587,7 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         Container?: T | ContainerTypeSelect<T>;
         Hero?: T | HeroTypeSelect<T>;
+        AboutSection?: T | AboutSectionTypeSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -615,6 +643,18 @@ export interface CodeTypeSelect<T extends boolean = true> {
  */
 export interface HeroTypeSelect<T extends boolean = true> {
   image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutSectionType_select".
+ */
+export interface AboutSectionTypeSelect<T extends boolean = true> {
+  title?: T;
+  content?: T;
+  buttonText?: T;
+  buttonLink?: T;
   id?: T;
   blockName?: T;
 }

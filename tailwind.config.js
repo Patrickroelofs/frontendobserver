@@ -6,6 +6,7 @@ export default {
   theme: {
     fontFamily: {
       sans: ['Inter', defaultTheme.fontFamily.sans],
+      serif: ['Literata Variable', defaultTheme.fontFamily.serif],
     },
     extend: {
       colors: {

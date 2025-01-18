@@ -11,6 +11,7 @@ import { BlogList } from '@/blocks/BlogList/blogList'
 import { Code } from '@/blocks/Code/code'
 import { Hero } from '@/blocks/Hero/hero'
 import { Container } from '@/blocks/Container/container'
+import { AboutSection } from '@/blocks/AboutSection/aboutSection'
 
 interface BlocksProps {
   blocks: (RichTextType | ContainerType | BlogListType | CodeType | HeroType)[] | null | undefined
@@ -22,6 +23,7 @@ const blockComponents = {
   BlogList,
   Code,
   Hero,
+  AboutSection,
 }
 
 function Blocks({ blocks }: BlocksProps): ReactElement | null {

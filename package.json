@@ -19,7 +19,9 @@
     "ci": "payload migrate && pnpm build"
   },
   "dependencies": {
+    "@fontsource-variable/domine": "^5.1.1",
     "@fontsource-variable/inter": "^5.1.1",
+    "@fontsource-variable/literata": "^5.1.1",
     "@payloadcms/db-vercel-postgres": "latest",
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",

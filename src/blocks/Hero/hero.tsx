@@ -11,7 +11,7 @@ function Hero(props: HeroType) {
       <div className="relative w-full h-[240px] md:h-[580px]">
         <Image
           placeholder="blur"
-          className="object-cover bg-center pixelated"
+          className="object-cover bg-center"
           src={image.url ?? ''}
           blurDataURL={image.blurData ?? ''}
           alt={image.alt}

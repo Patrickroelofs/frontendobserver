@@ -19,7 +19,7 @@ function AuthorTemplate(props: AuthorProps): ReactElement {
         <div className="relative w-full h-[240px] md:h-[580px]">
           <Image
             placeholder="blur"
-            className="object-cover bg-center pixelated"
+            className="object-cover bg-center"
             src={coverImage.url ?? ''}
             blurDataURL={coverImage.blurData ?? ''}
             alt={coverImage.alt}
