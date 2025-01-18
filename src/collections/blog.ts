@@ -52,7 +52,8 @@ const Blog: CollectionConfig = {
         const draft = await draftMode()
         draft.enable()
 
-        return `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}/blog/${data.slug}`
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- This is a template string
+        return `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}${data.slug !== 'home' ? `/${data.slug ?? ''}` : '/'}`
       },
     },
   },
