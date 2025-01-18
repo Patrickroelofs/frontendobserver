@@ -1,5 +1,6 @@
 import { type ComponentType, type ReactElement } from 'react'
 import {
+  type AboutSectionType,
   type BlogListType,
   type CodeType,
   type ContainerType,
@@ -14,7 +15,10 @@ import { Container } from '@/blocks/Container/container'
 import { AboutSection } from '@/blocks/AboutSection/aboutSection'
 
 interface BlocksProps {
-  blocks: (RichTextType | ContainerType | BlogListType | CodeType | HeroType)[] | null | undefined
+  blocks:
+    | (RichTextType | ContainerType | BlogListType | CodeType | HeroType | AboutSectionType)[]
+    | null
+    | undefined
 }
 
 const blockComponents = {
