@@ -1,5 +1,4 @@
 import type { GlobalConfig } from 'payload'
-import { revalidatePath } from 'next/cache'
 import { iconField } from '@/fields/icons'
 import { isAdmin } from '@/util/permissionsHandler'
 
