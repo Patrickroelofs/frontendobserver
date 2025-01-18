@@ -1,8 +1,8 @@
 import { type ComponentType, type ReactElement } from 'react'
 import {
   type AboutSectionType,
+  type BlogPostsType,
   type CodeType,
-  type FeaturedBlogPostsType,
   type HeroType,
   type RichTextType,
   type TitleWithBlocksType,
@@ -12,7 +12,7 @@ import { Code } from '@/blocks/Code/code'
 import { Hero } from '@/blocks/Hero/hero'
 import { AboutSection } from '@/blocks/AboutSection/aboutSection'
 import { TitleWithBlocks } from '@/blocks/TitleWithBlocks/titleWithBlocks'
-import { FeaturedBlogPosts } from '@/blocks/FeaturedBlogPosts/featuredBlogPosts'
+import { BlogPosts } from '@/blocks/BlogPosts/blogPosts'
 
 interface BlocksProps {
   blocks:
@@ -22,7 +22,7 @@ interface BlocksProps {
         | HeroType
         | AboutSectionType
         | TitleWithBlocksType
-        | FeaturedBlogPostsType
+        | BlogPostsType
       )[]
     | null
     | undefined
@@ -34,7 +34,7 @@ const blockComponents = {
   Hero,
   AboutSection,
   TitleWithBlocks,
-  FeaturedBlogPosts,
+  BlogPosts,
 }
 
 function Blocks({ blocks }: BlocksProps): ReactElement | null {

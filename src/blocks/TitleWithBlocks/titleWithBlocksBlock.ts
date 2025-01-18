@@ -1,5 +1,5 @@
 import type { Block } from 'payload'
-import { FeaturedBlogPostsBlock } from '@/blocks/FeaturedBlogPosts/featuredBlogPostsBlock'
+import { BlogPostsBlock } from '@/blocks/BlogPosts/blogPostsBlock'
 
 export const TitleWithBlocksBlock: Block = {
   slug: 'TitleWithBlocks',
@@ -16,21 +16,46 @@ export const TitleWithBlocksBlock: Block = {
       label: 'Blocks',
       type: 'blocks',
       required: true,
-      blocks: [FeaturedBlogPostsBlock],
+      blocks: [BlogPostsBlock],
     },
     {
       label: 'button',
       type: 'collapsible',
       fields: [
         {
+          name: 'showButton',
+          type: 'checkbox',
+          defaultValue: false,
+        },
+        {
           name: 'buttonText',
           type: 'text',
-          required: true,
+          required: false,
+          admin: {
+            condition: (
+              _,
+              siblingData: Partial<{
+                showButton: boolean
+              }>,
+            ): boolean => {
+              return siblingData.showButton ?? false
+            },
+          },
         },
         {
           name: 'buttonLink',
           type: 'text',
-          required: true,
+          required: false,
+          admin: {
+            condition: (
+              _,
+              siblingData: Partial<{
+                showButton: boolean
+              }>,
+            ): boolean => {
+              return siblingData.showButton ?? false
+            },
+          },
         },
       ],
     },

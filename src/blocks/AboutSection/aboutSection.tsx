@@ -17,12 +17,14 @@ function AboutSection(props: AboutSectionType): ReactElement {
           />
         </div>
       </div>
-      <Link
-        href={props.buttonLink}
-        className="z-10 absolute -bottom-6 right-12 bg-ginger text-xl rounded-full px-4 py-2 font-bold border-4 border-transparent text-black outline-4 outline outline-black hover:border-redleather hover:scale-110 transition-all ease-in-out duration-300"
-      >
-        {props.buttonText}
-      </Link>
+      {props.showButton ? (
+        <Link
+          href={props.buttonLink ?? ''}
+          className="z-10 absolute -bottom-6 right-12 bg-ginger text-xl rounded-full px-4 py-2 font-bold border-4 border-transparent text-black outline-4 outline outline-black hover:border-redleather hover:scale-110 transition-all ease-in-out duration-300"
+        >
+          {props.buttonText ?? ''}
+        </Link>
+      ) : null}
     </div>
   )
 }

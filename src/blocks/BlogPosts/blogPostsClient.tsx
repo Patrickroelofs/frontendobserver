@@ -5,9 +5,9 @@ import Image from 'next/image'
 import { ArrowBendDownRight } from '@phosphor-icons/react/dist/ssr'
 import { type Blog, type Media } from '@/payload-types'
 
-function FeaturedBlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
+function BlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {props.docs.map((post) => {
         const { coverImage } = post as {
           coverImage: Media
@@ -45,4 +45,4 @@ function FeaturedBlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
   )
 }
 
-export { FeaturedBlogPostsClient }
+export { BlogPostsClient }

@@ -136,8 +136,9 @@ export interface AboutSectionType {
     };
     [k: string]: unknown;
   };
-  buttonText: string;
-  buttonLink: string;
+  showButton?: boolean | null;
+  buttonText?: string | null;
+  buttonLink?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'AboutSection';
@@ -148,22 +149,25 @@ export interface AboutSectionType {
  */
 export interface TitleWithBlocksType {
   title: string;
-  blocks: FeaturedBlogPostsType[];
-  buttonText: string;
-  buttonLink: string;
+  blocks: BlogPostsType[];
+  showButton?: boolean | null;
+  buttonText?: string | null;
+  buttonLink?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'TitleWithBlocks';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeaturedBlogPostsType".
+ * via the `definition` "BlogPostsType".
  */
-export interface FeaturedBlogPostsType {
-  limit?: number | null;
+export interface BlogPostsType {
+  onlyFeatured: boolean;
+  limit: number;
+  paginate?: boolean | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'FeaturedBlogPosts';
+  blockType: 'BlogPosts';
 }
 /**
  * A showcase page, awesome websites to check out
@@ -610,6 +614,7 @@ export interface HeroTypeSelect<T extends boolean = true> {
 export interface AboutSectionTypeSelect<T extends boolean = true> {
   title?: T;
   content?: T;
+  showButton?: T;
   buttonText?: T;
   buttonLink?: T;
   id?: T;
@@ -624,8 +629,9 @@ export interface TitleWithBlocksTypeSelect<T extends boolean = true> {
   blocks?:
     | T
     | {
-        FeaturedBlogPosts?: T | FeaturedBlogPostsTypeSelect<T>;
+        BlogPosts?: T | BlogPostsTypeSelect<T>;
       };
+  showButton?: T;
   buttonText?: T;
   buttonLink?: T;
   id?: T;
@@ -633,10 +639,12 @@ export interface TitleWithBlocksTypeSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "FeaturedBlogPostsType_select".
+ * via the `definition` "BlogPostsType_select".
  */
-export interface FeaturedBlogPostsTypeSelect<T extends boolean = true> {
+export interface BlogPostsTypeSelect<T extends boolean = true> {
+  onlyFeatured?: T;
   limit?: T;
+  paginate?: T;
   id?: T;
   blockName?: T;
 }
