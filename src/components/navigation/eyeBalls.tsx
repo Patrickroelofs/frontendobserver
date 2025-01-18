@@ -110,7 +110,7 @@ function EyeBalls(): ReactElement {
 
   return (
     <svg
-      className={`absolute top-8 drop-shadow-xl hidden lg:block transition-transform duration-300 ${
+      className={`absolute top-8 drop-shadow-xl block transition-transform duration-300 ${
         isSelected ? 'scale-[1.35]' : ''
       }`}
       ref={svgRef}
