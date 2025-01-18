@@ -12,10 +12,10 @@ function TitleWithBlocks(props: TitleWithBlocksType): ReactElement {
             <h2 className="text-7xl font-black">{props.title}</h2>
             {props.showButton ? (
               <Link
-                href={props.buttonLink || ''}
+                href={props.buttonLink ?? ''}
                 className="z-10 absolute -bottom-12 right-36 bg-ginger text-lg rounded-full px-2 py-1 font-bold border-4 border-transparent text-black outline-4 outline outline-black hover:border-redleather hover:scale-110 transition-all ease-in-out duration-300"
               >
-                {props.buttonText || ''}
+                {props.buttonText ?? ''}
               </Link>
             ) : null}
           </div>
