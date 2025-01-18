@@ -9,6 +9,8 @@ function EyeBalls(): ReactElement {
   const [leftEyePosition, setLeftEyePosition] = useState({ x: 0, y: 0 })
   const [rightEyePosition, setRightEyePosition] = useState({ x: 0, y: 0 })
   const [isSelected, setIsSelected] = useState(false)
+  const [isShaking, setIsShaking] = useState(false)
+  const [shakeOffset, setShakeOffset] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent): void => {
@@ -45,18 +47,66 @@ function EyeBalls(): ReactElement {
       setIsSelected(false)
     }
 
+    const handleHoverStart = (event: MouseEvent): void => {
+      if (event.target instanceof Element) {
+        let currentElement: Element | null = event.target
+
+        while (currentElement && !['a', 'button'].includes(currentElement.tagName.toLowerCase())) {
+          currentElement = currentElement.parentElement
+        }
+
+        if (currentElement && ['a', 'button'].includes(currentElement.tagName.toLowerCase())) {
+          setIsShaking(true)
+        }
+      }
+    }
+
+    const handleHoverEnd = (): void => {
+      setIsShaking(false)
+    }
+
     window.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('selectstart', handleSelectStart)
     window.addEventListener('selectend', handleSelectEnd)
     window.addEventListener('mouseup', handleSelectEnd)
+    window.addEventListener('mouseover', handleHoverStart)
+    window.addEventListener('mouseout', handleHoverEnd)
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('selectstart', handleSelectStart)
       window.removeEventListener('selectend', handleSelectEnd)
       window.removeEventListener('mouseup', handleSelectEnd)
+      window.removeEventListener('mouseover', handleHoverStart)
+      window.removeEventListener('mouseout', handleHoverEnd)
     }
   }, [])
+
+  useEffect(() => {
+    let animationFrameId: number
+
+    const shakeEyeballs = () => {
+      if (isShaking) {
+        setShakeOffset({
+          x: (Math.random() - 0.5) * 4,
+          y: (Math.random() - 0.5) * 4,
+        })
+        animationFrameId = requestAnimationFrame(shakeEyeballs)
+      } else {
+        setShakeOffset({ x: 0, y: 0 })
+      }
+    }
+
+    if (isShaking) {
+      shakeEyeballs()
+    }
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId)
+      }
+    }
+  }, [isShaking])
 
   return (
     <svg
@@ -79,15 +129,15 @@ function EyeBalls(): ReactElement {
           strokeWidth="16"
         />
         <ellipse
-          cx={185.318 + rightEyePosition.x}
-          cy={77.8276 + rightEyePosition.y}
+          cx={185.318 + rightEyePosition.x + shakeOffset.x}
+          cy={77.8276 + rightEyePosition.y + shakeOffset.y}
           rx="30.5437"
           ry="36.1238"
           fill="black"
         />
         <ellipse
-          cx={185.318 + rightEyePosition.x}
-          cy={54.6262 + rightEyePosition.y}
+          cx={185.318 + rightEyePosition.x + shakeOffset.x}
+          cy={54.6262 + rightEyePosition.y + shakeOffset.y}
           rx="6.46116"
           ry="7.04854"
           fill="white"
@@ -100,15 +150,15 @@ function EyeBalls(): ReactElement {
           strokeWidth="16"
         />
         <ellipse
-          cx={56.682 + leftEyePosition.x}
-          cy={77.8276 + leftEyePosition.y}
+          cx={56.682 + leftEyePosition.x + shakeOffset.x}
+          cy={77.8276 + leftEyePosition.y + shakeOffset.y}
           rx="30.5437"
           ry="36.1238"
           fill="black"
         />
         <ellipse
-          cx={56.682 + leftEyePosition.x}
-          cy={54.6262 + leftEyePosition.y}
+          cx={56.682 + leftEyePosition.x + shakeOffset.x}
+          cy={54.6262 + leftEyePosition.y + shakeOffset.y}
           rx="6.46116"
           ry="7.04854"
           fill="white"
