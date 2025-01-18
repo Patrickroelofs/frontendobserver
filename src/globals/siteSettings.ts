@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload'
+import { revalidatePath } from 'next/cache'
 import { iconField } from '@/fields/icons'
 
 export const SiteSettings: GlobalConfig = {
@@ -110,4 +111,20 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [
+      ({
+        doc,
+      }: {
+        doc: {
+          slug: string
+        }
+      }) => {
+        if (doc.slug) {
+          console.warn(`All pages revalidated`)
+          revalidatePath('/', 'layout')
+        }
+      },
+    ],
+  },
 }
