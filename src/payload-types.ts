@@ -79,20 +79,134 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  blocks?: (ContainerType | HeroType | AboutSectionType)[] | null;
+  blocks?: (HeroType | AboutSectionType | TitleWithBlocksType)[] | null;
   updatedAt: string;
   createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContainerType".
+ * via the `definition` "HeroType".
  */
-export interface ContainerType {
-  spacing: 'py-4' | 'py-8' | 'py-16' | 'py-24' | 'py-32' | 'py-48' | 'py-64' | '';
-  blocks?: (RichTextType | BlogListType | CodeType)[] | null;
+export interface HeroType {
+  image: number | Media;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'Container';
+  blockType: 'Hero';
+}
+/**
+ * Media files
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  blurData?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutSectionType".
+ */
+export interface AboutSectionType {
+  title: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  buttonText: string;
+  buttonLink: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'AboutSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TitleWithBlocksType".
+ */
+export interface TitleWithBlocksType {
+  title: string;
+  blocks: FeaturedBlogPostsType[];
+  buttonText: string;
+  buttonLink: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'TitleWithBlocks';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedBlogPostsType".
+ */
+export interface FeaturedBlogPostsType {
+  limit?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'FeaturedBlogPosts';
+}
+/**
+ * A showcase page, awesome websites to check out
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "showcase".
+ */
+export interface Showcase {
+  id: number;
+  /**
+   * This will be featured on the homepage
+   */
+  featured?: boolean | null;
+  slug: string;
+  authors: (number | Author)[];
+  name: string;
+  url: string;
+  content?: {
+    blocks?: RichTextType[] | null;
+  };
+  details?: {
+    screenshot?: (number | null) | Media;
+    description?: string | null;
+    categories?: ('portfolio' | 'blog')[] | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Authors of articles, blog posts, etc.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  isCompany?: boolean | null;
+  slug: string;
+  image?: (number | null) | Media;
+  coverImage?: (number | null) | Media;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -119,16 +233,6 @@ export interface RichTextType {
   blockType: 'RichText';
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BlogListType".
- */
-export interface BlogListType {
-  posts?: (number | Blog)[] | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'BlogList';
-}
-/**
  * Blog posts
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -149,44 +253,6 @@ export interface Blog {
   blocks?: (RichTextType | CodeType)[] | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * Authors of articles, blog posts, etc.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors".
- */
-export interface Author {
-  id: number;
-  isCompany?: boolean | null;
-  slug: string;
-  image?: (number | null) | Media;
-  coverImage?: (number | null) | Media;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Media files
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  blurData?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -419,70 +485,6 @@ export interface CodeType {
   blockType: 'Code';
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroType".
- */
-export interface HeroType {
-  image: number | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Hero';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "AboutSectionType".
- */
-export interface AboutSectionType {
-  title: string;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  buttonText: string;
-  buttonLink: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'AboutSection';
-}
-/**
- * A showcase page, awesome websites to check out
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "showcase".
- */
-export interface Showcase {
-  id: number;
-  /**
-   * This will be featured on the homepage
-   */
-  featured?: boolean | null;
-  slug: string;
-  authors: (number | Author)[];
-  name: string;
-  url: string;
-  content?: {
-    blocks?: RichTextType[] | null;
-  };
-  details?: {
-    screenshot?: (number | null) | Media;
-    description?: string | null;
-    categories?: ('portfolio' | 'blog')[] | null;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * User accounts on the site.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -585,57 +587,12 @@ export interface PagesSelect<T extends boolean = true> {
   blocks?:
     | T
     | {
-        Container?: T | ContainerTypeSelect<T>;
         Hero?: T | HeroTypeSelect<T>;
         AboutSection?: T | AboutSectionTypeSelect<T>;
+        TitleWithBlocks?: T | TitleWithBlocksTypeSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContainerType_select".
- */
-export interface ContainerTypeSelect<T extends boolean = true> {
-  spacing?: T;
-  blocks?:
-    | T
-    | {
-        RichText?: T | RichTextTypeSelect<T>;
-        BlogList?: T | BlogListTypeSelect<T>;
-        Code?: T | CodeTypeSelect<T>;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RichTextType_select".
- */
-export interface RichTextTypeSelect<T extends boolean = true> {
-  richText?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BlogListType_select".
- */
-export interface BlogListTypeSelect<T extends boolean = true> {
-  posts?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeType_select".
- */
-export interface CodeTypeSelect<T extends boolean = true> {
-  spacing?: T;
-  codeLanguage?: T;
-  code?: T;
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -655,6 +612,31 @@ export interface AboutSectionTypeSelect<T extends boolean = true> {
   content?: T;
   buttonText?: T;
   buttonLink?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TitleWithBlocksType_select".
+ */
+export interface TitleWithBlocksTypeSelect<T extends boolean = true> {
+  title?: T;
+  blocks?:
+    | T
+    | {
+        FeaturedBlogPosts?: T | FeaturedBlogPostsTypeSelect<T>;
+      };
+  buttonText?: T;
+  buttonLink?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturedBlogPostsType_select".
+ */
+export interface FeaturedBlogPostsTypeSelect<T extends boolean = true> {
+  limit?: T;
   id?: T;
   blockName?: T;
 }
@@ -689,6 +671,15 @@ export interface ShowcaseSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextType_select".
+ */
+export interface RichTextTypeSelect<T extends boolean = true> {
+  richText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "blog_select".
  */
 export interface BlogSelect<T extends boolean = true> {
@@ -707,6 +698,17 @@ export interface BlogSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeType_select".
+ */
+export interface CodeTypeSelect<T extends boolean = true> {
+  spacing?: T;
+  codeLanguage?: T;
+  code?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

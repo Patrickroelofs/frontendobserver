@@ -1,33 +1,40 @@
 import { type ComponentType, type ReactElement } from 'react'
 import {
   type AboutSectionType,
-  type BlogListType,
   type CodeType,
-  type ContainerType,
+  type FeaturedBlogPostsType,
   type HeroType,
   type RichTextType,
+  type TitleWithBlocksType,
 } from '@/payload-types'
 import { RichText } from '@/blocks/RichText/richText'
-import { BlogList } from '@/blocks/BlogList/blogList'
 import { Code } from '@/blocks/Code/code'
 import { Hero } from '@/blocks/Hero/hero'
-import { Container } from '@/blocks/Container/container'
 import { AboutSection } from '@/blocks/AboutSection/aboutSection'
+import { TitleWithBlocks } from '@/blocks/TitleWithBlocks/titleWithBlocks'
+import { FeaturedBlogPosts } from '@/blocks/FeaturedBlogPosts/featuredBlogPosts'
 
 interface BlocksProps {
   blocks:
-    | (RichTextType | ContainerType | BlogListType | CodeType | HeroType | AboutSectionType)[]
+    | (
+        | RichTextType
+        | CodeType
+        | HeroType
+        | AboutSectionType
+        | TitleWithBlocksType
+        | FeaturedBlogPostsType
+      )[]
     | null
     | undefined
 }
 
 const blockComponents = {
   RichText,
-  Container,
-  BlogList,
   Code,
   Hero,
   AboutSection,
+  TitleWithBlocks,
+  FeaturedBlogPosts,
 }
 
 function Blocks({ blocks }: BlocksProps): ReactElement | null {

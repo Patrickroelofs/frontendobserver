@@ -1,10 +1,10 @@
 import { type CollectionConfig } from 'payload'
 import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
-import { ContainerBlock } from '@/blocks/Container/containerBlock'
 import { isAdmin } from '@/util/permissionsHandler'
 import { HeroBlock } from '@/blocks/Hero/heroBlock'
 import { AboutSectionBlock } from '@/blocks/AboutSection/aboutSectionBlock'
+import { TitleWithBlocksBlock } from '@/blocks/TitleWithBlocks/titleWithBlocksBlock'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -31,7 +31,7 @@ export const Pages: CollectionConfig = {
       name: 'blocks',
       label: 'Blocks',
       type: 'blocks',
-      blocks: [ContainerBlock, HeroBlock, AboutSectionBlock],
+      blocks: [HeroBlock, AboutSectionBlock, TitleWithBlocksBlock],
     },
   ],
   hooks: {

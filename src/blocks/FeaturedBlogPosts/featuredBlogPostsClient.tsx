@@ -1,16 +1,14 @@
-import type { ReactElement } from 'react'
+import { type ReactElement } from 'react'
+import { type PaginatedDocs } from 'payload'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowBendDownRight } from '@phosphor-icons/react/dist/ssr'
-import type { Blog, BlogListType, Media } from '@/payload-types'
+import { type Blog, type Media } from '@/payload-types'
 
-function BlogList(props: BlogListType): ReactElement {
-  const { posts } = props as {
-    posts: Blog[]
-  }
+function FeaturedBlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
   return (
-    <div className="grid sm:grid-cols-2 md:grid-cols-4">
-      {posts.map((post) => {
+    <div className="grid grid-cols-1 md:grid-cols-3">
+      {props.docs.map((post) => {
         const { coverImage } = post as {
           coverImage: Media
         }
@@ -47,4 +45,4 @@ function BlogList(props: BlogListType): ReactElement {
   )
 }
 
-export { BlogList }
+export { FeaturedBlogPostsClient }
