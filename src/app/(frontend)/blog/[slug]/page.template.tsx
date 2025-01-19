@@ -9,7 +9,7 @@ interface BlogProps {
 }
 
 function BlogTemplate(props: BlogProps): ReactElement {
-  const { name, blocks, authors } = props.page
+  const { title, blocks, authors } = props.page
   const { coverImage } = props.page as {
     coverImage: Media
   }
@@ -29,7 +29,7 @@ function BlogTemplate(props: BlogProps): ReactElement {
           />
         </div>
         <h2 className="text-5xl font-bold my-8 px-4 md:px-0 max-w-7xl mx-auto leading-snug text-pretty">
-          {name}
+          {title}
         </h2>
       </header>
       <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-none">

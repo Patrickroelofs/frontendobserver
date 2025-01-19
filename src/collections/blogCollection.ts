@@ -1,7 +1,7 @@
 import { type CollectionConfig, type CollectionSlug, type Field } from 'payload'
 import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
-import { Authors } from '@/collections/authors'
+import { AuthorsCollection } from '@/collections/AuthorsCollection'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
 import { CodeBlock } from '@/blocks/Code/codeBlock'
 import { isAdmin } from '@/util/permissionsHandler'
@@ -22,7 +22,7 @@ const Sidebar: Field[] = [
   {
     name: 'authors',
     type: 'relationship',
-    relationTo: Authors.slug as CollectionSlug,
+    relationTo: AuthorsCollection.slug as CollectionSlug,
     required: true,
     hasMany: true,
   },
@@ -37,7 +37,7 @@ const Sidebar: Field[] = [
   },
 ]
 
-const Blog: CollectionConfig = {
+const BlogCollection: CollectionConfig = {
   slug: 'blog',
   access: {
     create: isAdmin,
@@ -48,19 +48,19 @@ const Blog: CollectionConfig = {
   admin: {
     group: 'Content',
     description: 'Blog posts',
-    useAsTitle: 'name',
+    useAsTitle: 'title',
   },
   fields: [
     ...Sidebar,
     {
-      name: 'name',
+      name: 'title',
       label: 'Title',
       type: 'text',
       required: true,
     },
     {
-      name: 'excerpt',
-      label: 'Excerpt',
+      name: 'description',
+      label: 'Description',
       type: 'textarea',
       required: true,
     },
@@ -101,4 +101,4 @@ const Blog: CollectionConfig = {
   },
 }
 
-export { Blog }
+export { BlogCollection }

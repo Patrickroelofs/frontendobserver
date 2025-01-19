@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { isAdmin } from '@/util/permissionsHandler'
 
-const Authors: CollectionConfig = {
+const AuthorsCollection: CollectionConfig = {
   slug: 'authors',
   access: {
     create: isAdmin,
@@ -64,4 +64,4 @@ const Authors: CollectionConfig = {
   },
 }
 
-export { Authors }
+export { AuthorsCollection }

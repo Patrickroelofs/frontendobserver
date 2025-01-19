@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin } from '@/util/permissionsHandler'
 
-export const Users: CollectionConfig = {
+export const UsersCollection: CollectionConfig = {
   slug: 'users',
   access: {
     create: isAdmin,

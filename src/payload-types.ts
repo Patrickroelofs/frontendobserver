@@ -78,8 +78,10 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   title: string;
+  description: string;
   slug: string;
   blocks?: (HeroType | AboutSectionType | TitleWithBlocksType | CarouselType)[] | null;
+  meta?: SeoType;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -187,6 +189,18 @@ export interface CarouselType {
   blockType: 'Carousel';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SeoType".
+ */
+export interface SeoType {
+  title?: string | null;
+  description?: string | null;
+  /**
+   * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+   */
+  image?: (number | null) | Media;
+}
+/**
  * A showcase page, awesome websites to check out
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -268,10 +282,11 @@ export interface Blog {
   slug: string;
   authors: (number | Author)[];
   date: string;
-  name: string;
-  excerpt: string;
+  title: string;
+  description: string;
   coverImage: number | Media;
   blocks?: (RichTextType | CodeType)[] | null;
+  meta?: SeoType;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -605,6 +620,7 @@ export interface PayloadMigration {
  */
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
+  description?: T;
   slug?: T;
   blocks?:
     | T
@@ -614,6 +630,7 @@ export interface PagesSelect<T extends boolean = true> {
         TitleWithBlocks?: T | TitleWithBlocksTypeSelect<T>;
         Carousel?: T | CarouselTypeSelect<T>;
       };
+  meta?: T | SeoTypeSelect<T>;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -685,6 +702,15 @@ export interface CarouselTypeSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SeoType_select".
+ */
+export interface SeoTypeSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  image?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "showcase_select".
  */
 export interface ShowcaseSelect<T extends boolean = true> {
@@ -730,8 +756,8 @@ export interface BlogSelect<T extends boolean = true> {
   slug?: T;
   authors?: T;
   date?: T;
-  name?: T;
-  excerpt?: T;
+  title?: T;
+  description?: T;
   coverImage?: T;
   blocks?:
     | T
@@ -739,6 +765,7 @@ export interface BlogSelect<T extends boolean = true> {
         RichText?: T | RichTextTypeSelect<T>;
         Code?: T | CodeTypeSelect<T>;
       };
+  meta?: T | SeoTypeSelect<T>;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

@@ -5,25 +5,34 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
-import { Users } from '@/collections/users'
-import { Media } from '@/collections/media'
-import { Pages } from '@/collections/pages'
-import { Showcase } from '@/collections/showcase'
-import { Authors } from '@/collections/authors'
-import { Blog } from '@/collections/blog'
+import { seoPlugin } from '@payloadcms/plugin-seo'
+import { UsersCollection } from '@/collections/usersCollection'
+import { MediaCollection } from '@/collections/mediaCollection'
+import { PagesCollection } from '@/collections/pagesCollection'
+import { ShowcaseCollection } from '@/collections/showcaseCollection'
+import { AuthorsCollection } from '@/collections/AuthorsCollection'
+import { BlogCollection } from '@/collections/blogCollection'
 import { SiteSettings } from '@/globals/siteSettings'
+import { type Blog, type Page } from '@/payload-types'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
-    user: Users.slug,
+    user: UsersCollection.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Pages, Showcase, Blog, Authors, Users, Media],
+  collections: [
+    PagesCollection,
+    ShowcaseCollection,
+    BlogCollection,
+    AuthorsCollection,
+    UsersCollection,
+    MediaCollection,
+  ],
   globals: [SiteSettings],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET ?? '',
@@ -46,6 +55,22 @@ export default buildConfig({
         media: true,
       },
       token: process.env.BLOB_READ_WRITE_TOKEN ?? '',
+    }),
+    seoPlugin({
+      collections: ['pages', 'blog'],
+      uploadsCollection: 'media',
+      interfaceName: 'SeoType',
+      tabbedUI: true,
+      generateTitle: ({ doc }) => {
+        const { title } = doc as Page | Blog
+
+        return `${String(title)} | Frontend Observer`
+      },
+      generateDescription: ({ doc }) => {
+        const { description } = doc as Page | Blog
+
+        return String(description)
+      },
     }),
   ],
 })

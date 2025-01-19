@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 import { generateBlurData } from '@/util/generateBlurData'
 import { isAdmin } from '@/util/permissionsHandler'
 
-export const Media: CollectionConfig = {
+export const MediaCollection: CollectionConfig = {
   slug: 'media',
   admin: {
     group: 'Media',

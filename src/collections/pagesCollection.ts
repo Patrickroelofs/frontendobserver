@@ -7,7 +7,7 @@ import { AboutSectionBlock } from '@/blocks/AboutSection/aboutSectionBlock'
 import { TitleWithBlocksBlock } from '@/blocks/TitleWithBlocks/titleWithBlocksBlock'
 import { CarouselBlock } from '@/blocks/Carousel/carouselBlock'
 
-export const Pages: CollectionConfig = {
+export const PagesCollection: CollectionConfig = {
   slug: 'pages',
   access: {
     create: isAdmin,
@@ -25,6 +25,12 @@ export const Pages: CollectionConfig = {
       name: 'title',
       label: 'Title',
       type: 'text',
+      required: true,
+    },
+    {
+      name: 'description',
+      label: 'Description',
+      type: 'textarea',
       required: true,
     },
     slugField({

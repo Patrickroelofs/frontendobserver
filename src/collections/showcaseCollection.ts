@@ -1,8 +1,8 @@
 import { type CollectionConfig, type CollectionSlug, type Field, type Tab } from 'payload'
 import { slugField } from '@/fields/slug'
-import { Media } from '@/collections/media'
+import { MediaCollection } from '@/collections/mediaCollection'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
-import { Authors } from '@/collections/authors'
+import { AuthorsCollection } from '@/collections/AuthorsCollection'
 import { isAdmin } from '@/util/permissionsHandler'
 
 const Content: Tab = {
@@ -22,7 +22,7 @@ const Details: Tab = {
     {
       name: 'screenshot',
       type: 'upload',
-      relationTo: Media.slug as CollectionSlug,
+      relationTo: MediaCollection.slug as CollectionSlug,
     },
     {
       name: 'description',
@@ -56,13 +56,13 @@ const Sidebar: Field[] = [
   {
     name: 'authors',
     type: 'relationship',
-    relationTo: Authors.slug as CollectionSlug,
+    relationTo: AuthorsCollection.slug as CollectionSlug,
     required: true,
     hasMany: true,
   },
 ]
 
-const Showcase: CollectionConfig = {
+const ShowcaseCollection: CollectionConfig = {
   slug: 'showcase',
   access: {
     create: isAdmin,
@@ -102,4 +102,4 @@ const Showcase: CollectionConfig = {
   ],
 }
 
-export { Showcase }
+export { ShowcaseCollection }

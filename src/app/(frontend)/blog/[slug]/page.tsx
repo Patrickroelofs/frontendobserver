@@ -108,11 +108,11 @@ export async function generateMetadata({
   const coverImage = page.coverImage as Media
 
   return {
-    title: page.name,
-    description: page.excerpt,
+    title: page.title,
+    description: page.description,
     openGraph: {
-      title: page.name,
-      description: page.excerpt,
+      title: page.title,
+      description: page.description,
       images: [
         {
           url: coverImage.url ?? '',
