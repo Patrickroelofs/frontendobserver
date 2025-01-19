@@ -1,7 +1,7 @@
 import { type CollectionConfig, type CollectionSlug, type Field } from 'payload'
 import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
-import { AuthorsCollection } from '@/collections/AuthorsCollection'
+import { AuthorsCollection } from '@/collections/authorsCollection'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
 import { CodeBlock } from '@/blocks/Code/codeBlock'
 import { isAdmin } from '@/util/permissionsHandler'

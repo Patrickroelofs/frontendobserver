@@ -2,7 +2,7 @@ import { type CollectionConfig, type CollectionSlug, type Field, type Tab } from
 import { slugField } from '@/fields/slug'
 import { MediaCollection } from '@/collections/mediaCollection'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
-import { AuthorsCollection } from '@/collections/AuthorsCollection'
+import { AuthorsCollection } from '@/collections/authorsCollection'
 import { isAdmin } from '@/util/permissionsHandler'
 
 const Content: Tab = {
