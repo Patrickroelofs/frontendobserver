@@ -28,7 +28,7 @@ function CarouselClient(props: CarouselType): ReactElement {
     <div className="relative w-full mx-auto overflow-hidden">
       <div
         className="flex transition-transform duration-300 ease-in-out"
-        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        style={{ transform: `translateX(-${String(currentIndex * 100)}%)` }}
       >
         {images.map((img) => (
           <div className="relative w-full h-[400px] lg:h-[800px] flex-shrink-0" key={img.id}>
@@ -71,7 +71,7 @@ function CarouselClient(props: CarouselType): ReactElement {
               setCurrentIndex(index)
             }}
             className={`w-3 h-3 rounded-full outline outline-white bg-black ${index === currentIndex ? 'outline-4' : ' outline-2  opacity-50'}`}
-            aria-label={`Go to slide ${index + 1}`}
+            aria-label={`Go to slide ${String(index + 1)}`}
           />
         ))}
       </div>
