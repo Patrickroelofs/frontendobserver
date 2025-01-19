@@ -8,12 +8,12 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { SiteSettings } from '@/globals/siteSettings'
 import { type Blog, type Page } from '@/payload-types'
-import { UsersCollection } from './collections/usersCollection'
-import { MediaCollection } from './collections/mediaCollection'
-import { PagesCollection } from './collections/pagesCollection'
-import { ShowcaseCollection } from './collections/showcaseCollection'
-import { AuthorsCollection } from './collections/AuthorsCollection'
-import { BlogCollection } from './collections/blogCollection'
+import { PagesCollection } from '@/collections/pagesCollection'
+import { ShowcaseCollection } from '@/collections/showcaseCollection'
+import { BlogCollection } from '@/collections/blogCollection'
+import { AuthorsCollection } from '@/collections/authorsCollection'
+import { UsersCollection } from '@/collections/usersCollection'
+import { MediaCollection } from '@/collections/mediaCollection'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
