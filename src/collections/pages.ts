@@ -5,6 +5,7 @@ import { isAdmin } from '@/util/permissionsHandler'
 import { HeroBlock } from '@/blocks/Hero/heroBlock'
 import { AboutSectionBlock } from '@/blocks/AboutSection/aboutSectionBlock'
 import { TitleWithBlocksBlock } from '@/blocks/TitleWithBlocks/titleWithBlocksBlock'
+import { CarouselBlock } from '@/blocks/Carousel/carouselBlock'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -33,7 +34,7 @@ export const Pages: CollectionConfig = {
       name: 'blocks',
       label: 'Blocks',
       type: 'blocks',
-      blocks: [HeroBlock, AboutSectionBlock, TitleWithBlocksBlock],
+      blocks: [HeroBlock, AboutSectionBlock, TitleWithBlocksBlock, CarouselBlock],
     },
   ],
   versions: {

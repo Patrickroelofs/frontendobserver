@@ -31,6 +31,9 @@ const Sidebar: Field[] = [
     label: 'Date',
     type: 'date',
     required: true,
+    admin: {
+      position: 'sidebar',
+    },
   },
 ]
 

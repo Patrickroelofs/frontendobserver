@@ -79,7 +79,7 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  blocks?: (HeroType | AboutSectionType | TitleWithBlocksType)[] | null;
+  blocks?: (HeroType | AboutSectionType | TitleWithBlocksType | CarouselType)[] | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -169,6 +169,22 @@ export interface BlogPostsType {
   id?: string | null;
   blockName?: string | null;
   blockType: 'BlogPosts';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselType".
+ */
+export interface CarouselType {
+  images?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Carousel';
 }
 /**
  * A showcase page, awesome websites to check out
@@ -596,6 +612,7 @@ export interface PagesSelect<T extends boolean = true> {
         Hero?: T | HeroTypeSelect<T>;
         AboutSection?: T | AboutSectionTypeSelect<T>;
         TitleWithBlocks?: T | TitleWithBlocksTypeSelect<T>;
+        Carousel?: T | CarouselTypeSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -648,6 +665,21 @@ export interface BlogPostsTypeSelect<T extends boolean = true> {
   onlyFeatured?: T;
   limit?: T;
   paginate?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CarouselType_select".
+ */
+export interface CarouselTypeSelect<T extends boolean = true> {
+  images?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

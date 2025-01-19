@@ -1,8 +1,4 @@
 import '@/styles/globals.css'
-import '@fontsource-variable/inter'
-import '@fontsource-variable/inter/opsz.css'
-import '@fontsource-variable/inter/opsz-italic.css'
-import '@fontsource-variable/inter/wght-italic.css'
 import '@fontsource-variable/literata'
 import '@fontsource-variable/literata/opsz.css'
 import '@fontsource-variable/literata/opsz-italic.css'
@@ -31,6 +27,10 @@ export default function RootLayout({ children }: { children: ReactNode }): React
 
 export const metadata: Metadata = {
   title: 'Frontend Observer',
+  openGraph: {
+    title: 'Frontend Observer',
+    type: 'website',
+  },
   icons: {
     icon: [
       {

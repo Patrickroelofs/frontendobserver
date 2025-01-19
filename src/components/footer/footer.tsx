@@ -8,7 +8,7 @@ async function Footer(): Promise<ReactElement> {
     depth: 1,
   })
 
-  return <FooterClient {...footer.footer} />
+  return <FooterClient {...footer.footer} {...footer.social} />
 }
 
 export { Footer }

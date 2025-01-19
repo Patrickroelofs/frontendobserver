@@ -2,6 +2,7 @@ import { type ComponentType, type ReactElement } from 'react'
 import {
   type AboutSectionType,
   type BlogPostsType,
+  type CarouselType,
   type CodeType,
   type HeroType,
   type RichTextType,
@@ -13,6 +14,7 @@ import { Hero } from '@/blocks/Hero/hero'
 import { AboutSection } from '@/blocks/AboutSection/aboutSection'
 import { TitleWithBlocks } from '@/blocks/TitleWithBlocks/titleWithBlocks'
 import { BlogPosts } from '@/blocks/BlogPosts/blogPosts'
+import { Carousel } from '@/blocks/Carousel/carousel'
 
 interface BlocksProps {
   blocks:
@@ -23,6 +25,7 @@ interface BlocksProps {
         | AboutSectionType
         | TitleWithBlocksType
         | BlogPostsType
+        | CarouselType
       )[]
     | null
     | undefined
@@ -35,6 +38,7 @@ const blockComponents = {
   AboutSection,
   TitleWithBlocks,
   BlogPosts,
+  Carousel,
 }
 
 function Blocks({ blocks }: BlocksProps): ReactElement | null {
