@@ -16,8 +16,8 @@ function BlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
             key={post.id}
             coverImage={coverImage}
             slug={post.slug}
-            excerpt={post.excerpt}
-            name={post.name}
+            excerpt={post.description}
+            name={post.title}
           />
         )
       })}
