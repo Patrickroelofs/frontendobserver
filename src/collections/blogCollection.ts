@@ -17,7 +17,7 @@ const Sidebar: Field[] = [
     },
   },
   slugField({
-    trackingField: 'name',
+    trackingField: 'title',
   }),
   {
     name: 'authors',
