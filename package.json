@@ -26,6 +26,7 @@
     "@payloadcms/live-preview-react": "^3.17.1",
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
+    "@payloadcms/plugin-form-builder": "^3.17.1",
     "@payloadcms/richtext-lexical": "latest",
     "@payloadcms/storage-vercel-blob": "latest",
     "@payloadcms/ui": "latest",

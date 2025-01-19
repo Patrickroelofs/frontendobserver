@@ -1,9 +1,7 @@
 import { type ReactElement } from 'react'
 import { type PaginatedDocs } from 'payload'
-import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowBendDownRight } from '@phosphor-icons/react/dist/ssr'
 import { type Blog, type Media } from '@/payload-types'
+import { BlogCard } from '@/components/ blogCard'
 
 function BlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
   return (
@@ -14,31 +12,13 @@ function BlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
         }
 
         return (
-          <article key={post.id} className="border-2 border-black group">
-            <Link href={`/blog/${post.slug}`} className="flex flex-col h-full">
-              <div className="relative w-full h-56">
-                <Image
-                  fill
-                  src={coverImage.url ?? ''}
-                  alt={coverImage.alt}
-                  className="object-cover object-center"
-                />
-                <div className="bg-black z-10 absolute bottom-4 py-1 px-2 text-white">
-                  <span>Blog Article</span>
-                </div>
-              </div>
-              <div className="p-4 pb-8">
-                <h2 className="text-lg font-medium mb-2">{post.name}</h2>
-                <p className="line-clamp-3">{post.excerpt}</p>
-              </div>
-              <div className="bg-black text-white p-2 flex justify-end mt-auto">
-                <ArrowBendDownRight
-                  size={32}
-                  className="group-hover:scale-125 group-hover:rotate-12 transition-all ease-in-out duration-150"
-                />
-              </div>
-            </Link>
-          </article>
+          <BlogCard
+            key={post.id}
+            coverImage={coverImage}
+            slug={post.slug}
+            excerpt={post.excerpt}
+            name={post.name}
+          />
         )
       })}
     </div>
