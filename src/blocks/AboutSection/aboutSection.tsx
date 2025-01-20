@@ -6,8 +6,8 @@ import { type AboutSectionType } from '@/payload-types'
 function AboutSection(props: AboutSectionType): ReactElement {
   return (
     <div className="bg-black p-7 text-white relative">
-      <div className="container grid grid-cols-4 gap-8 mb-12">
-        <div className="col-end-2">
+      <div className="container sm:grid grid-rows-2 gap-8 mb-12">
+        <div className="col-end-2 mb-4 sm:mb-auto">
           <h2 className="text-3xl lg:text-7xl font-bold lg:font-black sticky top-[65px] pt-4">
             {props.title}
           </h2>
