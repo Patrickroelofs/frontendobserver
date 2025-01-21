@@ -45,7 +45,7 @@ function FooterClient(props: SiteSetting['footer'] & SiteSetting['social']): Rea
             </ul>
             <Link
               href="#"
-              className="text-4xl xl:text-6xl 2xl:text-8xl font-black text-center mb-12"
+              className="text-4xl xl:text-6xl 2xl:text-8xl font-black text-center mb-6"
             >
               {Array.from('Frontend Observer').map((char, index) => (
                 <span
