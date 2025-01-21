@@ -1,10 +1,16 @@
-import React, { type ReactElement } from 'react'
+'use client'
+import React, { type ReactElement, useCallback } from 'react'
 import Link from 'next/link'
 import { type SiteSetting } from '@/payload-types'
 import { RichText } from '@/blocks/RichText/richText'
 import { Icon } from '@/blocks/Icon/icon'
+import { getNoteFrequency, playNote } from '@/util/audio'
 
 function FooterClient(props: SiteSetting['footer'] & SiteSetting['social']): ReactElement {
+  const handleMouseEnter = useCallback((index: number) => {
+    playNote(getNoteFrequency(index))
+  }, [])
+
   return (
     <footer>
       <div className="container border-t-2 border-l-2 border-r-2 border-black">
@@ -25,8 +31,8 @@ function FooterClient(props: SiteSetting['footer'] & SiteSetting['social']): Rea
               ))}
             </nav>
           </div>
-          <div className="relative overflow-clip col-span-2">
-            <ul className="flex flex-col m-4 gap-2 mb-36">
+          <div className="col-span-2 flex flex-col gap-16">
+            <ul className="flex flex-col m-4 gap-2">
               {props.links.map((item) => {
                 return (
                   <li key={item.id}>
@@ -39,9 +45,19 @@ function FooterClient(props: SiteSetting['footer'] & SiteSetting['social']): Rea
             </ul>
             <Link
               href="#"
-              className="text-4xl xl:text-6xl 2xl:text-8xl absolute -bottom-2 left-0 font-black"
+              className="text-4xl xl:text-6xl 2xl:text-8xl font-black text-center mb-12"
             >
-              Frontend Observer
+              {Array.from('Frontend Observer').map((char, index) => (
+                <span
+                  key={index}
+                  className="inline-block transition-all duration-300 ease-in-out hover:-translate-y-2"
+                  onMouseEnter={() => {
+                    handleMouseEnter(index)
+                  }}
+                >
+                  {char}
+                </span>
+              ))}
             </Link>
           </div>
         </div>
