@@ -7,7 +7,7 @@ function AboutSection(props: AboutSectionType): ReactElement {
   return (
     <div className="bg-black p-7 text-white relative">
       <div className="container sm:grid gap-8 mb-12">
-        <div className="col-end-2 mb-4 sm:mb-auto sticky top-[65px]">
+        <div className="col-end-2 mb-4 sm:mb-auto sm:sticky sm:top-[65px]">
           <h2 className="text-3xl lg:text-7xl font-bold lg:font-black pt-4">
             {props.title}
           </h2>
