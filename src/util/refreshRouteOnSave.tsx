@@ -1,7 +1,8 @@
 'use client'
+
 import { RefreshRouteOnSave as PayloadLivePreview } from '@payloadcms/live-preview-react'
-import { useRouter } from 'next/navigation.js'
 import React, { type ReactElement } from 'react'
+import { useRouter } from 'next/navigation'
 
 function RefreshRouteOnSave(): ReactElement {
   const router = useRouter()

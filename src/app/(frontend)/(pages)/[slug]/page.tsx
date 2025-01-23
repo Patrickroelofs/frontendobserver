@@ -20,9 +20,6 @@ async function Page({ params }: { params: Promise<{ slug: string }> }): Promise<
           slug: {
             equals: slug,
           },
-          _status: {
-            equals: 'published',
-          },
         },
         limit: 1,
       })

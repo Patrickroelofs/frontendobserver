@@ -6,6 +6,7 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { draftMode } from 'next/headers'
 import { SiteSettings } from '@/globals/siteSettings'
 import { type Blog, type Page } from '@/payload-types'
 import { PagesCollection } from '@/collections/pagesCollection'
@@ -26,14 +27,17 @@ export default buildConfig({
     },
     livePreview: {
       collections: [PagesCollection.slug, BlogCollection.slug],
-      url: ({ data, collectionConfig }) => {
+      url: async ({ data, collectionConfig, req }) => {
         if (typeof collectionConfig === 'undefined') {
           throw new Error(
             'Collection config is undefined, something went wrong setting up the live preview',
           )
         }
 
-        const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL ?? ''
+        const draft = await draftMode()
+        draft.enable()
+
+        const baseUrl = `${req.protocol}//${req.host}`
         const collectionPath = collectionConfig.slug === 'pages' ? '' : `/${collectionConfig.slug}`
         const dataPath = data.slug === 'home' ? '' : `/${String(data.slug)}`
 

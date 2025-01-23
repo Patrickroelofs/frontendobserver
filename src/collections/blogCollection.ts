@@ -80,7 +80,9 @@ const BlogCollection: CollectionConfig = {
   ],
   versions: {
     drafts: {
-      autosave: true,
+      autosave: {
+        interval: 375,
+      },
     },
   },
   hooks: {
