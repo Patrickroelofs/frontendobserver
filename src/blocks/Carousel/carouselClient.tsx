@@ -31,7 +31,7 @@ function CarouselClient(props: CarouselType): ReactElement {
         style={{ transform: `translateX(-${String(currentIndex * 100)}%)` }}
       >
         {images.map((img) => (
-          <div className="relative w-full h-[400px] lg:h-[800px] flex-shrink-0" key={img.id}>
+          <div className="relative w-full h-[400px] lg:h-[800px] shrink-0" key={img.id}>
             <div>
               <Image
                 src={img.image.url ?? ''}
