@@ -49,6 +49,7 @@ const AuthorsCollection: CollectionConfig = {
       name: 'shortBio',
       type: 'textarea',
       required: true,
+      defaultValue: "I'm an author on this site.",
     },
     {
       name: 'bio',
