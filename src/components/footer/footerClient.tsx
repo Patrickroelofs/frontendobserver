@@ -3,7 +3,7 @@ import React, { type ReactElement, useCallback } from 'react'
 import Link from 'next/link'
 import { type SiteSetting } from '@/payload-types'
 import { RichText } from '@/blocks/RichText/richText'
-import { Icon } from '@/blocks/Icon/icon'
+import { Icon } from '@/components/icon'
 import { getNoteFrequency, playNote } from '@/util/audio'
 
 function FooterClient(props: SiteSetting['footer'] & SiteSetting['social']): ReactElement {
