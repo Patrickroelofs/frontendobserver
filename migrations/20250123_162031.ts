@@ -2,7 +2,7 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postg
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-   ALTER TABLE "authors" ADD COLUMN "short_bio" varchar NOT NULL;
+   ALTER TABLE "authors" ADD COLUMN "short_bio" varchar NOT NULL DEFAULT 'I''m an author on this site.';
   ALTER TABLE "authors" ADD COLUMN "bio" jsonb;`)
 }
 
