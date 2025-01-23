@@ -41,6 +41,7 @@ export default buildConfig({
         const collectionPath = collectionConfig.slug === 'pages' ? '' : `/${collectionConfig.slug}`
         const dataPath = data.slug === 'home' ? '' : `/${String(data.slug)}`
 
+        console.warn('Draft Mode: ', draft.isEnabled)
         return `${baseUrl}${collectionPath}${dataPath}`
       },
     },
