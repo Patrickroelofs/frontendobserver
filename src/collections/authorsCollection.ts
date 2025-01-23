@@ -45,6 +45,16 @@ const AuthorsCollection: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'shortBio',
+      type: 'textarea',
+      required: true,
+    },
+    {
+      name: 'bio',
+      type: 'richText',
+      required: false,
+    },
   ],
   hooks: {
     afterChange: [
