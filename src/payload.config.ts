@@ -37,7 +37,7 @@ export default buildConfig({
         const draft = await draftMode()
         draft.enable()
 
-        const baseUrl = `https://${req.host}`
+        const baseUrl = `https://www.${req.host}`
         const collectionPath = collectionConfig.slug === 'pages' ? '' : `/${collectionConfig.slug}`
         const dataPath = data.slug === 'home' ? '' : `/${String(data.slug)}`
 
