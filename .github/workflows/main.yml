@@ -1,0 +1,18 @@
+name: Lighthouse CI
+on: push
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://www.frontendobserver.com/
+            https://www.frontendobserver.com/blog
+            https://www.frontendobserver.com/blog/how-to-create-a-generic-automatically-generating-slug-field-for-payload-cms
+            https://www.frontendobserver.com/blog/how-to-create-a-generic-fully-typed-icon-field-in-payload-cms
+          budgetPath: ./budget.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
