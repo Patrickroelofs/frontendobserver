@@ -4,6 +4,7 @@ import { MediaCollection } from '@/collections/mediaCollection'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
 import { AuthorsCollection } from '@/collections/authorsCollection'
 import { isAdmin } from '@/util/permissionsHandler'
+import { payload } from '@/util/getPayloadConfig'
 
 const Content: Tab = {
   name: 'content',
@@ -41,15 +42,6 @@ const Details: Tab = {
 }
 
 const Sidebar: Field[] = [
-  {
-    name: 'featured',
-    type: 'checkbox',
-    defaultValue: false,
-    admin: {
-      position: 'sidebar',
-      description: 'This will be featured on the homepage',
-    },
-  },
   slugField({
     trackingField: 'name',
   }),
@@ -59,6 +51,9 @@ const Sidebar: Field[] = [
     relationTo: AuthorsCollection.slug as CollectionSlug,
     required: true,
     hasMany: true,
+    admin: {
+      position: 'sidebar',
+    },
   },
 ]
 
@@ -72,7 +67,7 @@ const ShowcaseCollection: CollectionConfig = {
   },
   admin: {
     group: 'Content',
-    description: 'A showcase page, awesome websites to check out',
+    description: 'A showcase page, awesome websites to check out.',
     useAsTitle: 'name',
   },
   fields: [
@@ -100,6 +95,21 @@ const ShowcaseCollection: CollectionConfig = {
       tabs: [Content, Details],
     },
   ],
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 375,
+      },
+    },
+  },
+  hooks: {
+    afterChange: [
+      async ({ operation, doc, previousDoc, req }) => {
+        if (operation === 'update') {
+        }
+      },
+    ],
+  },
 }
 
 export { ShowcaseCollection }
