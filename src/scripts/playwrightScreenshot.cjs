@@ -33,6 +33,8 @@ const { chromium } = require('playwright')
       }),
     })
 
+    console.log(response)
+
     if (!response.ok) {
       throw new Error('Failed to upload screenshot')
     }
