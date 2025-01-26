@@ -16,7 +16,6 @@ const { chromium } = require('playwright')
 
     console.log('Taking screenshot...')
     const buffer = await page.screenshot({
-      path: `./${url.hostname}.png`,
       type: 'png',
       fullPage: true,
     })
@@ -30,7 +29,7 @@ const { chromium } = require('playwright')
       },
       body: JSON.stringify({
         image: buffer.toString('base64'),
-        filename: `${url.hostname}.png`,
+        filename: `screenshot.png`,
       }),
     })
 
