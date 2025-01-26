@@ -1,7 +1,7 @@
 const { chromium } = require('playwright')
 
 ;(async () => {
-  const url = process.env.URL
+  const url = new URL(process.env.URL)
 
   if (!url) {
     throw new Error('URL is required')
@@ -16,12 +16,12 @@ const { chromium } = require('playwright')
 
     console.log('Taking screenshot...')
     const buffer = await page.screenshot({
+      path: `./${url.hostname}.png`,
       type: 'png',
       fullPage: true,
     })
 
-    console.log('Screenshot successfully sent to webhook.')
-    process.env.SCREENSHOT_BASE64 = buffer.toString('base64')
+    console.log('Screenshot successful, length: ', buffer.byteLength)
   } catch (error) {
     console.error('Error:', error.message)
   } finally {

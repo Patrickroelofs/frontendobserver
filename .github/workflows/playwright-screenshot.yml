@@ -27,6 +27,8 @@ jobs:
           npx playwright install
           node src/scripts/playwrightScreenshot.cjs
 
-      - name: Use Screenshot Data
-        run: |
-          echo "Base64 Screenshot Data: ${{ env.SCREENSHOT_BASE64 }}"
+      - name: Upload Screenshot as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot
+          path: ./*.png
