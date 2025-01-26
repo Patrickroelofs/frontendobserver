@@ -22,6 +22,10 @@ const { chromium } = require('playwright')
 
     console.log('Screenshot successful, length: ', buffer.byteLength)
 
+    if (!process.env.SCREENSHOT_API_ENDPOINT) {
+      throw new Error('Screenshot API endpoint is required')
+    }
+
     const response = await fetch(process.env.SCREENSHOT_API_ENDPOINT, {
       method: 'GET',
       headers: {
