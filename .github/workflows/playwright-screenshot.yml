@@ -23,6 +23,7 @@ jobs:
       - name: Run Playwright Script
         env:
           URL: ${{ github.event.client_payload.url }}
+          SCREENSHOT_API_ENDPOINT: ${{ env.SCREENSHOT_API_ENDPOINT }}
         run: |
           npx playwright install --with-deps chromium
           node src/scripts/playwrightScreenshot.cjs
