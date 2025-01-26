@@ -30,13 +30,9 @@ const { chromium } = require('playwright')
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Content-Length': JSON.stringify({
-          image: screenshot.buffer,
-          filename: `screenshot.png`,
-        }).length,
       },
       body: JSON.stringify({
-        image: screenshot.buffer,
+        image: screenshot.toString('base64'),
         filename: `screenshot.png`,
       }),
     }).catch((error) => {
