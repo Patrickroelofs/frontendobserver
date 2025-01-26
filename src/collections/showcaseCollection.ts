@@ -128,7 +128,7 @@ const ShowcaseCollection: CollectionConfig = {
             req,
             task: 'screenshotWebpageTask',
             input: {
-              showcaseID: Number(id),
+              showcaseID: String(id),
               url,
             },
           })
