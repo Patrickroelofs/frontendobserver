@@ -22,11 +22,23 @@ const createScreenshotWorkflow = {
   ],
 
   handler: async ({ job, tasks }) => {
-    await tasks.screenshot('createScreenshotJobID', {
+    const { buffer } = await tasks.screenshotWebpageTask('1', {
       input: {
         url: job.input.url,
+      },
+    })
+
+    const { media } = await tasks.createMediaCollectionTask('2', {
+      input: {
         filename: job.input.filename,
-        showcaseID: job.input.showcaseID,
+        buffer,
+      },
+    })
+
+    await tasks.updateMediaCollectionTask('3', {
+      input: {
+        mediaItem: media,
+        showcaseId: job.input.showcaseID,
       },
     })
   },

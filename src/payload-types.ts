@@ -50,7 +50,9 @@ export interface Config {
   };
   jobs: {
     tasks: {
-      screenshot: TaskScreenshot;
+      screenshotWebpageTask: TaskScreenshotWebpageTask;
+      updateMediaCollectionTask: TaskUpdateMediaCollectionTask;
+      createMediaCollectionTask: TaskCreateMediaCollectionTask;
       inline: {
         input: unknown;
         output: unknown;
@@ -619,7 +621,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'screenshot';
+        taskSlug: 'inline' | 'screenshotWebpageTask' | 'updateMediaCollectionTask' | 'createMediaCollectionTask';
         taskID: string;
         input?:
           | {
@@ -653,7 +655,7 @@ export interface PayloadJob {
       }[]
     | null;
   workflowSlug?: 'createScreenshotWorkflow' | null;
-  taskSlug?: ('inline' | 'screenshot') | null;
+  taskSlug?: ('inline' | 'screenshotWebpageTask' | 'updateMediaCollectionTask' | 'createMediaCollectionTask') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -2628,15 +2630,55 @@ export interface SiteSettingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TaskScreenshot".
+ * via the `definition` "TaskScreenshotWebpageTask".
  */
-export interface TaskScreenshot {
+export interface TaskScreenshotWebpageTask {
   input: {
-    filename: string;
     url: string;
-    showcaseID: number;
+  };
+  output: {
+    buffer:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskUpdateMediaCollectionTask".
+ */
+export interface TaskUpdateMediaCollectionTask {
+  input: {
+    showcaseId: number;
+    mediaItem: number | Media;
   };
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCreateMediaCollectionTask".
+ */
+export interface TaskCreateMediaCollectionTask {
+  input: {
+    filename: string;
+    buffer:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  output: {
+    media: number | Media;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
