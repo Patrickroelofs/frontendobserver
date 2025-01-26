@@ -8,6 +8,13 @@ interface DispatchRequestBody {
   }
 }
 
+// async function GET(req: NextRequest): Promise<NextResponse> {
+//   return NextResponse.json({
+//     message: 'This endpoint only accepts POST requests',
+//     status: 405,
+//   })
+// }
+
 async function POST(req: NextRequest): Promise<NextResponse> {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN
   if (!GITHUB_TOKEN) {
@@ -18,7 +25,7 @@ async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const requestBody: DispatchRequestBody['client_payload'] = await req.json()
+    const requestBody = (await req.json()) as DispatchRequestBody['client_payload']
 
     const body: DispatchRequestBody = {
       event_type: 'screenshot-request',

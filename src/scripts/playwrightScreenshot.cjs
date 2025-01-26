@@ -22,6 +22,23 @@ const { chromium } = require('playwright')
     })
 
     console.log('Screenshot successful, length: ', buffer.byteLength)
+
+    const response = await fetch(process.env.SCREENSHOT_API_ENDPOINT, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        image: buffer.toString('base64'),
+        filename: `${url.hostname}.png`,
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to upload screenshot')
+    }
+
+    console.log('Screenshot routed successfully')
   } catch (error) {
     console.error('Error:', error.message)
   } finally {
