@@ -116,7 +116,7 @@ const ShowcaseCollection: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ operation, doc, previousDoc, req }) => {
-        const { url } = doc as Showcase
+        const { url, id } = doc as Showcase
         const { url: previousUrl } = previousDoc as Showcase
 
         if (operation === 'update' && url !== previousUrl) {
@@ -128,6 +128,7 @@ const ShowcaseCollection: CollectionConfig = {
             req,
             task: 'screenshotWebpageTask',
             input: {
+              showcaseID: Number(id),
               url,
             },
           })

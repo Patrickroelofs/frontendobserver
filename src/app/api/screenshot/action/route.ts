@@ -4,6 +4,7 @@ interface DispatchRequestBody {
   event_type: string
   client_payload: {
     url: string
+    showcaseID: string
   }
 }
 
@@ -32,6 +33,7 @@ async function POST(req: NextRequest): Promise<NextResponse> {
           event_type: body.event_type,
           client_payload: {
             url: body.client_payload.url,
+            showcaseID: body.client_payload.showcaseID,
           },
         }),
       },

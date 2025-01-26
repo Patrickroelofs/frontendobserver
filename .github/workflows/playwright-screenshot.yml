@@ -23,6 +23,7 @@ jobs:
       - name: Run Playwright Script
         env:
           URL: ${{ github.event.client_payload.url }}
+          SHOWCASE_ID: ${{ github.event.client_payload.showcaseId }}
           SCREENSHOT_API_ENDPOINT: ${{ secrets.SCREENSHOT_API_ENDPOINT }}
         run: |
           npx playwright install --with-deps chromium

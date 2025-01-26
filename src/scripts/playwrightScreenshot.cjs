@@ -1,3 +1,4 @@
+const { randomUUID } = require('node:crypto')
 const { chromium } = require('playwright')
 
 ;(async () => {
@@ -33,7 +34,8 @@ const { chromium } = require('playwright')
       },
       body: JSON.stringify({
         image: screenshot.toString('base64'),
-        filename: `screenshot.png`,
+        filename: randomUUID().toString(),
+        showcaseId: process.env.SHOWCASE_ID,
       }),
     }).catch((error) => {
       console.error('Error:', error)

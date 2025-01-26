@@ -18,6 +18,7 @@ import { MediaCollection } from '@/collections/mediaCollection'
 import { UpdateMediaCollectionTask } from '@/jobs/tasks/updateMediaCollectionTask'
 import { CreateMediaCollectionTask } from '@/jobs/tasks/createMediaCollectionTask'
 import { ScreenshotWebpageTask } from '@/jobs/tasks/screenshotWebpageTask'
+import { CreateAndUpdateMediaWorkflow } from '@/jobs/workflows/createAndUpdateMediaWorkflow'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -51,6 +52,7 @@ export default buildConfig({
   },
   jobs: {
     tasks: [ScreenshotWebpageTask, UpdateMediaCollectionTask, CreateMediaCollectionTask],
+    workflows: [CreateAndUpdateMediaWorkflow],
   },
   collections: [
     PagesCollection,

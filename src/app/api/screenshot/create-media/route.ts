@@ -6,6 +6,7 @@ import config from '@payload-config'
 interface RequestBody {
   image: Buffer
   filename: string
+  showcaseID: string
 }
 
 async function POST(req: NextRequest): Promise<NextResponse> {
@@ -16,21 +17,22 @@ async function POST(req: NextRequest): Promise<NextResponse> {
       config,
     })
 
-    const createdJob = await payload.jobs.queue({
-      task: 'createMediaCollectionTask',
+    const createdWorkflow = await payload.jobs.queue({
+      workflow: 'createAndUpdateMediaWorkflow',
       input: {
+        showcaseID: requestBody.showcaseID,
         buffer: requestBody.image.toString('base64'),
         filename: requestBody.filename,
       },
     })
 
     await payload.jobs.runByID({
-      id: createdJob.id,
+      id: createdWorkflow.id,
     })
 
     return NextResponse.json({
       message: 'Media created',
-      job: createdJob,
+      job: createdWorkflow,
       status: 200,
     })
   } catch (error: unknown) {

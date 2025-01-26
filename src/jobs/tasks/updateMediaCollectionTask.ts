@@ -1,16 +1,17 @@
 import { getPayload, type TaskConfig } from 'payload'
 import config from '@payload-config'
+import { type Media } from '@/payload-types'
 
 const UpdateMediaCollectionTask = {
   slug: 'updateMediaCollectionTask',
   inputSchema: [
     {
-      name: 'showcaseId',
+      name: 'showcaseID',
       type: 'number',
       required: true,
     },
     {
-      name: 'mediaItem',
+      name: 'media',
       type: 'relationship',
       relationTo: 'media',
       required: true,
@@ -18,7 +19,7 @@ const UpdateMediaCollectionTask = {
   ],
 
   handler: async ({ input, req }) => {
-    const { showcaseId, mediaItem } = input
+    const { showcaseID, media } = input
 
     // TODO: I wish to use the getPayload function from the util folder, but its causing webpack to error.
     const payload = await getPayload({
@@ -29,10 +30,10 @@ const UpdateMediaCollectionTask = {
       await payload.update({
         req,
         collection: 'showcase',
-        id: Number(showcaseId),
+        id: Number(showcaseID),
         data: {
           details: {
-            screenshot: mediaItem,
+            screenshot: media as Media,
           },
         },
       })

@@ -4,13 +4,18 @@ const ScreenshotWebpageTask = {
   slug: 'screenshotWebpageTask',
   inputSchema: [
     {
+      name: 'showcaseID',
+      type: 'number',
+      required: true,
+    },
+    {
       name: 'url',
       type: 'text',
       required: true,
     },
   ],
   handler: async ({ input }) => {
-    const { url } = input
+    const { url, showcaseID } = input
 
     try {
       const validatedUrl = new URL(url)
@@ -27,6 +32,7 @@ const ScreenshotWebpageTask = {
             event_type: 'screenshot-request',
             client_payload: {
               url: validatedUrl.href,
+              showcaseID: Number(showcaseID),
             },
           }),
         },
