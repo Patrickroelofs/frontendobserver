@@ -15,12 +15,12 @@ const { chromium } = require('playwright')
     await page.goto(url.href)
 
     console.log('Taking screenshot...')
-    const buffer = await page.screenshot({
+    const screenshot = await page.screenshot({
       type: 'png',
       fullPage: true,
     })
 
-    console.log('Screenshot successful, length: ', buffer.byteLength)
+    console.log('Screenshot successful, length: ', screenshot.byteLength)
 
     if (!process.env.SCREENSHOT_API_ENDPOINT) {
       throw new Error('Screenshot API endpoint is required')
@@ -32,7 +32,7 @@ const { chromium } = require('playwright')
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        image: buffer.toString('base64'),
+        image: screenshot.buffer,
         filename: `screenshot.png`,
       }),
     }).catch((error) => {
