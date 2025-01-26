@@ -25,3 +25,4 @@ jobs:
           URL: ${{ github.event.client_payload.url }}
         run: |
           npx playwright install
+          node src/scripts/playwrightScreenshot.js
