@@ -35,6 +35,8 @@ const { chromium } = require('playwright')
         image: buffer.toString('base64'),
         filename: `screenshot.png`,
       }),
+    }).catch((error) => {
+      console.error('Error:', error.message)
     })
 
     if (!response.ok) {
