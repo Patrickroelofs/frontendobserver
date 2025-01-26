@@ -1,10 +1,9 @@
-import { type Buffer } from 'node:buffer'
 import { type NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
 interface RequestBody {
-  image: Buffer
+  image: string
   filename: string
   showcaseID: string
 }
@@ -21,7 +20,7 @@ async function POST(req: NextRequest): Promise<NextResponse> {
       workflow: 'createAndUpdateMediaWorkflow',
       input: {
         showcaseID: requestBody.showcaseID,
-        buffer: requestBody.image.toString('base64'),
+        buffer: requestBody.image,
         filename: requestBody.filename,
       },
     })
