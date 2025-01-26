@@ -26,6 +26,7 @@ const { chromium } = require('playwright')
       throw new Error('Screenshot API endpoint is required')
     }
 
+    console.log('Uploading screenshot...', process.env.SCREENSHOT_API_ENDPOINT)
     const response = await fetch(process.env.SCREENSHOT_API_ENDPOINT, {
       method: 'POST',
       headers: {
