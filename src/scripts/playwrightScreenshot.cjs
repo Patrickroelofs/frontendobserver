@@ -27,7 +27,7 @@ const { chromium } = require('playwright')
     }
 
     const response = await fetch(process.env.SCREENSHOT_API_ENDPOINT, {
-      method: 'GET',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
