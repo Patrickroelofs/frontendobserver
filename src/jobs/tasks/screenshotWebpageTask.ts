@@ -5,7 +5,7 @@ const ScreenshotWebpageTask = {
   inputSchema: [
     {
       name: 'showcaseID',
-      type: 'number',
+      type: 'text',
       required: true,
     },
     {
@@ -32,7 +32,7 @@ const ScreenshotWebpageTask = {
             event_type: 'screenshot-request',
             client_payload: {
               url: validatedUrl.href,
-              showcaseID: Number(showcaseID),
+              showcaseID,
             },
           }),
         },

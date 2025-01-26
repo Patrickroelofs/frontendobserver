@@ -2634,7 +2634,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
  */
 export interface TaskScreenshotWebpageTask {
   input: {
-    showcaseID: number;
+    showcaseID: string;
     url: string;
   };
   output?: unknown;
@@ -2645,7 +2645,7 @@ export interface TaskScreenshotWebpageTask {
  */
 export interface TaskUpdateMediaCollectionTask {
   input: {
-    showcaseID: number;
+    showcaseID: string;
     media: number | Media;
   };
   output?: unknown;

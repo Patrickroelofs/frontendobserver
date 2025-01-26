@@ -33,7 +33,7 @@ const CreateAndUpdateMediaWorkflow = {
       await tasks.updateMediaCollectionTask('2', {
         input: {
           media,
-          showcaseID: Number(showcaseID),
+          showcaseID,
         },
       })
     } catch (e) {

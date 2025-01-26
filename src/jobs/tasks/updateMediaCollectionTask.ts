@@ -7,7 +7,7 @@ const UpdateMediaCollectionTask = {
   inputSchema: [
     {
       name: 'showcaseID',
-      type: 'number',
+      type: 'text',
       required: true,
     },
     {
@@ -27,18 +27,16 @@ const UpdateMediaCollectionTask = {
     })
 
     try {
-      const doc = await payload.update({
+      await payload.update({
         req,
         collection: 'showcase',
-        id: Number(showcaseID),
+        id: showcaseID,
         data: {
           details: {
             screenshot: media as Media,
           },
         },
       })
-
-      console.log('showcase document', doc)
 
       return {}
     } catch (e) {
