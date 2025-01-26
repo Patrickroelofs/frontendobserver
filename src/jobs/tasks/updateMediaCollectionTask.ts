@@ -27,6 +27,7 @@ const UpdateMediaCollectionTask = {
     })
 
     try {
+      // TOOD: something goes wrong here
       await payload.update({
         req,
         collection: 'showcase',

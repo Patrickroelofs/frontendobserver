@@ -124,6 +124,7 @@ const ShowcaseCollection: CollectionConfig = {
             config,
           })
 
+          // TODO: Pass showcaseID as number between all tasks and workflows
           const createdJob = await payload.jobs.queue({
             req,
             task: 'screenshotWebpageTask',
