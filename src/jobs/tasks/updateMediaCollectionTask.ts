@@ -27,7 +27,7 @@ const UpdateMediaCollectionTask = {
     })
 
     try {
-      await payload.update({
+      const doc = await payload.update({
         req,
         collection: 'showcase',
         id: Number(showcaseID),
@@ -37,6 +37,8 @@ const UpdateMediaCollectionTask = {
           },
         },
       })
+
+      console.log('showcase document', doc)
 
       return {}
     } catch (e) {

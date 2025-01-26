@@ -49,6 +49,8 @@ const CreateMediaCollectionTask = {
         },
       })
 
+      console.log('media', media)
+
       return {
         output: {
           media,

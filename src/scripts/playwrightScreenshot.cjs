@@ -45,7 +45,7 @@ const { chromium } = require('playwright')
       throw new Error('Failed to upload screenshot')
     }
 
-    console.log('Screenshot routed successfully')
+    console.log('Screenshot routed successfully towards', response.url)
   } catch (error) {
     console.error('Error:', error.message)
   } finally {

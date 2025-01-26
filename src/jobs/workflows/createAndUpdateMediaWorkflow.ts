@@ -37,7 +37,7 @@ const CreateAndUpdateMediaWorkflow = {
         },
       })
     } catch (e) {
-      throw new Error('Failed to take screenshot')
+      throw new Error('Failed to update or create media')
     }
   },
 } as WorkflowConfig<'createAndUpdateMediaWorkflow'>
