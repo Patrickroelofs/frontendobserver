@@ -18,12 +18,11 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: |
-          npm install
-          npx playwright install --with-deps chromium
+        run: npm install playwright
 
       - name: Run Playwright Script
         env:
           URL: ${{ github.event.client_payload.url }}
         run: |
+          npx playwright install --with-deps chromium
           node src/scripts/playwrightScreenshot.cjs
