@@ -11,6 +11,7 @@ import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
 import { AuthorsCollection } from '@/collections/authorsCollection'
 import { isAdmin } from '@/util/permissionsHandler'
 import config from '@payload-config'
+import { type Showcase } from '@/payload-types'
 
 const Content: Tab = {
   name: 'content',
@@ -30,6 +31,10 @@ const Details: Tab = {
       name: 'screenshot',
       type: 'upload',
       relationTo: MediaCollection.slug as CollectionSlug,
+      admin: {
+        readOnly: true,
+        description: 'Screenshot is automatically generated based on URL.',
+      },
     },
     {
       name: 'description',
@@ -111,21 +116,25 @@ const ShowcaseCollection: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ operation, doc, previousDoc, req }) => {
-        if (operation === 'update' && doc.url !== previousDoc.url) {
+        const { url, slug, id } = doc as Showcase
+        const { url: previousUrl } = previousDoc as Showcase
+
+        if (operation === 'update' && url !== previousUrl) {
           const payload = await getPayload({
             config,
           })
 
           const createdJob = await payload.jobs.queue({
+            req,
             workflow: 'createScreenshotWorkflow',
             input: {
-              url: doc.url,
-              filename: doc.slug,
-              showcaseID: doc.id,
+              url,
+              filename: slug,
+              showcaseID: id,
             },
           })
 
-          const results = await payload.jobs.runByID({
+          await payload.jobs.runByID({
             id: createdJob.id,
           })
         }

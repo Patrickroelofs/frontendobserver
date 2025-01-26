@@ -226,6 +226,9 @@ export interface Showcase {
     blocks?: RichTextType[] | null;
   };
   details?: {
+    /**
+     * Screenshot is automatically generated based on URL.
+     */
     screenshot?: (number | null) | Media;
     description?: string | null;
     categories?: ('portfolio' | 'blog')[] | null;

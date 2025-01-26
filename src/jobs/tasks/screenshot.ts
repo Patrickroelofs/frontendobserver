@@ -25,6 +25,7 @@ const ScreenshotTask = {
   handler: async ({ input, req }) => {
     const { url, filename } = input
 
+    // TODO: I wish to use the getPayload function from the util folder, but its causing webpack to error.
     const payload = await getPayload({
       config,
     })
