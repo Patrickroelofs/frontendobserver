@@ -15,6 +15,10 @@ import { BlogCollection } from '@/collections/blogCollection'
 import { AuthorsCollection } from '@/collections/authorsCollection'
 import { UsersCollection } from '@/collections/usersCollection'
 import { MediaCollection } from '@/collections/mediaCollection'
+import { createScreenshotWorkflow } from '@/jobs/workflows/createScreenshotWorkflow'
+import { UpdateMediaCollectionTask } from '@/jobs/tasks/updateMediaCollectionTask'
+import { CreateMediaCollectionTask } from '@/jobs/tasks/createMediaCollectionTask'
+import { ScreenshotWebpageTask } from '@/jobs/tasks/screenshotWebpageTask'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -45,6 +49,10 @@ export default buildConfig({
         return `${baseUrl}${collectionPath}${dataPath}`
       },
     },
+  },
+  jobs: {
+    tasks: [ScreenshotWebpageTask, UpdateMediaCollectionTask, CreateMediaCollectionTask],
+    workflows: [createScreenshotWorkflow],
   },
   collections: [
     PagesCollection,

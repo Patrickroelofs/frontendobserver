@@ -1,9 +1,17 @@
-import { type CollectionConfig, type CollectionSlug, type Field, type Tab } from 'payload'
+import {
+  type CollectionConfig,
+  type CollectionSlug,
+  type Field,
+  getPayload,
+  type Tab,
+} from 'payload'
 import { slugField } from '@/fields/slug'
 import { MediaCollection } from '@/collections/mediaCollection'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
 import { AuthorsCollection } from '@/collections/authorsCollection'
 import { isAdmin } from '@/util/permissionsHandler'
+import config from '@payload-config'
+import { type Showcase } from '@/payload-types'
 
 const Content: Tab = {
   name: 'content',
@@ -23,6 +31,10 @@ const Details: Tab = {
       name: 'screenshot',
       type: 'upload',
       relationTo: MediaCollection.slug as CollectionSlug,
+      admin: {
+        readOnly: true,
+        description: 'Screenshot is automatically generated based on URL.',
+      },
     },
     {
       name: 'description',
@@ -41,15 +53,6 @@ const Details: Tab = {
 }
 
 const Sidebar: Field[] = [
-  {
-    name: 'featured',
-    type: 'checkbox',
-    defaultValue: false,
-    admin: {
-      position: 'sidebar',
-      description: 'This will be featured on the homepage',
-    },
-  },
   slugField({
     trackingField: 'name',
   }),
@@ -59,6 +62,9 @@ const Sidebar: Field[] = [
     relationTo: AuthorsCollection.slug as CollectionSlug,
     required: true,
     hasMany: true,
+    admin: {
+      position: 'sidebar',
+    },
   },
 ]
 
@@ -72,7 +78,7 @@ const ShowcaseCollection: CollectionConfig = {
   },
   admin: {
     group: 'Content',
-    description: 'A showcase page, awesome websites to check out',
+    description: 'A showcase page, awesome websites to check out.',
     useAsTitle: 'name',
   },
   fields: [
@@ -100,6 +106,41 @@ const ShowcaseCollection: CollectionConfig = {
       tabs: [Content, Details],
     },
   ],
+  versions: {
+    drafts: {
+      autosave: {
+        interval: 375,
+      },
+    },
+  },
+  hooks: {
+    afterChange: [
+      async ({ operation, doc, previousDoc, req }) => {
+        const { url, slug, id } = doc as Showcase
+        const { url: previousUrl } = previousDoc as Showcase
+
+        if (operation === 'update' && url !== previousUrl) {
+          const payload = await getPayload({
+            config,
+          })
+
+          const createdJob = await payload.jobs.queue({
+            req,
+            workflow: 'createScreenshotWorkflow',
+            input: {
+              url,
+              filename: slug,
+              showcaseID: id,
+            },
+          })
+
+          await payload.jobs.runByID({
+            id: createdJob.id,
+          })
+        }
+      },
+    ],
+  },
 }
 
 export { ShowcaseCollection }

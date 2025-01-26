@@ -17,6 +17,7 @@ export interface Config {
     authors: Author;
     users: User;
     media: Media;
+    'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -29,6 +30,7 @@ export interface Config {
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -47,8 +49,18 @@ export interface Config {
     collection: 'users';
   };
   jobs: {
-    tasks: unknown;
-    workflows: unknown;
+    tasks: {
+      screenshotWebpageTask: TaskScreenshotWebpageTask;
+      updateMediaCollectionTask: TaskUpdateMediaCollectionTask;
+      createMediaCollectionTask: TaskCreateMediaCollectionTask;
+      inline: {
+        input: unknown;
+        output: unknown;
+      };
+    };
+    workflows: {
+      createScreenshotWorkflow: WorkflowCreateScreenshotWorkflow;
+    };
   };
 }
 export interface UserAuthOperations {
@@ -201,17 +213,13 @@ export interface SeoType {
   image?: (number | null) | Media;
 }
 /**
- * A showcase page, awesome websites to check out
+ * A showcase page, awesome websites to check out.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "showcase".
  */
 export interface Showcase {
   id: number;
-  /**
-   * This will be featured on the homepage
-   */
-  featured?: boolean | null;
   slug: string;
   authors: (number | Author)[];
   name: string;
@@ -220,12 +228,16 @@ export interface Showcase {
     blocks?: RichTextType[] | null;
   };
   details?: {
+    /**
+     * Screenshot is automatically generated based on URL.
+     */
     screenshot?: (number | null) | Media;
     description?: string | null;
     categories?: ('portfolio' | 'blog')[] | null;
   };
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * Authors of articles, blog posts, etc.
@@ -559,6 +571,99 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs".
+ */
+export interface PayloadJob {
+  id: number;
+  /**
+   * Input data provided to the job
+   */
+  input?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  taskStatus?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  completedAt?: string | null;
+  totalTried?: number | null;
+  /**
+   * If hasError is true this job will not be retried
+   */
+  hasError?: boolean | null;
+  /**
+   * If hasError is true, this is the error that caused it
+   */
+  error?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Task execution log
+   */
+  log?:
+    | {
+        executedAt: string;
+        completedAt: string;
+        taskSlug: 'inline' | 'screenshotWebpageTask' | 'updateMediaCollectionTask' | 'createMediaCollectionTask';
+        taskID: string;
+        input?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        output?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        state: 'failed' | 'succeeded';
+        error?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  workflowSlug?: 'createScreenshotWorkflow' | null;
+  taskSlug?: ('inline' | 'screenshotWebpageTask' | 'updateMediaCollectionTask' | 'createMediaCollectionTask') | null;
+  queue?: string | null;
+  waitUntil?: string | null;
+  processing?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -587,6 +692,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'payload-jobs';
+        value: number | PayloadJob;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -730,7 +839,6 @@ export interface SeoTypeSelect<T extends boolean = true> {
  * via the `definition` "showcase_select".
  */
 export interface ShowcaseSelect<T extends boolean = true> {
-  featured?: T;
   slug?: T;
   authors?: T;
   name?: T;
@@ -753,6 +861,7 @@ export interface ShowcaseSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -846,6 +955,38 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs_select".
+ */
+export interface PayloadJobsSelect<T extends boolean = true> {
+  input?: T;
+  taskStatus?: T;
+  completedAt?: T;
+  totalTried?: T;
+  hasError?: T;
+  error?: T;
+  log?:
+    | T
+    | {
+        executedAt?: T;
+        completedAt?: T;
+        taskSlug?: T;
+        taskID?: T;
+        input?: T;
+        output?: T;
+        state?: T;
+        error?: T;
+        id?: T;
+      };
+  workflowSlug?: T;
+  taskSlug?: T;
+  queue?: T;
+  waitUntil?: T;
+  processing?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2486,6 +2627,69 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskScreenshotWebpageTask".
+ */
+export interface TaskScreenshotWebpageTask {
+  input: {
+    url: string;
+  };
+  output: {
+    buffer:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskUpdateMediaCollectionTask".
+ */
+export interface TaskUpdateMediaCollectionTask {
+  input: {
+    showcaseId: number;
+    mediaItem: number | Media;
+  };
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCreateMediaCollectionTask".
+ */
+export interface TaskCreateMediaCollectionTask {
+  input: {
+    filename: string;
+    buffer:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  output: {
+    media: number | Media;
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WorkflowCreateScreenshotWorkflow".
+ */
+export interface WorkflowCreateScreenshotWorkflow {
+  input: {
+    url: string;
+    filename: string;
+    showcaseID: number;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
