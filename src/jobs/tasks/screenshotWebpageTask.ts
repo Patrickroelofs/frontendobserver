@@ -1,5 +1,5 @@
 import { type TaskConfig } from 'payload'
-import { webkit } from 'playwright'
+import { chromium } from 'playwright'
 
 const ScreenshotWebpageTask = {
   slug: 'screenshotWebpageTask',
@@ -23,8 +23,14 @@ const ScreenshotWebpageTask = {
     try {
       const validatedUrl = new URL(url)
 
-      const browser = await webkit.launch()
-      const context = await browser.newContext()
+      const browser = await chromium.launch()
+      const context = await browser.newContext({
+        screen: {
+          width: 1920,
+          height: 1080,
+        },
+      })
+
       const page = await context.newPage()
       await page.goto(validatedUrl.href)
 
