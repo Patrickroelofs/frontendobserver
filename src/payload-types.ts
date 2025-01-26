@@ -50,14 +50,14 @@ export interface Config {
   };
   jobs: {
     tasks: {
-      'create-screenshot': TaskCreateScreenshot;
+      screenshot: TaskScreenshot;
       inline: {
         input: unknown;
         output: unknown;
       };
     };
     workflows: {
-      'create-screenshot-workflow': WorkflowCreateScreenshotWorkflow;
+      createScreenshotWorkflow: WorkflowCreateScreenshotWorkflow;
     };
   };
 }
@@ -616,7 +616,7 @@ export interface PayloadJob {
     | {
         executedAt: string;
         completedAt: string;
-        taskSlug: 'inline' | 'create-screenshot';
+        taskSlug: 'inline' | 'screenshot';
         taskID: string;
         input?:
           | {
@@ -649,8 +649,8 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  workflowSlug?: 'create-screenshot-workflow' | null;
-  taskSlug?: ('inline' | 'create-screenshot') | null;
+  workflowSlug?: 'createScreenshotWorkflow' | null;
+  taskSlug?: ('inline' | 'screenshot') | null;
   queue?: string | null;
   waitUntil?: string | null;
   processing?: boolean | null;
@@ -2625,23 +2625,25 @@ export interface SiteSettingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TaskCreate-screenshot".
+ * via the `definition` "TaskScreenshot".
  */
-export interface TaskCreateScreenshot {
+export interface TaskScreenshot {
   input: {
+    filename: string;
     url: string;
+    showcaseID: number;
   };
-  output: {
-    base64: string;
-  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "WorkflowCreate-screenshot-workflow".
+ * via the `definition` "WorkflowCreateScreenshotWorkflow".
  */
 export interface WorkflowCreateScreenshotWorkflow {
   input: {
     url: string;
+    filename: string;
+    showcaseID: number;
   };
 }
 /**

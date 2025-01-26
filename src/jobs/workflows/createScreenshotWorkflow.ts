@@ -1,7 +1,7 @@
 import { type WorkflowConfig } from 'payload'
 
 const createScreenshotWorkflow = {
-  slug: 'create-screenshot-workflow',
+  slug: 'createScreenshotWorkflow',
 
   inputSchema: [
     {
@@ -9,15 +9,27 @@ const createScreenshotWorkflow = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'filename',
+      type: 'text',
+      required: true,
+    },
+    {
+      name: 'showcaseID',
+      type: 'number',
+      required: true,
+    },
   ],
 
   handler: async ({ job, tasks }) => {
-    const data = await tasks['create-screenshot']('1', {
+    await tasks.screenshot('createScreenshotJobID', {
       input: {
         url: job.input.url,
+        filename: job.input.filename,
+        showcaseID: job.input.showcaseID,
       },
     })
   },
-} as WorkflowConfig<'create-screenshot-workflow'>
+} as WorkflowConfig<'createScreenshotWorkflow'>
 
 export { createScreenshotWorkflow }

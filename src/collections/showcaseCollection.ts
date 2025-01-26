@@ -1,10 +1,16 @@
-import { type CollectionConfig, type CollectionSlug, type Field, type Tab } from 'payload'
+import {
+  type CollectionConfig,
+  type CollectionSlug,
+  type Field,
+  getPayload,
+  type Tab,
+} from 'payload'
 import { slugField } from '@/fields/slug'
 import { MediaCollection } from '@/collections/mediaCollection'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
 import { AuthorsCollection } from '@/collections/authorsCollection'
 import { isAdmin } from '@/util/permissionsHandler'
-import { payload } from '@/util/getPayloadConfig'
+import config from '@payload-config'
 
 const Content: Tab = {
   name: 'content',
@@ -105,7 +111,23 @@ const ShowcaseCollection: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ operation, doc, previousDoc, req }) => {
-        if (operation === 'update') {
+        if (operation === 'update' && doc.url !== previousDoc.url) {
+          const payload = await getPayload({
+            config,
+          })
+
+          const createdJob = await payload.jobs.queue({
+            workflow: 'createScreenshotWorkflow',
+            input: {
+              url: doc.url,
+              filename: doc.slug,
+              showcaseID: doc.id,
+            },
+          })
+
+          const results = await payload.jobs.runByID({
+            id: createdJob.id,
+          })
         }
       },
     ],
