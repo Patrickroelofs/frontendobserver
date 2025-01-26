@@ -12,7 +12,7 @@ const { chromium } = require('playwright')
 
   try {
     console.log(`Navigating to ${url}`)
-    await page.goto(url)
+    await page.goto(url.href)
 
     console.log('Taking screenshot...')
     const buffer = await page.screenshot({
