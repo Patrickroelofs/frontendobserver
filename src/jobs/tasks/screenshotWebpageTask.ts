@@ -1,5 +1,4 @@
 import { type TaskConfig } from 'payload'
-import { chromium } from 'playwright'
 
 const ScreenshotWebpageTask = {
   slug: 'screenshotWebpageTask',
@@ -10,42 +9,31 @@ const ScreenshotWebpageTask = {
       required: true,
     },
   ],
-  outputSchema: [
-    {
-      name: 'buffer',
-      type: 'json',
-      required: true,
-    },
-  ],
   handler: async ({ input }) => {
     const { url } = input
 
     try {
       const validatedUrl = new URL(url)
 
-      const browser = await chromium.launch()
-      const context = await browser.newContext({
-        screen: {
-          width: 1920,
-          height: 1080,
+      // fetch
+      const response = await fetch('/api/screenshot/action', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          event_type: 'screenshot-request',
+          client_payload: {
+            url: validatedUrl.href,
+          },
+        }),
       })
 
-      const page = await context.newPage()
-      await page.goto(validatedUrl.href)
-
-      const buffer = await page.screenshot({
-        type: 'png',
-        fullPage: true,
-      })
-
-      await browser.close()
-
-      return {
-        output: {
-          buffer: buffer.toString('base64'),
-        },
+      if (!response.ok) {
+        throw new Error('Failed to take screenshot')
       }
+
+      return {}
     } catch (e) {
       throw new Error('Failed to take screenshot')
     }

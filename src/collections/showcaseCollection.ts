@@ -116,7 +116,7 @@ const ShowcaseCollection: CollectionConfig = {
   hooks: {
     afterChange: [
       async ({ operation, doc, previousDoc, req }) => {
-        const { url, slug, id } = doc as Showcase
+        const { url } = doc as Showcase
         const { url: previousUrl } = previousDoc as Showcase
 
         if (operation === 'update' && url !== previousUrl) {
@@ -126,11 +126,9 @@ const ShowcaseCollection: CollectionConfig = {
 
           const createdJob = await payload.jobs.queue({
             req,
-            workflow: 'createScreenshotWorkflow',
+            task: 'screenshotWebpageTask',
             input: {
               url,
-              filename: slug,
-              showcaseID: id,
             },
           })
 

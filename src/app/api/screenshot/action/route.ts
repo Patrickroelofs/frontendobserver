@@ -4,7 +4,6 @@ interface DispatchRequestBody {
   event_type: string
   client_payload: {
     url: string
-    webhook_url?: string
   }
 }
 
@@ -18,14 +17,7 @@ async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const requestBody = (await req.json()) as DispatchRequestBody['client_payload']
-
-    const body: DispatchRequestBody = {
-      event_type: 'screenshot-request',
-      client_payload: {
-        url: requestBody.url,
-      },
-    }
+    const body = (await req.json()) as DispatchRequestBody
 
     const response = await fetch(
       `https://api.github.com/repos/patrickroelofs/frontendobserver/dispatches`,
@@ -36,7 +28,12 @@ async function POST(req: NextRequest): Promise<NextResponse> {
           Authorization: `Bearer ${GITHUB_TOKEN}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          event_type: body.event_type,
+          client_payload: {
+            url: body.client_payload.url,
+          },
+        }),
       },
     )
 

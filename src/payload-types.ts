@@ -2636,17 +2636,7 @@ export interface TaskScreenshotWebpageTask {
   input: {
     url: string;
   };
-  output: {
-    buffer:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
-  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

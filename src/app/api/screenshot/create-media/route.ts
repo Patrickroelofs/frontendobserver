@@ -1,5 +1,7 @@
 import { type Buffer } from 'node:buffer'
 import { type NextRequest, NextResponse } from 'next/server'
+import { getPayload } from 'payload'
+import config from '@payload-config'
 
 interface RequestBody {
   image: Buffer
@@ -10,10 +12,25 @@ async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const requestBody = (await req.json()) as RequestBody
 
-    console.log(requestBody)
+    const payload = await getPayload({
+      config,
+    })
+
+    const createdJob = await payload.jobs.queue({
+      task: 'createMediaCollectionTask',
+      input: {
+        buffer: requestBody.image.toString('base64'),
+        filename: requestBody.filename,
+      },
+    })
+
+    await payload.jobs.runByID({
+      id: createdJob.id,
+    })
 
     return NextResponse.json({
       message: 'Media created',
+      job: createdJob,
       status: 200,
     })
   } catch (error: unknown) {
