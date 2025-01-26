@@ -20,7 +20,8 @@ const { chromium } = require('playwright')
       fullPage: true,
     })
 
-    console.log('Screenshot successfully sent to webhook.', buffer)
+    console.log('Screenshot successfully sent to webhook.')
+    process.env.SCREENSHOT_BASE64 = buffer.toString('base64')
   } catch (error) {
     console.error('Error:', error.message)
   } finally {

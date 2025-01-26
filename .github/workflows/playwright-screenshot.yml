@@ -26,3 +26,7 @@ jobs:
         run: |
           npx playwright install
           node src/scripts/playwrightScreenshot.cjs
+
+      - name: Use Screenshot Data
+        run: |
+          echo "Base64 Screenshot Data: ${{ env.SCREENSHOT_BASE64 }}"
