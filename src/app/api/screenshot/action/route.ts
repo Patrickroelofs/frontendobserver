@@ -8,13 +8,6 @@ interface DispatchRequestBody {
   }
 }
 
-// async function GET(req: NextRequest): Promise<NextResponse> {
-//   return NextResponse.json({
-//     message: 'This endpoint only accepts POST requests',
-//     status: 405,
-//   })
-// }
-
 async function POST(req: NextRequest): Promise<NextResponse> {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN
   if (!GITHUB_TOKEN) {

@@ -27,7 +27,7 @@ const { chromium } = require('playwright')
     }
 
     const response = await fetch(process.env.SCREENSHOT_API_ENDPOINT, {
-      method: 'PATCH',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -36,8 +36,6 @@ const { chromium } = require('playwright')
         filename: `screenshot.png`,
       }),
     })
-
-    console.log(response)
 
     if (!response.ok) {
       throw new Error('Failed to upload screenshot')
