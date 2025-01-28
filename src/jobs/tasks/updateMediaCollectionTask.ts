@@ -21,28 +21,24 @@ const UpdateMediaCollectionTask = {
   handler: async ({ input, req }) => {
     const { showcaseID, media } = input
 
+    console.log('Showcase ID', showcaseID)
+
     // TODO: I wish to use the getPayload function from the util folder, but its causing webpack to error.
     const payload = await getPayload({
       config,
     })
 
     try {
-      const data = await payload.update({
+      await payload.update({
         req,
         collection: 'showcase',
-        where: {
-          id: {
-            equals: Number(showcaseID),
-          },
-        },
+        id: showcaseID,
         data: {
           details: {
             screenshot: media as Media,
           },
         },
       })
-
-      console.log('Showcase Test', data)
 
       return {}
     } catch (e) {
