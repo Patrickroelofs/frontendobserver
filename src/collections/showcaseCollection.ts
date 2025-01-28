@@ -75,11 +75,7 @@ const ShowcaseCollection: CollectionConfig = {
         const { url, id } = doc as Showcase
         const { url: previousUrl } = previousDoc as Showcase
 
-        if (
-          operation === 'update' &&
-          url !== previousUrl &&
-          process.env.NODE_ENV === 'production'
-        ) {
+        if (operation === 'update' && url !== previousUrl) {
           const payload = await getPayload({
             config,
           })
