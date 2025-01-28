@@ -32,7 +32,7 @@ const UpdateMediaCollectionTask = {
         collection: 'showcase',
         where: {
           id: {
-            equals: showcaseID,
+            equals: Number(showcaseID),
           },
         },
         data: {
