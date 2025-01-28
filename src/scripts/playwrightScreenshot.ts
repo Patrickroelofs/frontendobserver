@@ -1,28 +1,33 @@
-const { randomUUID } = require('node:crypto')
-const { chromium } = require('playwright')
+import { randomUUID } from 'node:crypto'
+import { chromium } from 'playwright'
 
-;(async () => {
-  const url = new URL(process.env.URL)
+void (async () => {
+  const url = process.env.URL ? new URL(process.env.URL) : null
 
   if (!url) {
     throw new Error('URL is required')
   }
 
   const browser = await chromium.launch()
-  const page = await browser.newPage()
+  const page = await browser.newPage({
+    screen: {
+      width: 1920,
+      height: 1080,
+    },
+  })
 
   try {
-    console.log(`Navigating to ${url}`)
+    console.log(`Navigating to ${String(url.href)}...`)
     await page.goto(url.href)
 
     console.log('Taking screenshot...')
     const screenshot = await page.screenshot({
       type: 'png',
-      fullPage: true,
+      quality: 100,
     })
 
     console.log(
-      `Screenshot successful for ${process.env.SHOWCASE_ID}, length: ${screenshot.byteLength}`,
+      `Screenshot successful for ${process.env.SHOWCASE_ID ?? ''}, length: ${String(screenshot.byteLength)}`,
     )
 
     if (!process.env.SCREENSHOT_API_ENDPOINT) {
@@ -39,8 +44,6 @@ const { chromium } = require('playwright')
         filename: randomUUID().toString(),
         showcaseID: process.env.SHOWCASE_ID,
       }),
-    }).catch((error) => {
-      console.error('Error:', error)
     })
 
     if (!response.ok) {
@@ -49,7 +52,7 @@ const { chromium } = require('playwright')
 
     console.log('Screenshot routed successfully towards', response.url)
   } catch (error) {
-    console.error('Error:', error.message)
+    console.error('Error:', (error as Error).message)
   } finally {
     await browser.close()
   }
