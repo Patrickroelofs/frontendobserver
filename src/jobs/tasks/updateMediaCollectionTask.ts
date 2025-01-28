@@ -30,7 +30,7 @@ const UpdateMediaCollectionTask = {
       const data = await payload.update({
         req,
         collection: 'showcase',
-        id: showcaseID,
+        id: Number(showcaseID),
         data: {
           details: {
             screenshot: media as Media,
@@ -38,7 +38,7 @@ const UpdateMediaCollectionTask = {
         },
       })
 
-      console.log(data)
+      console.log('Showcase Test', data)
 
       return {}
     } catch (e) {

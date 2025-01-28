@@ -29,8 +29,6 @@ async function POST(req: NextRequest): Promise<NextResponse> {
       id: createdWorkflow.id,
     })
 
-    console.log('test', requestBody, createdWorkflow)
-
     return NextResponse.json({
       message: 'Media created',
       job: createdWorkflow,
