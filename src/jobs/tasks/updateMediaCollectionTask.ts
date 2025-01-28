@@ -30,7 +30,11 @@ const UpdateMediaCollectionTask = {
       const data = await payload.update({
         req,
         collection: 'showcase',
-        id: Number(showcaseID),
+        where: {
+          id: {
+            equals: showcaseID,
+          },
+        },
         data: {
           details: {
             screenshot: media as Media,
