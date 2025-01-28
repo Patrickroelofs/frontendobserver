@@ -27,8 +27,7 @@ const UpdateMediaCollectionTask = {
     })
 
     try {
-      // TOOD: something goes wrong here
-      await payload.update({
+      const data = await payload.update({
         req,
         collection: 'showcase',
         id: showcaseID,
@@ -38,6 +37,8 @@ const UpdateMediaCollectionTask = {
           },
         },
       })
+
+      console.log(data)
 
       return {}
     } catch (e) {
