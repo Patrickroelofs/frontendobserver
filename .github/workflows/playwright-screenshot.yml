@@ -18,7 +18,7 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm install playwright ts-node typescript
+        run: npm install playwright
 
       - name: Run Playwright Script
         env:
@@ -27,4 +27,4 @@ jobs:
           SCREENSHOT_API_ENDPOINT: ${{ secrets.SCREENSHOT_API_ENDPOINT }}
         run: |
           npx playwright install --with-deps chromium
-          npx ts-node src/scripts/playwrightScreenshot.ts
+          node src/scripts/playwrightScreenshot.ts
