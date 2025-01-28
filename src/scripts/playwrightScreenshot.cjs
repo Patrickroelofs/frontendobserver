@@ -21,7 +21,9 @@ const { chromium } = require('playwright')
       fullPage: true,
     })
 
-    console.log('Screenshot successful, length: ', screenshot.byteLength)
+    console.log(
+      `Screenshot successful for ${process.env.SHOWCASE_ID}, length: ${screenshot.byteLength}`,
+    )
 
     if (!process.env.SCREENSHOT_API_ENDPOINT) {
       throw new Error('Screenshot API endpoint is required')
