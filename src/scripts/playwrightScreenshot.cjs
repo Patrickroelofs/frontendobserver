@@ -37,7 +37,7 @@ const { chromium } = require('playwright')
       body: JSON.stringify({
         image: screenshot.toString('base64'),
         filename: randomUUID().toString(),
-        showcaseId: process.env.SHOWCASE_ID,
+        showcaseID: process.env.SHOWCASE_ID,
       }),
     }).catch((error) => {
       console.error('Error:', error)
