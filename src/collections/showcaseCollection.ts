@@ -1,72 +1,10 @@
-import {
-  type CollectionConfig,
-  type CollectionSlug,
-  type Field,
-  getPayload,
-  type Tab,
-} from 'payload'
+import { type CollectionConfig, type CollectionSlug, getPayload } from 'payload'
 import { slugField } from '@/fields/slug'
 import { MediaCollection } from '@/collections/mediaCollection'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
-import { AuthorsCollection } from '@/collections/authorsCollection'
 import { isAdmin } from '@/util/permissionsHandler'
 import config from '@payload-config'
 import { type Showcase } from '@/payload-types'
-
-const Content: Tab = {
-  name: 'content',
-  fields: [
-    {
-      name: 'blocks',
-      type: 'blocks',
-      blocks: [RichTextBlock],
-    },
-  ],
-}
-
-const Details: Tab = {
-  name: 'details',
-  fields: [
-    {
-      name: 'screenshot',
-      type: 'upload',
-      relationTo: MediaCollection.slug as CollectionSlug,
-      admin: {
-        readOnly: true,
-        description: 'Screenshot is automatically generated based on URL.',
-      },
-    },
-    {
-      name: 'description',
-      type: 'textarea',
-    },
-    {
-      name: 'categories',
-      type: 'select',
-      hasMany: true,
-      options: [
-        { label: 'Portfolio', value: 'portfolio' },
-        { label: 'Blog', value: 'blog' },
-      ],
-    },
-  ],
-}
-
-const Sidebar: Field[] = [
-  slugField({
-    trackingField: 'name',
-  }),
-  {
-    name: 'authors',
-    type: 'relationship',
-    relationTo: AuthorsCollection.slug as CollectionSlug,
-    required: true,
-    hasMany: true,
-    admin: {
-      position: 'sidebar',
-    },
-  },
-]
 
 const ShowcaseCollection: CollectionConfig = {
   slug: 'showcase',
@@ -79,31 +17,49 @@ const ShowcaseCollection: CollectionConfig = {
   admin: {
     group: 'Content',
     description: 'A showcase page, awesome websites to check out.',
-    useAsTitle: 'name',
+    useAsTitle: 'title',
   },
   fields: [
-    ...Sidebar,
+    slugField(),
     {
       type: 'row',
       fields: [
         {
-          name: 'name',
+          name: 'title',
           type: 'text',
           required: true,
-          admin: {
-            width: '65%',
-          },
         },
         {
           name: 'url',
           type: 'text',
           required: true,
         },
+        {
+          name: 'image',
+          relationTo: MediaCollection.slug as CollectionSlug,
+          type: 'upload',
+          admin: {
+            readOnly: true,
+            description:
+              'Screenshot is automatically generated based on URL, more fields will become available when job is done.',
+          },
+        },
       ],
     },
     {
       type: 'tabs',
-      tabs: [Content, Details],
+      tabs: [
+        {
+          name: 'content',
+          fields: [
+            {
+              name: 'blocks',
+              type: 'blocks',
+              blocks: [RichTextBlock],
+            },
+          ],
+        },
+      ],
     },
   ],
   versions: {
@@ -124,12 +80,11 @@ const ShowcaseCollection: CollectionConfig = {
             config,
           })
 
-          // TODO: Pass showcaseID as number between all tasks and workflows
           const createdJob = await payload.jobs.queue({
             req,
             task: 'screenshotWebpageTask',
             input: {
-              showcaseID: String(id),
+              showcaseID: Number(id),
               url,
             },
           })

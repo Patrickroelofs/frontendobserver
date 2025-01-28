@@ -19,7 +19,7 @@ async function POST(req: NextRequest): Promise<NextResponse> {
     const createdWorkflow = await payload.jobs.queue({
       workflow: 'createAndUpdateMediaWorkflow',
       input: {
-        showcaseID: requestBody.showcaseID,
+        showcaseID: Number(requestBody.showcaseID),
         buffer: requestBody.image,
         filename: requestBody.filename,
       },

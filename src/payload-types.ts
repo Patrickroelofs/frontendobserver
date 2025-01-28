@@ -221,55 +221,18 @@ export interface SeoType {
 export interface Showcase {
   id: number;
   slug: string;
-  authors: (number | Author)[];
-  name: string;
+  title: string;
   url: string;
+  /**
+   * Screenshot is automatically generated based on URL, more fields will become available when job is done.
+   */
+  image?: (number | null) | Media;
   content?: {
     blocks?: RichTextType[] | null;
-  };
-  details?: {
-    /**
-     * Screenshot is automatically generated based on URL.
-     */
-    screenshot?: (number | null) | Media;
-    description?: string | null;
-    categories?: ('portfolio' | 'blog')[] | null;
   };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * Authors of articles, blog posts, etc.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors".
- */
-export interface Author {
-  id: number;
-  isCompany?: boolean | null;
-  slug: string;
-  image?: (number | null) | Media;
-  coverImage?: (number | null) | Media;
-  name: string;
-  shortBio: string;
-  bio?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -318,6 +281,38 @@ export interface Blog {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * Authors of articles, blog posts, etc.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  isCompany?: boolean | null;
+  slug: string;
+  image?: (number | null) | Media;
+  coverImage?: (number | null) | Media;
+  name: string;
+  shortBio: string;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -840,9 +835,9 @@ export interface SeoTypeSelect<T extends boolean = true> {
  */
 export interface ShowcaseSelect<T extends boolean = true> {
   slug?: T;
-  authors?: T;
-  name?: T;
+  title?: T;
   url?: T;
+  image?: T;
   content?:
     | T
     | {
@@ -851,13 +846,6 @@ export interface ShowcaseSelect<T extends boolean = true> {
           | {
               RichText?: T | RichTextTypeSelect<T>;
             };
-      };
-  details?:
-    | T
-    | {
-        screenshot?: T;
-        description?: T;
-        categories?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -2634,7 +2622,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
  */
 export interface TaskScreenshotWebpageTask {
   input: {
-    showcaseID: string;
+    showcaseID: number;
     url: string;
   };
   output?: unknown;
@@ -2645,7 +2633,7 @@ export interface TaskScreenshotWebpageTask {
  */
 export interface TaskUpdateMediaCollectionTask {
   input: {
-    showcaseID: string;
+    showcaseID: number;
     media: number | Media;
   };
   output?: unknown;
@@ -2677,7 +2665,7 @@ export interface TaskCreateMediaCollectionTask {
  */
 export interface WorkflowCreateAndUpdateMediaWorkflow {
   input: {
-    showcaseID: string;
+    showcaseID: number;
     buffer: string;
     filename: string;
   };

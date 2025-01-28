@@ -6,7 +6,7 @@ const CreateAndUpdateMediaWorkflow = {
   inputSchema: [
     {
       name: 'showcaseID',
-      type: 'text',
+      type: 'number',
       required: true,
     },
     {

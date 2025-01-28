@@ -7,7 +7,7 @@ const UpdateMediaCollectionTask = {
   inputSchema: [
     {
       name: 'showcaseID',
-      type: 'text',
+      type: 'number',
       required: true,
     },
     {
@@ -21,8 +21,6 @@ const UpdateMediaCollectionTask = {
   handler: async ({ input, req }) => {
     const { showcaseID, media } = input
 
-    console.log('Showcase ID', showcaseID)
-
     // TODO: I wish to use the getPayload function from the util folder, but its causing webpack to error.
     const payload = await getPayload({
       config,
@@ -34,9 +32,7 @@ const UpdateMediaCollectionTask = {
         collection: 'showcase',
         id: showcaseID,
         data: {
-          details: {
-            screenshot: media as Media,
-          },
+          image: media as Media,
         },
       })
 

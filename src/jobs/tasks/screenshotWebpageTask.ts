@@ -5,7 +5,7 @@ const ScreenshotWebpageTask = {
   inputSchema: [
     {
       name: 'showcaseID',
-      type: 'text',
+      type: 'number',
       required: true,
     },
     {
