@@ -27,4 +27,4 @@ jobs:
           SCREENSHOT_API_ENDPOINT: ${{ secrets.SCREENSHOT_API_ENDPOINT }}
         run: |
           npx playwright install --with-deps chromium
-          node src/scripts/playwrightScreenshot.cjs
+          node src/scripts/playwrightScreenshot.ts
