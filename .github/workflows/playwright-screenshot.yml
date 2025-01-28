@@ -18,7 +18,7 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm install playwright ts-node typescript
+        run: npm install playwright ts-node typescript @vercel/style-guide
 
       - name: Run Playwright Script
         env:
