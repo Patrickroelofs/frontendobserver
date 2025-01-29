@@ -34,15 +34,11 @@ const ScreenshotWebpageTask = {
         },
       })
 
-      await page.setViewportSize({
-        width: 1920,
-        height: 1080,
-      })
-
       await page.goto(validatedUrl.href)
 
       const screenshot = await page.screenshot({
         type: 'png',
+        quality: 100,
       })
 
       return {

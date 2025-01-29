@@ -39,6 +39,7 @@ const ShowcaseCollection: CollectionConfig = {
           relationTo: MediaCollection.slug as CollectionSlug,
           type: 'upload',
           admin: {
+            readOnly: true,
             description:
               'Screenshot is automatically generated based on URL, more fields will become available when job is done.',
           },
@@ -84,7 +85,7 @@ const ShowcaseCollection: CollectionConfig = {
             workflow: 'createScreenshotAndUpdateMediaWorkflow',
             input: {
               showcaseID: Number(id),
-              url: String(url),
+              url,
             },
           })
 
