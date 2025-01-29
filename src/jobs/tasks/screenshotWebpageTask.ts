@@ -1,6 +1,8 @@
 import { type TaskConfig } from 'payload'
 import { chromium } from 'playwright'
 
+export const maxDuration = 90
+
 const ScreenshotWebpageTask = {
   slug: 'screenshotWebpageTask',
   inputSchema: [
