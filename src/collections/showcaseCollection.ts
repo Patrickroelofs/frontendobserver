@@ -88,6 +88,8 @@ const ShowcaseCollection: CollectionConfig = {
             },
           })
 
+          console.error('workflow', workflow)
+
           await payload.jobs.runByID({
             id: workflow.id,
           })

@@ -25,14 +25,17 @@ const ScreenshotWebpageTask = {
       const validatedUrl = new URL(url)
 
       const browser = await chromium.launch()
-      const context = await browser.newContext()
-      const page = await context.newPage()
+      console.error('browser', browser)
+      const page = await browser.newPage()
+      console.error('page', page)
 
       await page.goto(validatedUrl.href)
 
       const screenshot = await page.screenshot({
         type: 'png',
       })
+
+      console.error('screenshot taken', screenshot.byteLength)
 
       await browser.close()
 
