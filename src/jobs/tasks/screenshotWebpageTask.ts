@@ -25,7 +25,9 @@ const ScreenshotWebpageTask = {
       const validatedUrl = new URL(url)
 
       const browser = await chromium.launch()
+      console.error('browser', browser)
       const page = await browser.newPage()
+      console.error('page', page)
 
       await page.goto(validatedUrl.href)
 
