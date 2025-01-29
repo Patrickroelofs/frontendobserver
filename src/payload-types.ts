@@ -59,7 +59,7 @@ export interface Config {
       };
     };
     workflows: {
-      createScreenshotAndUpdateMediaWorkflow: WorkflowCreateScreenshotAndUpdateMediaWorkflow;
+      createAndUpdateMediaWorkflow: WorkflowCreateAndUpdateMediaWorkflow;
     };
   };
 }
@@ -649,7 +649,7 @@ export interface PayloadJob {
         id?: string | null;
       }[]
     | null;
-  workflowSlug?: 'createScreenshotAndUpdateMediaWorkflow' | null;
+  workflowSlug?: 'createAndUpdateMediaWorkflow' | null;
   taskSlug?: ('inline' | 'screenshotWebpageTask' | 'updateMediaCollectionTask' | 'createMediaCollectionTask') | null;
   queue?: string | null;
   waitUntil?: string | null;
@@ -2622,11 +2622,10 @@ export interface SiteSettingsSelect<T extends boolean = true> {
  */
 export interface TaskScreenshotWebpageTask {
   input: {
+    showcaseID: number;
     url: string;
   };
-  output: {
-    screenshot: string;
-  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2645,7 +2644,16 @@ export interface TaskUpdateMediaCollectionTask {
  */
 export interface TaskCreateMediaCollectionTask {
   input: {
-    screenshot: string;
+    filename: string;
+    buffer:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
   };
   output: {
     media: number | Media;
@@ -2653,12 +2661,13 @@ export interface TaskCreateMediaCollectionTask {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "WorkflowCreateScreenshotAndUpdateMediaWorkflow".
+ * via the `definition` "WorkflowCreateAndUpdateMediaWorkflow".
  */
-export interface WorkflowCreateScreenshotAndUpdateMediaWorkflow {
+export interface WorkflowCreateAndUpdateMediaWorkflow {
   input: {
     showcaseID: number;
-    url: string;
+    buffer: string;
+    filename: string;
   };
 }
 /**
