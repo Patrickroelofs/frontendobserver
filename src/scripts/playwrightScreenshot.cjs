@@ -9,7 +9,12 @@ const { chromium } = require('playwright')
   }
 
   const browser = await chromium.launch()
-  const page = await browser.newPage()
+  const page = await browser.newPage({
+    screen: {
+      width: 1920,
+      height: 1080
+    }
+  })
 
   try {
     console.log(`Navigating to ${url}`)
@@ -18,7 +23,7 @@ const { chromium } = require('playwright')
     console.log('Taking screenshot...')
     const screenshot = await page.screenshot({
       type: 'png',
-      fullPage: true,
+      quality: 100,
     })
 
     console.log(
