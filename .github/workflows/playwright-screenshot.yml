@@ -9,6 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Validate API Secret
+        env:
+          API_SECRET: ${{ secrets.API_SECRET }}
+          RECEIVED_SECRET: ${{ github.event.client_payload.secret }}
+        run: |
+          if [ "$API_SECRET" != "$RECEIVED_SECRET" ]; then
+            echo "Unauthorized request: Invalid secret"
+            exit 1
+          fi
+          echo "Request authenticated successfully"
+
       - name: Checkout Code
         uses: actions/checkout@v4
 
