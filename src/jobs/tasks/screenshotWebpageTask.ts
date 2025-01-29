@@ -45,8 +45,6 @@ const ScreenshotWebpageTask = {
         type: 'png',
       })
 
-      console.log('screenshot taken', screenshot.byteLength)
-
       return {
         output: {
           screenshot: screenshot.toString('base64'),

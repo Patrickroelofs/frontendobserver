@@ -22,8 +22,6 @@ const CreateMediaCollectionTask = {
     const { screenshot } = input
 
     const convertedBuffer = Buffer.from(String(screenshot), 'base64')
-
-    console.log('convertedBuffer', convertedBuffer.byteLength)
     const randomUUID = crypto.randomUUID()
 
     // TODO: I wish to use the getPayload function from the util folder, but its causing webpack to error.
