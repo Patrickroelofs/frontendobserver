@@ -5,13 +5,8 @@ const CreateMediaCollectionTask = {
   slug: 'createMediaCollectionTask',
   inputSchema: [
     {
-      name: 'filename',
+      name: 'screenshot',
       type: 'text',
-      required: true,
-    },
-    {
-      name: 'buffer',
-      type: 'json',
       required: true,
     },
   ],
@@ -24,9 +19,10 @@ const CreateMediaCollectionTask = {
     },
   ],
   handler: async ({ input, req }) => {
-    const { filename, buffer } = input
+    const { screenshot } = input
 
-    const convertedBuffer = Buffer.from(String(buffer), 'base64')
+    const convertedBuffer = Buffer.from(String(screenshot), 'base64')
+    const randomUUID = crypto.randomUUID()
 
     // TODO: I wish to use the getPayload function from the util folder, but its causing webpack to error.
     const payload = await getPayload({
@@ -38,14 +34,13 @@ const CreateMediaCollectionTask = {
         req,
         collection: 'media',
         file: {
-          name: `screenshot/${String(filename)}.png`,
+          name: String(randomUUID),
           data: convertedBuffer,
           size: convertedBuffer.byteLength,
           mimetype: 'image/png',
         },
         data: {
-          filename,
-          alt: 'Hello World...',
+          alt: ' ',
         },
       })
 

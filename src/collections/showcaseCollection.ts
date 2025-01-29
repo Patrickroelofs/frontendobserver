@@ -80,9 +80,9 @@ const ShowcaseCollection: CollectionConfig = {
             config,
           })
 
-          const createdJob = await payload.jobs.queue({
+          const workflow = await payload.jobs.queue({
             req,
-            task: 'screenshotWebpageTask',
+            workflow: 'createScreenshotAndUpdateMediaWorkflow',
             input: {
               showcaseID: Number(id),
               url,
@@ -90,7 +90,7 @@ const ShowcaseCollection: CollectionConfig = {
           })
 
           await payload.jobs.runByID({
-            id: createdJob.id,
+            id: workflow.id,
           })
         }
       },

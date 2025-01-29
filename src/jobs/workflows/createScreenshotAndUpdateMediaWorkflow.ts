@@ -1,8 +1,8 @@
 import { type WorkflowConfig } from 'payload'
 
 // TODO: Improve api-calls to ensure authentication
-const CreateAndUpdateMediaWorkflow = {
-  slug: 'createAndUpdateMediaWorkflow',
+const CreateScreenshotAndUpdateMediaWorkflow = {
+  slug: 'createScreenshotAndUpdateMediaWorkflow',
   inputSchema: [
     {
       name: 'showcaseID',
@@ -10,37 +10,37 @@ const CreateAndUpdateMediaWorkflow = {
       required: true,
     },
     {
-      name: 'buffer',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'filename',
+      name: 'url',
       type: 'text',
       required: true,
     },
   ],
   handler: async ({ job, tasks }) => {
-    const { showcaseID, buffer, filename } = job.input
+    const { showcaseID, url } = job.input
 
     try {
+      const { screenshot } = await tasks.screenshotWebpageTask('1', {
+        input: {
+          url: String(url),
+        },
+      })
+
       const { media } = await tasks.createMediaCollectionTask('1', {
         input: {
-          buffer: String(buffer),
-          filename: String(filename),
+          screenshot: String(screenshot),
         },
       })
 
       await tasks.updateMediaCollectionTask('2', {
         input: {
           media,
-          showcaseID,
+          showcaseID: Number(showcaseID),
         },
       })
     } catch (e) {
       throw new Error('Failed to update or create media')
     }
   },
-} as WorkflowConfig<'createAndUpdateMediaWorkflow'>
+} as WorkflowConfig<'createScreenshotAndUpdateMediaWorkflow'>
 
-export { CreateAndUpdateMediaWorkflow }
+export { CreateScreenshotAndUpdateMediaWorkflow }
