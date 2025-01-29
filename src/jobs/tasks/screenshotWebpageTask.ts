@@ -25,17 +25,7 @@ const ScreenshotWebpageTask = {
       const validatedUrl = new URL(url)
 
       const browser = await chromium.launch()
-      const page = await browser.newPage({
-        screen: {
-          width: 1920,
-          height: 1080,
-        },
-      })
-
-      await page.setViewportSize({
-        width: 1920,
-        height: 1080,
-      })
+      const page = await browser.newPage()
 
       await page.goto(validatedUrl.href)
 
@@ -43,7 +33,9 @@ const ScreenshotWebpageTask = {
         type: 'png',
       })
 
-      console.log('screenshot taken', screenshot.byteLength)
+      console.error('screenshot taken', screenshot.byteLength)
+
+      await browser.close()
 
       return {
         output: {
