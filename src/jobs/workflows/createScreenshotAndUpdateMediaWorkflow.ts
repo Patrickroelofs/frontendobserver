@@ -25,13 +25,13 @@ const CreateScreenshotAndUpdateMediaWorkflow = {
         },
       })
 
-      const { media } = await tasks.createMediaCollectionTask('1', {
+      const { media } = await tasks.createMediaCollectionTask('2', {
         input: {
           screenshot: String(screenshot),
         },
       })
 
-      await tasks.updateMediaCollectionTask('2', {
+      await tasks.updateMediaCollectionTask('3', {
         input: {
           media,
           showcaseID: Number(showcaseID),
