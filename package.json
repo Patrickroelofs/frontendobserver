@@ -19,6 +19,7 @@
     "ci": "payload migrate && pnpm build"
   },
   "dependencies": {
+    "@axe-core/playwright": "^4.10.1",
     "@fontsource-variable/literata": "^5.1.1",
     "@payloadcms/db-vercel-postgres": "^3.18.0",
     "@payloadcms/live-preview-react": "^3.18.0",

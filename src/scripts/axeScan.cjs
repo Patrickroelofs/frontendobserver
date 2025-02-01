@@ -1,9 +1,10 @@
+const { AxeBuilder } = require('@axe-core/playwright')
 const { chromium } = require('playwright')
-const { runAxe } = require('axe-playwright')
 
 ;(async () => {
-  const browser = await chromium.launch()
-  const page = await browser.newPage()
+  const browser = await chromium.launch({ headless: true })
+  const context = await browser.newContext()
+  const page = await context.newPage()
 
   const urls = [
     'https://www.frontendobserver.com/',
@@ -13,8 +14,8 @@ const { runAxe } = require('axe-playwright')
 
   for (const url of urls) {
     await page.goto(url)
-    const results = await runAxe(page)
-    console.log(`Accessibility scan results for ${url}:`, results)
+    const results = await new AxeBuilder({ page }).analyze()
+    console.log(results)
   }
 
   await browser.close()
