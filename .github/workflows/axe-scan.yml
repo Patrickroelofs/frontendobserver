@@ -1,66 +1,54 @@
 name: Accessibility Scan
 
-# Trigger the workflow on pushes to the main branch.
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  scan:
+  accessibility-scan:
     runs-on: ubuntu-latest
-    steps:
-      # Check out the repository code.
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
-      # Set up Node.js (using a recent LTS version).
-      - name: Setup Node.js
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'
 
-      # Install pa11y globally.
-      - name: Install pa11y
-        run: npm install -g pa11y
+      - name: Install dependencies
+        run: npm ci
 
-      # Run the pa11y accessibility scan.
-      # The output is saved to a file and also set as an output variable.
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
       - name: Run accessibility scan
-        id: pa11y_scan
-        run: |
-          # Replace the URL below with your website's URL.
-          REPORT=$(pa11y https://frontendobserver.com --chrome-args "--no-sandbox --disable-setuid-sandbox")
-          echo "$REPORT" > accessibility-report.txt
-          # Set the report as an output variable.
-          echo "report<<EOF" >> $GITHUB_OUTPUT
-          echo "$REPORT" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-          
+        run: node scan.js
+        env:
+          URL: https://frontendobserver.com
 
-      # Option 1: Commit the report file back to the repo.
-      # (Uncomment the following step if you want the report file committed.)
-      # - name: Commit accessibility report
-      #   run: |
-      #     git config --global user.name "github-actions[bot]"
-      #     git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      #     git add accessibility-report.txt
-      #     git commit -m "Update accessibility report [skip ci]" || echo "No changes to commit"
-      #     git push
-
-      # Option 2: Post the report as a comment on the commit.
-      - name: Comment on commit with accessibility report
+      - name: Comment Results
         uses: actions/github-script@v6
         with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const report = `Accessibility Report:
+            const fs = require('fs')
+            const report = fs.readFileSync('accessibility-report.md', 'utf8')
 
-              ${{ steps.pa11y_scan.outputs.report }}`;
-              // Create a comment on the commit that triggered the workflow.
-            const { data: comment } = await github.repos.createCommitComment({
+            // Create an issue with the scan results
+            await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              commit_sha: context.sha,
-              body: report
-            });
-            console.log("Comment created:", comment.html_url);
+              title: `Accessibility Scan Report - ${new Date().toISOString().split('T')[0]}`,
+              body: report,
+              labels: ['accessibility']
+            })
+
+      - name: Upload scan results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: accessibility-scan-results
+          path: accessibility-report.md
