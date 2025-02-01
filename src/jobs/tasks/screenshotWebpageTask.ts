@@ -39,8 +39,8 @@ const ScreenshotWebpageTask = {
           }),
         },
       )
-        .catch((e) => {
-          throw new Error('Failed to take screenshot', e)
+        .catch(() => {
+          throw new Error('Failed to take screenshot')
         })
         .finally(() => {
           console.log('Screenshot action triggered', response)
