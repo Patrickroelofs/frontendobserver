@@ -13,6 +13,8 @@ async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const requestBody = (await req.json()) as RequestBody
 
+    console.error(requestBody.API_SECRET, process.env.API_SECRET)
+
     if (requestBody.API_SECRET !== process.env.API_SECRET) {
       return NextResponse.json({
         message: 'Unauthorized',
