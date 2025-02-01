@@ -5,24 +5,8 @@ on:
     types: [screenshot]
 
 jobs:
-  validate:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Validate API Secret
-        env:
-          API_SECRET: ${{ secrets.API_SECRET }}
-          RECEIVED_SECRET: ${{ github.event.client_payload.API_SECRET }}
-        run: |
-          if [ "$API_SECRET" != "$RECEIVED_SECRET" ]; then
-            echo "Unauthorized request: Invalid secret"
-            exit 1
-          fi
-          echo "Request authenticated successfully"
-
   capture-screenshot:
     runs-on: ubuntu-latest
-    needs: validate
 
     steps:
       - name: Checkout Code
@@ -34,27 +18,20 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm install @playwright/test node-fetch
+        run: npm install @playwright/test
 
-      - name: Take Screenshot and Send API Request
+      - name: Take Screenshot
         env:
-          API_URL: 'https://frontendobserver.com/api/payload-jobs/run'
-          API_TOKEN: ${{ secrets.API_TOKEN }}
           PAGE_URL: ${{ github.event.client_payload.url }}
         run: |
           node << 'EOF'
-          import { chromium } from '@playwright/test';
-          import fetch from 'node-fetch';
+          const { chromium } = require('@playwright/test');
+          const fs = require('fs');
 
           (async () => {
             try {
-              const apiUrl = process.env.API_URL;
-              const apiToken = process.env.API_TOKEN;
               const pageUrl = process.env.PAGE_URL;
-
-              if (!apiUrl || !apiToken || !pageUrl) {
-                throw new Error("Missing API_URL, API_TOKEN, or PAGE_URL environment variables.");
-              }
+              if (!pageUrl) throw new Error("PAGE_URL is missing");
 
               console.log("Launching browser...");
               const browser = await chromium.launch();
@@ -65,24 +42,54 @@ jobs:
               await page.goto(pageUrl, { waitUntil: 'networkidle' });
 
               console.log("Taking screenshot...");
-              const screenshotBuffer = await page.screenshot({ type: 'png' });
+              const screenshotPath = 'screenshot.png';
+              await page.screenshot({ path: screenshotPath, type: 'png' });
               await browser.close();
 
-              const imageBase64 = screenshotBuffer.toString('base64');
+              console.log("Screenshot saved:", screenshotPath);
+            } catch (error) {
+              console.error("Error:", error.message);
+              process.exit(1);
+            }
+          })();
+          EOF
+
+      - name: Upload Screenshot Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot
+          path: screenshot.png
+
+  send-api-request:
+    runs-on: ubuntu-latest
+    needs: capture-screenshot
+
+    steps:
+      - name: Download Screenshot Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: screenshot
+
+      - name: Send API Request
+        env:
+          API_URL: 'https://frontendobserver.com/api/payload-jobs/run'
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+        run: |
+          node << 'EOF'
+          const fetch = require('node-fetch');
+
+          (async () => {
+            try {
+              const apiUrl = process.env.API_URL;
+              const apiToken = process.env.API_TOKEN;
 
               console.log("Sending API request...");
               const response = await fetch(apiUrl, {
-                method: 'POST',  // Changed from GET to POST to support sending data
+                method: 'GET',
                 headers: {
                   'Authorization': `Bearer ${apiToken}`,
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                  showcase: "createAndUpdateMediaWorkflow",
-                  input: {
-                    image: imageBase64,
-                  },
-                }),
               });
 
               if (!response.ok) {
