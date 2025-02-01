@@ -86,6 +86,11 @@ jobs:
         with:
           name: screenshot
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
       - name: Send API Request
         env:
           API_URL: 'https://frontendobserver.com/api/payload-jobs/run'
