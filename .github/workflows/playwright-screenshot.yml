@@ -39,6 +39,7 @@ jobs:
         env:
           API_URL: 'https://frontendobserver.com/api/payload-jobs/run'
           API_TOKEN: ${{ secrets.API_TOKEN }}
+          RECEIVED_SECRET: ${{ github.event.client_payload.API_SECRET }}
         run: |
           node -e "
           const { chromium } = require('@playwright/test');
@@ -66,7 +67,7 @@ jobs:
             const response = await fetch(process.env.API_URL, {
               method: 'GET',
               headers: {
-                'Authorization': `Bearer ${process.env.API_TOKEN}`,
+                'Authorization': `Bearer ${process.env.RECEIVED_SECRET}`,
                 'Content-Type': 'application/json',
               },
               body: {
