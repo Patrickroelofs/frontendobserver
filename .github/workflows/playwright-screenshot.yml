@@ -1,11 +1,11 @@
-name: Trigger screenshot script on API request
+name: Screenshot Capture - Showcase
 
 on:
   repository_dispatch:
     types: [screenshot-request]
 
 jobs:
-  capture-screenshot:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +20,10 @@ jobs:
           fi
           echo "Request authenticated successfully"
 
+  capture-screenshot:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
@@ -29,14 +33,54 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm install playwright
+        run: npm install @playwright/test
 
-      - name: Run Playwright Script
+      - name: Take Screenshot and Send API Request
         env:
-          URL: ${{ github.event.client_payload.url }}
-          SHOWCASE_ID: ${{ github.event.client_payload.showcaseID }}
-          SCREENSHOT_API_ENDPOINT: ${{ secrets.SCREENSHOT_API_ENDPOINT }}
-          API_SECRET: ${{ secrets.API_SECRET }}
+          API_URL: 'https://frontendobserver.com/api/payload-jobs/run'
+          API_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
-          npx playwright install --with-deps chromium
-          node src/scripts/playwrightScreenshot.cjs
+          node -e "
+          const { chromium } = require('@playwright/test');
+          const fs = require('fs');
+          const fetch = require('node-fetch');
+
+          (async () => {
+            const browser = await chromium.launch();
+            const page = await browser.newPage({
+              screen: {
+                width: 1920, 
+                height: 1080
+              }
+            });
+
+            await page.goto('${{ github.event.inputs.url }}', { waitUntil: 'networkidle' });
+
+            const screenshot = await page.screenshot({
+                type: 'png',
+            })
+            await browser.close();
+
+            const imageBase64 = screenshot.toString('base64');
+
+            const response = await fetch(process.env.API_URL, {
+              method: 'GET',
+              headers: {
+                'Authorization': `Bearer ${process.env.API_TOKEN}`,
+                'Content-Type': 'application/json',
+              },
+              body: {
+                showcase: "createAndUpdateMediaWorkflow",
+                input: {
+                  image: imageBase64,
+                },
+              },
+            });
+
+            if (!response.ok) {
+              throw new Error(`API request failed: ${response.statusText}`);
+            }
+
+            console.log('API request successful.');
+          })();
+          "
