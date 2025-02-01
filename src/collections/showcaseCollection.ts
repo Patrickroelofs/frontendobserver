@@ -34,17 +34,17 @@ const ShowcaseCollection: CollectionConfig = {
           type: 'text',
           required: true,
         },
-        {
-          name: 'image',
-          relationTo: MediaCollection.slug as CollectionSlug,
-          type: 'upload',
-          admin: {
-            readOnly: true,
-            description:
-              'Screenshot is automatically generated based on URL, more fields will become available when job is done.',
-          },
-        },
       ],
+    },
+    {
+      name: 'image',
+      relationTo: MediaCollection.slug as CollectionSlug,
+      type: 'upload',
+      admin: {
+        readOnly: true,
+        description:
+          'Screenshot is automatically generated based on URL, more fields will become available when job is done.',
+      },
     },
     {
       type: 'tabs',
