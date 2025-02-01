@@ -30,6 +30,7 @@ const UpdateMediaCollectionTask = {
       await payload.update({
         req,
         collection: 'showcase',
+        draft: true,
         id: showcaseID,
         data: {
           image: media as Media,
