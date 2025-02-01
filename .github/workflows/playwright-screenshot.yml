@@ -97,8 +97,6 @@ jobs:
           API_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
           node << 'EOF'
-          const fetch = require('node-fetch');
-
           (async () => {
             try {
               const apiUrl = process.env.API_URL;
