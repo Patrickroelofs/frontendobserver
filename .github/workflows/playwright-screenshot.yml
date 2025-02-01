@@ -39,8 +39,8 @@ jobs:
         env:
           API_URL: 'https://frontendobserver.com/api/payload-jobs/run'
           API_TOKEN: ${{ secrets.API_TOKEN }}
-        run: |
-          node -e "
+        run: | 
+          node << 'EOF'
           const { chromium } = require('@playwright/test');
           const fs = require('fs');
           const fetch = require('node-fetch');
@@ -84,5 +84,5 @@ jobs:
             }
 
             console.log('API request successful.');
-          })();
-          "
+            })();
+          EOF
