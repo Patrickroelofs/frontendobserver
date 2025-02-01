@@ -34,6 +34,7 @@ async function POST(req: NextRequest): Promise<NextResponse> {
           client_payload: {
             url: body.client_payload.url,
             showcaseID: body.client_payload.showcaseID,
+            API_SECRET: process.env.API_SECRET,
           },
         }),
       },
