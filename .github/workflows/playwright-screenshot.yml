@@ -94,13 +94,13 @@ jobs:
       - name: Send API Request
         env:
           API_URL: 'https://frontendobserver.com/api/payload-jobs/run'
-          API_TOKEN: ${{ secrets.API_TOKEN }}
+          API_SECRET: ${{ secrets.API_SECRET }}
         run: |
           node << 'EOF'
           (async () => {
             try {
               const apiUrl = process.env.API_URL;
-              const apiToken = process.env.API_TOKEN;
+              const apiToken = process.env.API_SECRET;
 
               console.log("Sending API request...");
               const response = await fetch(apiUrl, {
