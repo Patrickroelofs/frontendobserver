@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { buildConfig } from 'payload'
+import { buildConfig, type PayloadRequest } from 'payload'
 import sharp from 'sharp'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { seoPlugin } from '@payloadcms/plugin-seo'
@@ -53,6 +53,14 @@ export default buildConfig({
   jobs: {
     tasks: [ScreenshotWebpageTask, UpdateMediaCollectionTask, CreateMediaCollectionTask],
     workflows: [CreateAndUpdateMediaWorkflow],
+    access: {
+      run: ({ req }: { req: PayloadRequest }): boolean => {
+        if (req.user) return true
+
+        const authHeader = req.headers.get('authorization')
+        return authHeader === `Bearer ${String(process.env.API_SECRET)}`
+      },
+    },
   },
   collections: [
     PagesCollection,
