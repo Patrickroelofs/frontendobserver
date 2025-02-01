@@ -23,7 +23,6 @@ const { chromium } = require('playwright')
     console.log('Taking screenshot...')
     const screenshot = await page.screenshot({
       type: 'png',
-      quality: 100,
     })
 
     console.log(
