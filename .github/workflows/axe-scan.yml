@@ -25,7 +25,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run accessibility scan
-        run: node scan.js
+        run: node src/scripts/axeScan.cjs
         env:
           URL: https://frontendobserver.com
 
