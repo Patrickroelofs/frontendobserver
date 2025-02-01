@@ -93,7 +93,7 @@ jobs:
 
       - name: Send API Request
         env:
-          API_URL: 'https://frontendobserver.com/api/payload-jobs/run'
+          API_URL: 'https://www.frontendobserver.com/api/payload-jobs/run'
           API_SECRET: ${{ secrets.API_SECRET }}
         run: |
           node << 'EOF'

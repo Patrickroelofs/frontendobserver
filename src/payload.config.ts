@@ -58,12 +58,6 @@ export default buildConfig({
         if (req.user) return true
 
         const authHeader = req.headers.get('Authorization')
-
-        console.error(req)
-        console.error(authHeader === `Bearer ${String(process.env.API_SECRET)}`)
-        console.error(authHeader)
-        console.error(`Bearer ${String(process.env.API_SECRET)}`)
-
         return authHeader === `Bearer ${String(process.env.API_SECRET)}`
       },
     },
