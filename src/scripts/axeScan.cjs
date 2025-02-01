@@ -1,6 +1,6 @@
-import fs from 'node:fs'
-import { chromium } from 'playwright'
-import AxeBuilder from '@axe-core/playwright'
+const fs = require('node:fs')
+const { chromium } = require('playwright')
+const AxeBuilder = require('@axe-core/playwright')
 
 async function runAccessibilityScan(url) {
   console.log(`Starting accessibility scan for ${url}`)
@@ -39,7 +39,9 @@ async function runAccessibilityScan(url) {
         markdown += `- **How to fix**: ${violation.helpUrl}\n\n`
         markdown += '#### Affected Elements:\n'
         violation.nodes.forEach((node) => {
-          markdown += `\`\`\`html\n${node.html}\n\`\`\`\n`
+          markdown += `\
+\
+\`\`\`html\n${node.html}\n\`\`\`\n`
           if (node.failureSummary) {
             markdown += `Fix: ${node.failureSummary}\n`
           }

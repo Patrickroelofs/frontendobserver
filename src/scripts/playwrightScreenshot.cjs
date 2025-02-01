@@ -1,22 +1,22 @@
 const { randomUUID } = require('node:crypto')
 const { chromium } = require('playwright')
-const fetch = require('node-fetch')
 
-;(async function () {
-  try {
-    if (!process.env.URL) {
-      throw new Error('URL is required')
+;(async () => {
+  const url = new URL(process.env.URL)
+
+  if (!url) {
+    throw new Error('URL is required')
+  }
+
+  const browser = await chromium.launch()
+  const page = await browser.newPage({
+    screen: {
+      width: 1920,
+      height: 1080
     }
+  })
 
-    const url = new URL(process.env.URL)
-    const browser = await chromium.launch()
-    const page = await browser.newPage({
-      screen: {
-        width: 1920,
-        height: 1080,
-      },
-    })
-
+  try {
     console.log(`Navigating to ${url}`)
     await page.goto(url.href)
 
@@ -53,8 +53,9 @@ const fetch = require('node-fetch')
     }
 
     console.log('Screenshot routed successfully towards', response.url)
-    await browser.close()
   } catch (error) {
     console.error('Error:', error.message)
+  } finally {
+    await browser.close()
   }
 })()
