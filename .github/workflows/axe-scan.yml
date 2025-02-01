@@ -21,6 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
+          npx playwright install
 
       - name: Run Axe Scan
         run: node src/scripts/axeScan.cjs
