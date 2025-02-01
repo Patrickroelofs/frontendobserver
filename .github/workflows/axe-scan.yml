@@ -1,0 +1,27 @@
+name: Axe Accessibility Scan
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  axe-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm install playwright axe-core
+
+      - name: Run Axe Scan
+        run: node src/scripts/axeScan.cjs
