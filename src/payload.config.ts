@@ -57,7 +57,7 @@ export default buildConfig({
       run: ({ req }: { req: PayloadRequest }): boolean => {
         if (req.user) return true
 
-        const authHeader = req.headers.get('authorization')
+        const authHeader = req.headers.get('Authorization')
 
         console.error(authHeader === `Bearer ${String(process.env.API_SECRET)}`)
         console.error(authHeader)
