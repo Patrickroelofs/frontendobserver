@@ -20,30 +20,31 @@ const ScreenshotWebpageTask = {
     try {
       const validatedUrl = new URL(url)
 
-      // fetch
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL ?? ''}/api/screenshot/action`,
+        `https://api.github.com/repos/patrickroelofs/frontendobserver/dispatches`,
         {
           method: 'POST',
           headers: {
+            Accept: 'application/vnd.github+json',
+            Authorization: `Bearer ${String(process.env.GITHUB_TOKEN)}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            event_type: 'screenshot-request',
+            event_type: 'screenshot',
             client_payload: {
               url: validatedUrl.href,
-              showcaseID,
-              secret: process.env.API_SECRET,
+              showcaseID: Number(showcaseID),
+              API_SECRET: process.env.API_SECRET,
             },
           }),
         },
       )
-
-      if (!response.ok) {
-        throw new Error('Failed to take screenshot')
-      }
-
-      console.log('Screenshot action triggered', response)
+        .catch((e) => {
+          throw new Error('Failed to take screenshot', e)
+        })
+        .finally(() => {
+          console.log('Screenshot action triggered', response)
+        })
 
       return {}
     } catch (e) {

@@ -2,7 +2,7 @@ name: Screenshot Capture - Showcase
 
 on:
   repository_dispatch:
-    types: [screenshot-request]
+    types: [screenshot]
 
 jobs:
   validate:
