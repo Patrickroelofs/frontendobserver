@@ -36,6 +36,7 @@ jobs:
           URL: ${{ github.event.client_payload.url }}
           SHOWCASE_ID: ${{ github.event.client_payload.showcaseID }}
           SCREENSHOT_API_ENDPOINT: ${{ secrets.SCREENSHOT_API_ENDPOINT }}
+          API_SECRET: ${{ secrets.API_SECRET }}
         run: |
           npx playwright install --with-deps chromium
           node src/scripts/playwrightScreenshot.cjs

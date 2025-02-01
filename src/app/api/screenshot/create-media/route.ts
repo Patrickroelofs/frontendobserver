@@ -6,11 +6,19 @@ interface RequestBody {
   image: string
   filename: string
   showcaseID: string
+  API_SECRET: string
 }
 
 async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const requestBody = (await req.json()) as RequestBody
+
+    if (requestBody.API_SECRET !== process.env.API_SECRET) {
+      return NextResponse.json({
+        message: 'Unauthorized',
+        status: 401,
+      })
+    }
 
     const payload = await getPayload({
       config,

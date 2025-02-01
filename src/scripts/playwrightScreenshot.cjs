@@ -12,8 +12,8 @@ const { chromium } = require('playwright')
   const page = await browser.newPage({
     screen: {
       width: 1920,
-      height: 1080
-    }
+      height: 1080,
+    },
   })
 
   try {
@@ -43,6 +43,7 @@ const { chromium } = require('playwright')
         image: screenshot.toString('base64'),
         filename: randomUUID().toString(),
         showcaseID: process.env.SHOWCASE_ID,
+        API_SECRET: process.env.API_SECRET,
       }),
     }).catch((error) => {
       console.error('Error:', error)
