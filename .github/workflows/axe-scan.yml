@@ -30,7 +30,7 @@ jobs:
         id: pa11y_scan
         run: |
           # Replace the URL below with your website's URL.
-          REPORT=$(pa11y https://frontendobserver.com --chrome-args="--no-sandbox --disable-setuid-sandbox")
+          REPORT=$(pa11y https://frontendobserver.com --chrome-args "--no-sandbox --disable-setuid-sandbox")
           echo "$REPORT" > accessibility-report.txt
           # Set the report as an output variable.
           echo "report<<EOF" >> $GITHUB_OUTPUT
