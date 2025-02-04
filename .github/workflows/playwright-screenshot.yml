@@ -14,7 +14,7 @@ jobs:
           THIRD_PARTY_API_KEY: ${{ secrets.THIRD_PARTY_API_KEY }}
           RECEIVED_SECRET: ${{ github.event.client_payload.THIRD_PARTY_API_KEY }}
         run: |
-          if [ "THIRD_PARTY_API_KEY" != "$RECEIVED_SECRET" ]; then
+          if [ "$THIRD_PARTY_API_KEY" != "$RECEIVED_SECRET" ]; then
             echo "Unauthorized request: Invalid secret"
             exit 1
           fi
