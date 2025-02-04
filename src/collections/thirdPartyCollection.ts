@@ -9,7 +9,7 @@ export const ThirdPartyCollection: CollectionConfig = {
     read: () => true,
   },
   auth: {
-    loginWithUsername: true,
+    disableLocalStrategy: true,
     useAPIKey: true,
   },
   admin: {
