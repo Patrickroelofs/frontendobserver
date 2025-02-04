@@ -85,6 +85,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: screenshot
+          path: screenshot.png
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -95,11 +96,21 @@ jobs:
         env:
           API_URL: 'https://www.frontendobserver.com/api/payload-jobs'
           THIRD_PARTY_API_KEY: ${{ secrets.THIRD_PARTY_API_KEY }}
+          SHOWCASE_ID: ${{ github.event.client_payload.showcaseID }}
         run: |
           node << 'EOF'
+          import { randomUUID } from 'crypto';
+          
           (async () => {
             try {
               const apiUrl = process.env.API_URL;
+          
+              const screenshotPath = path.resolve('./screenshot/screenshot.png').toString("base64");
+              const uuid = randomUUID();
+          
+              if (!fs.existsSync(screenshotPath)) {
+                throw new Error(`Screenshot file not found: ${screenshotPath}`);
+              }
 
               console.log("Sending API request...");
               const response = await fetch(apiUrl, {
@@ -108,6 +119,14 @@ jobs:
                   'Authorization': `third-party API-Key ${THIRD_PARTY_API_KEY}`,
                   'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                  workflow: "createAndUpdateMediaWorkflow",
+                  input: {
+                    showcaseID: ${SHOWCASE_ID},
+                    buffer: screenshotBuffer,
+                    filename: uuid,
+                  },
+                }),
               });
 
               if (!response.ok) {
