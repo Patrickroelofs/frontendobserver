@@ -25,7 +25,6 @@ const CreateMediaCollectionTask = {
   ],
   handler: async ({ input, req }) => {
     const { filename, buffer } = input
-    console.error(filename, buffer)
 
     const convertedBuffer = Buffer.from(String(buffer), 'base64')
 
@@ -49,8 +48,6 @@ const CreateMediaCollectionTask = {
           alt: 'Hello World...',
         },
       })
-
-      console.error(media)
 
       return {
         output: {

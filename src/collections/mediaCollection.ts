@@ -1,6 +1,5 @@
 import type { CollectionConfig } from 'payload'
 import { generateBlurData } from '@/util/generateBlurData'
-import { isAdmin } from '@/util/permissionsHandler'
 
 export const MediaCollection: CollectionConfig = {
   slug: 'media',
@@ -9,9 +8,9 @@ export const MediaCollection: CollectionConfig = {
     description: 'Media files',
   },
   access: {
-    create: isAdmin,
-    delete: isAdmin,
-    update: isAdmin,
+    create: () => true,
+    delete: () => true,
+    update: () => true,
     read: () => true,
   },
   fields: [

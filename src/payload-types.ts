@@ -9,6 +9,7 @@
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    'third-party': ThirdPartyAuthOperations;
   };
   collections: {
     pages: Page;
@@ -16,6 +17,7 @@ export interface Config {
     blog: Blog;
     authors: Author;
     users: User;
+    'third-party': ThirdParty;
     media: Media;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -29,6 +31,7 @@ export interface Config {
     blog: BlogSelect<false> | BlogSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'third-party': ThirdPartySelect<false> | ThirdPartySelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -45,9 +48,13 @@ export interface Config {
     siteSettings: SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
-  user: User & {
-    collection: 'users';
-  };
+  user:
+    | (User & {
+        collection: 'users';
+      })
+    | (ThirdParty & {
+        collection: 'third-party';
+      });
   jobs: {
     tasks: {
       screenshotWebpageTask: TaskScreenshotWebpageTask;
@@ -79,6 +86,22 @@ export interface UserAuthOperations {
   unlock: {
     email: string;
     password: string;
+  };
+}
+export interface ThirdPartyAuthOperations {
+  forgotPassword: {
+    username: string;
+  };
+  login: {
+    password: string;
+    username: string;
+  };
+  registerFirstUser: {
+    password: string;
+    username: string;
+  };
+  unlock: {
+    username: string;
   };
 }
 /**
@@ -552,10 +575,30 @@ export interface CodeType {
  */
 export interface User {
   id: number;
-  permissions: 'readonly' | 'admin';
   updatedAt: string;
   createdAt: string;
   email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "third-party".
+ */
+export interface ThirdParty {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
+  email?: string | null;
+  username: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
   salt?: string | null;
@@ -685,6 +728,10 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'third-party';
+        value: number | ThirdParty;
+      } | null)
+    | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
@@ -693,10 +740,15 @@ export interface PayloadLockedDocument {
         value: number | PayloadJob;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'third-party';
+        value: number | ThirdParty;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -706,10 +758,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'third-party';
+        value: number | ThirdParty;
+      };
   key?: string | null;
   value?:
     | {
@@ -914,10 +971,28 @@ export interface AuthorsSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  permissions?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "third-party_select".
+ */
+export interface ThirdPartySelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
+  email?: T;
+  username?: T;
   resetPasswordToken?: T;
   resetPasswordExpiration?: T;
   salt?: T;

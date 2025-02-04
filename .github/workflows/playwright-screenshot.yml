@@ -11,10 +11,10 @@ jobs:
     steps:
       - name: Validate API Secret
         env:
-          API_SECRET: ${{ secrets.API_SECRET }}
-          RECEIVED_SECRET: ${{ github.event.client_payload.API_SECRET }}
+          THIRD_PARTY_API_KEY: ${{ secrets.THIRD_PARTY_API_KEY }}
+          RECEIVED_SECRET: ${{ github.event.client_payload.THIRD_PARTY_API_KEY }}
         run: |
-          if [ "$API_SECRET" != "$RECEIVED_SECRET" ]; then
+          if [ "THIRD_PARTY_API_KEY" != "$RECEIVED_SECRET" ]; then
             echo "Unauthorized request: Invalid secret"
             exit 1
           fi
@@ -93,20 +93,19 @@ jobs:
 
       - name: Send API Request
         env:
-          API_URL: 'https://www.frontendobserver.com/api/payload-jobs/run'
-          API_SECRET: ${{ secrets.API_SECRET }}
+          API_URL: 'https://www.frontendobserver.com/api/payload-jobs'
+          THIRD_PARTY_API_KEY: ${{ secrets.THIRD_PARTY_API_KEY }}
         run: |
           node << 'EOF'
           (async () => {
             try {
               const apiUrl = process.env.API_URL;
-              const apiToken = process.env.API_SECRET;
 
               console.log("Sending API request...");
               const response = await fetch(apiUrl, {
                 method: 'GET',
                 headers: {
-                  'Authorization': `Bearer ${apiToken}`,
+                  'Authorization': `third-party API-Key ${THIRD_PARTY_API_KEY}`,
                   'Content-Type': 'application/json',
                 },
               });

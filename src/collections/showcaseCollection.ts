@@ -2,16 +2,15 @@ import { type CollectionConfig, type CollectionSlug, getPayload } from 'payload'
 import { slugField } from '@/fields/slug'
 import { MediaCollection } from '@/collections/mediaCollection'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
-import { isAdmin } from '@/util/permissionsHandler'
 import config from '@payload-config'
 import { type Showcase } from '@/payload-types'
 
 const ShowcaseCollection: CollectionConfig = {
   slug: 'showcase',
   access: {
-    create: isAdmin,
-    delete: isAdmin,
-    update: isAdmin,
+    create: () => true,
+    delete: () => true,
+    update: () => true,
     read: () => true,
   },
   admin: {

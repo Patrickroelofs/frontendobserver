@@ -4,7 +4,6 @@ import { slugField } from '@/fields/slug'
 import { AuthorsCollection } from '@/collections/authorsCollection'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
 import { CodeBlock } from '@/blocks/Code/codeBlock'
-import { isAdmin } from '@/util/permissionsHandler'
 
 const Sidebar: Field[] = [
   {
@@ -40,9 +39,9 @@ const Sidebar: Field[] = [
 const BlogCollection: CollectionConfig = {
   slug: 'blog',
   access: {
-    create: isAdmin,
-    delete: isAdmin,
-    update: isAdmin,
+    create: () => true,
+    delete: () => true,
+    update: () => true,
     read: () => true,
   },
   admin: {

@@ -34,7 +34,7 @@ const ScreenshotWebpageTask = {
             client_payload: {
               url: validatedUrl.href,
               showcaseID: Number(showcaseID),
-              API_SECRET: process.env.API_SECRET,
+              THIRD_PARTY_API_KEY: process.env.THIRD_PARTY_API_KEY,
             },
           }),
         },

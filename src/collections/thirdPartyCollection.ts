@@ -1,17 +1,19 @@
 import type { CollectionConfig } from 'payload'
 
-export const UsersCollection: CollectionConfig = {
-  slug: 'users',
+export const ThirdPartyCollection: CollectionConfig = {
+  slug: 'third-party',
   access: {
     create: () => true,
     delete: () => true,
     update: () => true,
     read: () => true,
   },
-  auth: true,
+  auth: {
+    loginWithUsername: true,
+    useAPIKey: true,
+  },
   admin: {
     group: 'Administration',
-    description: 'User accounts on the site.',
   },
   fields: [],
 }
