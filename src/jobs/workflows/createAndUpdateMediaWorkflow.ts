@@ -1,12 +1,11 @@
 import { type WorkflowConfig } from 'payload'
 
-// TODO: Improve api-calls to ensure authentication
 const CreateAndUpdateMediaWorkflow = {
   slug: 'createAndUpdateMediaWorkflow',
   inputSchema: [
     {
       name: 'showcaseID',
-      type: 'number',
+      type: 'text',
       required: true,
     },
     {
