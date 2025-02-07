@@ -131,24 +131,23 @@ jobs:
                     filename: uuid,
                   },
                 }),
+              }).then((response) => {
+                if(!response.ok) {
+                  throw new Error(`API request (workflow) failed: ${response.status} ${response.statusText}`);
+                }
+
+                const responseJob = await fetch(apiRunUrl, {
+                  method: 'GET',
+                  headers: {
+                    'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
+                    'Content-Type': 'application/json',
+                  },
+                });
+          
+                if (!responseJob.ok) {
+                  throw new Error(`API request (job) failed: ${responseJob.status} ${responseJob.statusText}`);
+                }
               });
-
-              if (!responseWorkflow.ok) {
-                throw new Error(`API request (workflow) failed: ${responseWorkflow.status} ${responseWorkflow.statusText}`);
-              }
-
-              const responseJob = await fetch(apiRunUrl, {
-                method: 'GET',
-                headers: {
-                  'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
-                  'Content-Type': 'application/json',
-                },
-              });
-
-              if (!responseJob.ok) {
-                console.log("API request (job) failed:", responseJob.status, responseJob.statusText, responseJob);
-                throw new Error(`API request (job) failed: ${responseJob.status} ${responseJob.statusText}`);
-              }
 
               console.log("API request successful.");
             } catch (error) {
