@@ -85,7 +85,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: screenshot
-          path: screenshot.png
+          path: ./screenshot
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -109,7 +109,7 @@ jobs:
               const apiUrl = process.env.API_URL;
               const apiRunUrl = process.env.API_RUN_URL;
 
-              const screenshotPath = path.resolve('./screenshot.png');
+              const screenshotPath = path.resolve('./screenshot/screenshot.png');
               
               if (!fs.existsSync(screenshotPath)) {
                 throw new Error(`Screenshot file not found: ${screenshotPath}`);
