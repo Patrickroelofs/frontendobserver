@@ -116,6 +116,8 @@ jobs:
               }
 
               const screenshotBuffer = fs.readFileSync(screenshotPath).toString("base64");
+          
+              throw new Error(screenshotBuffer);
               const uuid = randomUUID();
 
               console.log("Sending API request...");
