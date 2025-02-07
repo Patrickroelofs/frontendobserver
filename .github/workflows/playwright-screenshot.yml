@@ -94,8 +94,8 @@ jobs:
 
       - name: Send API Request
         env:
-          API_URL: 'https://www.frontendobserver.com/api/payload-jobs'
-          API_RUN_URL: 'https://www.frontendobserver.com/api/payload-jobs/run'
+          API_URL: https://www.frontendobserver.com/api/payload-jobs
+          API_RUN_URL: https://www.frontendobserver.com/api/payload-jobs/run
           THIRD_PARTY_API_KEY: ${{ secrets.THIRD_PARTY_API_KEY }}
           SHOWCASE_ID: ${{ github.event.client_payload.showcaseID }}
         run: |
@@ -142,7 +142,6 @@ jobs:
                     'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
                     'Content-Type': 'application/json',
                   },
-                  body: {},
                 });
           
                 if (!responseJob.ok) {
