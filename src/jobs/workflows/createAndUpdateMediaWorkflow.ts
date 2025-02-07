@@ -23,6 +23,10 @@ const CreateAndUpdateMediaWorkflow = {
   handler: async ({ job, tasks }) => {
     const { showcaseID, buffer, filename } = job.input
 
+    console.error('showcaseID', showcaseID)
+    console.error('buffer', buffer)
+    console.error('filename', filename)
+
     try {
       const { media } = await tasks.createMediaCollectionTask('1', {
         input: {
