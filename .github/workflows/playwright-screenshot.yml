@@ -131,7 +131,7 @@ jobs:
                     filename: uuid,
                   },
                 }),
-              }).then((response) => {
+              }).then(async (response) => {
                 if(!response.ok) {
                   throw new Error(`API request (workflow) failed: ${response.status} ${response.statusText}`);
                 }
