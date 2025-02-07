@@ -141,8 +141,8 @@ jobs:
                   headers: {
                     'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
                     'Content-Type': 'application/json',
-                    'Accept': '*/*'
                   },
+                  body: {},
                 });
           
                 if (!responseJob.ok) {
