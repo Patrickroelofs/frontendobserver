@@ -102,20 +102,20 @@ jobs:
           const { randomUUID } = require('crypto');
           const fs = require('fs');
           const path = require('path');
-          
+
           (async () => {
             try {
               const apiUrl = process.env.API_URL;
-          
+
               const screenshotBuffer = path.resolve('./screenshot.png').toString("base64");
               const uuid = randomUUID();
-          
+
               if (!fs.existsSync(screenshotBuffer)) {
                 throw new Error(`Screenshot file not found: ${screenshotBuffer}`);
               }
 
               console.log("Sending API request...");
-              const response = await fetch(apiUrl, {
+              const responseWorkflow = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                   'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
@@ -131,8 +131,19 @@ jobs:
                 }),
               });
 
-              if (!response.ok) {
-                throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+              if (!responseWorkflow.ok) {
+                throw new Error(`API request failed: ${responseWorkflow.status} ${responseWorkflow.statusText}`);
+              }
+
+              const responseJob = await fetch(`${apiUrl}/jobs`, {
+                method: 'GET',
+                headers: {
+                  'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
+                },
+              });
+
+              if (!responseJob.ok) {
+                throw new Error(`API request failed: ${responseJob.status} ${responseJob.statusText}`);
               }
 
               console.log("API request successful.");
