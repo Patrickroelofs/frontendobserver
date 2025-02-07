@@ -146,7 +146,7 @@ jobs:
               });
 
               if (!responseJob.ok) {
-                throw new Error(`API request (job) failed: ${responseJob.status} ${responseJob.statusText}, ${responseJob}`);
+                throw new Error(`API request (job) failed: ${responseJob.status} ${responseJob.statusText}`, responseJob);
               }
 
               console.log("API request successful.");
