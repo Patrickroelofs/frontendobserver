@@ -99,7 +99,9 @@ jobs:
           SHOWCASE_ID: ${{ github.event.client_payload.showcaseID }}
         run: |
           node << 'EOF'
-          import { randomUUID } from 'crypto';
+          const { randomUUID } = require('crypto');
+          const fs = require('fs');
+          const path = require('path');
           
           (async () => {
             try {
