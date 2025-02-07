@@ -127,7 +127,7 @@ jobs:
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  workflow: "createAndUpdateMediaWorkflow",
+                  workflowSlug: "createAndUpdateMediaWorkflow",
                   input: {
                     showcaseID: `${process.env.SHOWCASE_ID}`,
                     buffer: screenshotBuffer,
