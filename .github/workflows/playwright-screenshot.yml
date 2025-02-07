@@ -109,12 +109,14 @@ jobs:
               const apiUrl = process.env.API_URL;
               const apiRunUrl = process.env.API_RUN_URL;
 
-              const screenshotBuffer = path.resolve('./screenshot.png').toString("base64");
-              const uuid = randomUUID();
-
-              if (!fs.existsSync(screenshotBuffer)) {
-                throw new Error(`Screenshot file not found: ${screenshotBuffer}`);
+              const screenshotPath = path.resolve('./screenshot.png');
+              
+              if (!fs.existsSync(screenshotPath)) {
+                throw new Error(`Screenshot file not found: ${screenshotPath}`);
               }
+
+              const screenshotBuffer = fs.readFileSync(screenshotPath).toString("base64");
+              const uuid = randomUUID();
 
               console.log("Sending API request...");
               const responseWorkflow = await fetch(apiUrl, {
