@@ -135,7 +135,7 @@ jobs:
                 throw new Error(`API request failed: ${responseWorkflow.status} ${responseWorkflow.statusText}`);
               }
 
-              const responseJob = await fetch(`${apiUrl}/jobs`, {
+              const responseJob = await fetch(`${apiUrl}/run`, {
                 method: 'GET',
                 headers: {
                   'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
