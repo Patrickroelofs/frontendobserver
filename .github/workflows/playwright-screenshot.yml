@@ -1,4 +1,4 @@
-name: Screenshot Capture - Showcase
+name: Showcase Jobs
 
 on:
   repository_dispatch:
@@ -116,7 +116,7 @@ jobs:
 
               console.log("Sending API request...");
               const response = await fetch(apiUrl, {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                   'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
                   'Content-Type': 'application/json',
