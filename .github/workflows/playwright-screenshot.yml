@@ -105,6 +105,8 @@ jobs:
 
           (async () => {
             try {
+              const apiUrl = process.env.API_URL;
+
               const screenshotBuffer = path.resolve('./screenshot.png').toString("base64");
               const uuid = randomUUID();
 
@@ -113,7 +115,7 @@ jobs:
               }
 
               console.log("Sending API request...");
-              const responseWorkflow = await fetch(process.env.API_URL, {
+              const responseWorkflow = await fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                   'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
@@ -130,10 +132,10 @@ jobs:
               });
 
               if (!responseWorkflow.ok) {
-                throw new Error(`API request failed: ${responseWorkflow.status} ${responseWorkflow.statusText}`);
+                throw new Error(`API request (workflow) failed: ${responseWorkflow.status} ${responseWorkflow.statusText}`);
               }
 
-              const responseJob = await fetch(`${process.env.API_URL}/run`, {
+              const responseJob = await fetch(`${apiUrl}/run`, {
                 method: 'GET',
                 headers: {
                   'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
@@ -141,7 +143,7 @@ jobs:
               });
 
               if (!responseJob.ok) {
-                throw new Error(`API request failed: ${responseJob.status} ${responseJob.statusText}`);
+                throw new Error(`API request (job) failed: ${responseJob.status} ${responseJob.statusText}`);
               }
 
               console.log("API request successful.");
