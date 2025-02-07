@@ -90,18 +90,20 @@ export interface UserAuthOperations {
 }
 export interface ThirdPartyAuthOperations {
   forgotPassword: {
-    username: string;
+    email: string;
+    password: string;
   };
   login: {
+    email: string;
     password: string;
-    username: string;
   };
   registerFirstUser: {
+    email: string;
     password: string;
-    username: string;
   };
   unlock: {
-    username: string;
+    email: string;
+    password: string;
   };
 }
 /**
@@ -597,15 +599,6 @@ export interface ThirdParty {
   enableAPIKey?: boolean | null;
   apiKey?: string | null;
   apiKeyIndex?: string | null;
-  email?: string | null;
-  username: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  password?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -991,14 +984,6 @@ export interface ThirdPartySelect<T extends boolean = true> {
   enableAPIKey?: T;
   apiKey?: T;
   apiKeyIndex?: T;
-  email?: T;
-  username?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2740,8 +2725,16 @@ export interface TaskCreateMediaCollectionTask {
  */
 export interface WorkflowCreateAndUpdateMediaWorkflow {
   input: {
-    showcaseID: number;
-    buffer: string;
+    showcaseID: string;
+    buffer:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
     filename: string;
   };
 }

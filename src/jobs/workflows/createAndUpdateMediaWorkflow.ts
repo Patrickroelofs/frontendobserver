@@ -10,7 +10,7 @@ const CreateAndUpdateMediaWorkflow = {
     },
     {
       name: 'buffer',
-      type: 'text',
+      type: 'json',
       required: true,
     },
     {
