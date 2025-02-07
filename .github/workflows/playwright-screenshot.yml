@@ -139,8 +139,11 @@ jobs:
                 method: 'GET',
                 headers: {
                   'Authorization': `third-party API-Key ${process.env.THIRD_PARTY_API_KEY}`,
+                  'Content-Type': 'application/json',
                 },
               });
+
+              console.log(responseJob);
 
               if (!responseJob.ok) {
                 throw new Error(`API request (job) failed: ${responseJob.status} ${responseJob.statusText}`);
