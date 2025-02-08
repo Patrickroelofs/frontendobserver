@@ -32,6 +32,11 @@ const ScreenshotWebpageTask = {
       const { buffer } = await page.screenshot({ type: 'png' })
       await browser.close()
 
+      console.error('browser', browser)
+      console.error('context', context)
+      console.error('page', page)
+      console.error('buffer', buffer)
+
       return {
         output: {
           screenshot: String(buffer),
