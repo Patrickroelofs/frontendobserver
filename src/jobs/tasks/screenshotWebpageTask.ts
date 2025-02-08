@@ -1,52 +1,42 @@
 import { type TaskConfig } from 'payload'
+import { launchChromium } from 'playwright-aws-lambda'
 
 const ScreenshotWebpageTask = {
   slug: 'screenshotWebpageTask',
   inputSchema: [
-    {
-      name: 'showcaseID',
-      type: 'number',
-      required: true,
-    },
     {
       name: 'url',
       type: 'text',
       required: true,
     },
   ],
+  outputSchema: [
+    {
+      name: 'screenshot',
+      type: 'text',
+      required: true,
+    },
+  ],
   handler: async ({ input }) => {
-    const { url, showcaseID } = input
+    const { url } = input
 
     try {
       const validatedUrl = new URL(url)
 
-      const response = await fetch(
-        `https://api.github.com/repos/patrickroelofs/frontendobserver/dispatches`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/vnd.github+json',
-            Authorization: `Bearer ${String(process.env.GITHUB_TOKEN)}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            event_type: 'screenshot',
-            client_payload: {
-              url: validatedUrl.href,
-              showcaseID: Number(showcaseID),
-              THIRD_PARTY_API_KEY: process.env.THIRD_PARTY_API_KEY,
-            },
-          }),
-        },
-      )
-        .catch(() => {
-          throw new Error('Failed to take screenshot')
-        })
-        .finally(() => {
-          console.log('Screenshot action triggered', response)
-        })
+      console.log('Taking screenshot of', validatedUrl)
 
-      return {}
+      const browser = await launchChromium({ headless: true })
+      const context = await browser.newContext()
+      const page = await context.newPage()
+      await page.goto(url)
+      const screenshot = await page.screenshot({ type: 'png' })
+      await browser.close()
+
+      return {
+        output: {
+          screenshot: screenshot.toString('base64'),
+        },
+      }
     } catch (e) {
       throw new Error('Failed to take screenshot')
     }

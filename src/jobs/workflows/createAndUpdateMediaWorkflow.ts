@@ -4,40 +4,36 @@ const CreateAndUpdateMediaWorkflow = {
   slug: 'createAndUpdateMediaWorkflow',
   inputSchema: [
     {
+      name: 'url',
+      type: 'text',
+      required: true,
+    },
+    {
       name: 'showcaseID',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'buffer',
-      type: 'json',
-      required: true,
-    },
-    {
-      name: 'filename',
-      type: 'text',
+      type: 'number',
       required: true,
     },
   ],
   handler: async ({ job, tasks }) => {
-    const { showcaseID, buffer, filename } = job.input
-
-    console.error('showcaseID', showcaseID)
-    console.error('buffer', buffer)
-    console.error('filename', filename)
+    const { showcaseID, url } = job.input
 
     try {
-      const { media } = await tasks.createMediaCollectionTask('1', {
+      const { screenshot } = await tasks.screenshotWebpageTask('1', {
         input: {
-          buffer: String(buffer),
-          filename: String(filename),
+          url: String(url),
         },
       })
 
-      await tasks.updateMediaCollectionTask('2', {
+      const { media } = await tasks.createMediaCollectionTask('2', {
+        input: {
+          screenshot: String(screenshot),
+        },
+      })
+
+      await tasks.updateMediaCollectionTask('3', {
         input: {
           media,
-          showcaseID: Number(showcaseID),
+          showcaseID,
         },
       })
     } catch (e) {

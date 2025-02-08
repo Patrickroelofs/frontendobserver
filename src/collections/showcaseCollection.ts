@@ -70,7 +70,7 @@ const ShowcaseCollection: CollectionConfig = {
   },
   hooks: {
     afterChange: [
-      async ({ operation, doc, previousDoc, req }) => {
+      async ({ operation, doc, previousDoc }) => {
         const { url, id } = doc as Showcase
         const { url: previousUrl } = previousDoc as Showcase
 
@@ -80,10 +80,9 @@ const ShowcaseCollection: CollectionConfig = {
           })
 
           const createdJob = await payload.jobs.queue({
-            req,
-            task: 'screenshotWebpageTask',
+            workflow: 'createAndUpdateMediaWorkflow',
             input: {
-              showcaseID: Number(id),
+              showcaseID: id,
               url,
             },
           })

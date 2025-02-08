@@ -2682,10 +2682,11 @@ export interface SiteSettingsSelect<T extends boolean = true> {
  */
 export interface TaskScreenshotWebpageTask {
   input: {
-    showcaseID: number;
     url: string;
   };
-  output?: unknown;
+  output: {
+    screenshot: string;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2704,16 +2705,7 @@ export interface TaskUpdateMediaCollectionTask {
  */
 export interface TaskCreateMediaCollectionTask {
   input: {
-    filename: string;
-    buffer:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
+    screenshot: string;
   };
   output: {
     media: number | Media;
@@ -2725,17 +2717,8 @@ export interface TaskCreateMediaCollectionTask {
  */
 export interface WorkflowCreateAndUpdateMediaWorkflow {
   input: {
-    showcaseID: string;
-    buffer:
-      | {
-          [k: string]: unknown;
-        }
-      | unknown[]
-      | string
-      | number
-      | boolean
-      | null;
-    filename: string;
+    url: string;
+    showcaseID: number;
   };
 }
 /**
