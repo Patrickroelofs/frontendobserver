@@ -77,6 +77,7 @@ export default buildConfig({
   secret: process.env.PAYLOAD_SECRET ?? '',
   graphQL: {
     disable: true,
+    disablePlaygroundInProduction: true,
   },
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
