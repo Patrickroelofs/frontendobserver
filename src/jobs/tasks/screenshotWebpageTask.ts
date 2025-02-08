@@ -1,5 +1,6 @@
 import { type TaskConfig } from 'payload'
-import { launchChromium } from 'playwright-aws-lambda'
+import { chromium as playwright } from 'playwright-core'
+import chromium from '@sparticuz/chromium'
 
 const ScreenshotWebpageTask = {
   slug: 'screenshotWebpageTask',
@@ -25,7 +26,11 @@ const ScreenshotWebpageTask = {
 
       console.log('Taking screenshot of', validatedUrl)
 
-      const browser = await launchChromium({ headless: true })
+      const browser = await playwright.launch({
+        args: chromium.args,
+        headless: Boolean(chromium.headless),
+        executablePath: await chromium.executablePath(),
+      })
       const context = await browser.newContext()
       const page = await context.newPage()
       await page.goto(url)
