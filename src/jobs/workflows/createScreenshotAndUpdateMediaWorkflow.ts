@@ -1,7 +1,7 @@
 import { type WorkflowConfig } from 'payload'
 
-const CreateAndUpdateMediaWorkflow = {
-  slug: 'createAndUpdateMediaWorkflow',
+const CreateScreenshotAndUpdateMediaWorkflow = {
+  slug: 'createScreenshotAndUpdateMediaWorkflow',
   inputSchema: [
     {
       name: 'url',
@@ -33,13 +33,13 @@ const CreateAndUpdateMediaWorkflow = {
       await tasks.updateMediaCollectionTask('3', {
         input: {
           media,
-          showcaseID,
+          showcaseID: Number(showcaseID),
         },
       })
     } catch (e) {
       throw new Error('Failed to update or create media')
     }
   },
-} as WorkflowConfig<'createAndUpdateMediaWorkflow'>
+} as WorkflowConfig<'createScreenshotAndUpdateMediaWorkflow'>
 
-export { CreateAndUpdateMediaWorkflow }
+export { CreateScreenshotAndUpdateMediaWorkflow }

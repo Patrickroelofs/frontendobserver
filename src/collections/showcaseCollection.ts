@@ -80,7 +80,7 @@ const ShowcaseCollection: CollectionConfig = {
           })
 
           const createdJob = await payload.jobs.queue({
-            workflow: 'createAndUpdateMediaWorkflow',
+            workflow: 'createScreenshotAndUpdateMediaWorkflow',
             input: {
               showcaseID: id,
               url,

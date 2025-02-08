@@ -18,7 +18,7 @@ import { MediaCollection } from '@/collections/mediaCollection'
 import { UpdateMediaCollectionTask } from '@/jobs/tasks/updateMediaCollectionTask'
 import { CreateMediaCollectionTask } from '@/jobs/tasks/createMediaCollectionTask'
 import { ScreenshotWebpageTask } from '@/jobs/tasks/screenshotWebpageTask'
-import { CreateAndUpdateMediaWorkflow } from '@/jobs/workflows/createAndUpdateMediaWorkflow'
+import { CreateScreenshotAndUpdateMediaWorkflow } from '@/jobs/workflows/createScreenshotAndUpdateMediaWorkflow'
 import { ThirdPartyCollection } from '@/collections/thirdPartyCollection'
 
 const filename = fileURLToPath(import.meta.url)
@@ -53,7 +53,7 @@ export default buildConfig({
   },
   jobs: {
     tasks: [ScreenshotWebpageTask, UpdateMediaCollectionTask, CreateMediaCollectionTask],
-    workflows: [CreateAndUpdateMediaWorkflow],
+    workflows: [CreateScreenshotAndUpdateMediaWorkflow],
     access: {
       run: ({ req }: { req: PayloadRequest }): boolean => {
         if (req.user) return true
