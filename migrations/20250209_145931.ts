@@ -4,10 +4,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
    ALTER TABLE IF EXISTS "third_party" DISABLE ROW LEVEL SECURITY;
   DROP TABLE IF EXISTS "third_party" CASCADE;
-  ALTER TABLE IF EXISTS "payload_locked_documents_rels" DROP CONSTRAINT IF EXISTS "payload_locked_documents_rels_third_party_fk";
-  
-  ALTER TABLE IF EXISTS "payload_preferences_rels" DROP CONSTRAINT IF EXISTS "payload_preferences_rels_third_party_fk";
-  
+
   DROP INDEX IF EXISTS "_pages_v_autosave_idx";
   DROP INDEX IF EXISTS "_showcase_v_autosave_idx";
   DROP INDEX IF EXISTS "_blog_v_autosave_idx";
