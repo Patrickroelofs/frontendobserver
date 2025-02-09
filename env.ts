@@ -8,9 +8,7 @@ export const env = createEnv({
     BLOB_READ_WRITE_TOKEN: z.string().min(1),
   },
   clientPrefix: '',
-  client: {
-    VERCEL_PROJECT_PRODUCTION_URL: z.string().min(1),
-  },
+  client: {},
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
 })
