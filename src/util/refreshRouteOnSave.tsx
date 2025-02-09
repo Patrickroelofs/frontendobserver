@@ -3,6 +3,7 @@
 import { RefreshRouteOnSave as PayloadLivePreview } from '@payloadcms/live-preview-react'
 import React, { type ReactElement } from 'react'
 import { useRouter } from 'next/navigation'
+import { env } from '../../env'
 
 function RefreshRouteOnSave(): ReactElement {
   const router = useRouter()
@@ -12,7 +13,7 @@ function RefreshRouteOnSave(): ReactElement {
       refresh={() => {
         router.refresh()
       }}
-      serverURL={process.env.NEXT_PUBLIC_SERVER_URL ?? ''}
+      serverURL={env.NEXT_PUBLIC_SERVER_URL}
     />
   )
 }

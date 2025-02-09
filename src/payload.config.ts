@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { buildConfig, type PayloadRequest } from 'payload'
+import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { seoPlugin } from '@payloadcms/plugin-seo'
@@ -20,6 +20,7 @@ import { CreateMediaCollectionTask } from '@/jobs/tasks/createMediaCollectionTas
 import { ScreenshotWebpageTask } from '@/jobs/tasks/screenshotWebpageTask'
 import { CreateScreenshotAndUpdateMediaWorkflow } from '@/jobs/workflows/createScreenshotAndUpdateMediaWorkflow'
 import { ThirdPartyCollection } from '@/collections/thirdPartyCollection'
+import { env } from '../env'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -54,14 +55,6 @@ export default buildConfig({
   jobs: {
     tasks: [ScreenshotWebpageTask, UpdateMediaCollectionTask, CreateMediaCollectionTask],
     workflows: [CreateScreenshotAndUpdateMediaWorkflow],
-    access: {
-      run: ({ req }: { req: PayloadRequest }): boolean => {
-        if (req.user) return true
-
-        const authHeader = req.headers.get('Authorization')
-        return authHeader === `Bearer ${String(process.env.API_SECRET)}`
-      },
-    },
   },
   collections: [
     PagesCollection,
@@ -74,7 +67,7 @@ export default buildConfig({
   ],
   globals: [SiteSettings],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET ?? '',
+  secret: env.PAYLOAD_SECRET,
   graphQL: {
     disable: true,
     disablePlaygroundInProduction: true,
@@ -84,7 +77,7 @@ export default buildConfig({
   },
   db: vercelPostgresAdapter({
     pool: {
-      connectionString: process.env.POSTGRES_URL ?? '',
+      connectionString: env.POSTGRES_URL,
     },
   }),
   sharp,
@@ -94,7 +87,7 @@ export default buildConfig({
       collections: {
         media: true,
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN ?? '',
+      token: env.BLOB_READ_WRITE_TOKEN,
     }),
     seoPlugin({
       collections: ['pages', 'blog'],
