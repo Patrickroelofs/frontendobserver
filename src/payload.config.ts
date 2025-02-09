@@ -29,25 +29,25 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
-    livePreview: {
-      collections: [PagesCollection.slug, BlogCollection.slug],
-      url: async ({ data, collectionConfig, req }) => {
-        if (typeof collectionConfig === 'undefined') {
-          throw new Error(
-            'Collection config is undefined, something went wrong setting up the live preview',
-          )
-        }
-
-        const draft = await draftMode()
-        draft.enable()
-
-        const httpProtocol = process.env.NODE_ENV === 'production' ? 'https://' : 'http://'
-        const collectionPath = collectionConfig.slug === 'pages' ? '' : `/${collectionConfig.slug}`
-        const dataPath = data.slug === 'home' ? '' : `/${String(data.slug)}`
-
-        return `${httpProtocol}${req.host}${collectionPath}${dataPath}`
-      },
-    },
+    // livePreview: {
+    //   collections: [PagesCollection.slug, BlogCollection.slug],
+    //   url: async ({ data, collectionConfig, req }) => {
+    //     if (typeof collectionConfig === 'undefined') {
+    //       throw new Error(
+    //         'Collection config is undefined, something went wrong setting up the live preview',
+    //       )
+    //     }
+    //
+    //     const draft = await draftMode()
+    //     draft.enable()
+    //
+    //     const httpProtocol = process.env.NODE_ENV === 'production' ? 'https://' : 'http://'
+    //     const collectionPath = collectionConfig.slug === 'pages' ? '' : `/${collectionConfig.slug}`
+    //     const dataPath = data.slug === 'home' ? '' : `/${String(data.slug)}`
+    //
+    //     return `${httpProtocol}${req.host}${collectionPath}${dataPath}`
+    //   },
+    // },
   },
   jobs: {
     tasks: [ScreenshotWebpageTask, UpdateMediaCollectionTask, CreateMediaCollectionTask],
