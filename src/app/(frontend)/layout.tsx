@@ -36,22 +36,22 @@ export const metadata: Metadata = {
       {
         rel: 'icon',
         type: 'image/ico',
-        url: '/favicon/favicon.ico',
+        url: './favicon/favicon.ico',
       },
       {
         rel: 'icon',
         type: 'image/png',
-        url: '/favicon/icon.png',
+        url: './favicon/icon.png',
       },
       {
         rel: 'icon',
         type: 'image/svg',
-        url: '/favicon/icon.svg',
+        url: './favicon/icon.svg',
       },
       {
         rel: 'apple-touch-icon',
         type: 'image/png',
-        url: '/favicon/apple-touch-icon.png',
+        url: './favicon/apple-icon.png',
       },
     ],
   },
