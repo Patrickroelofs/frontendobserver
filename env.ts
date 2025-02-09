@@ -7,8 +7,10 @@ export const env = createEnv({
     PAYLOAD_SECRET: z.string().min(1),
     BLOB_READ_WRITE_TOKEN: z.string().min(1),
   },
-  clientPrefix: '',
-  client: {},
+  clientPrefix: 'NEXT_PUBLIC_',
+  client: {
+    NEXT_PUBLIC_URL: z.string().min(1),
+  },
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
 })
