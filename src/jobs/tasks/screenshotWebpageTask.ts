@@ -34,12 +34,14 @@ const ScreenshotWebpageTask = {
       const context = await browser.newContext()
       const page = await context.newPage()
       await page.goto(url)
-      const screenshot = await page.screenshot({ type: 'png' })
+      const screenshotBuffer = await page.screenshot({ type: 'png' })
       await browser.close()
+
+      const screenshotBase64 = screenshotBuffer.toString('base64')
 
       return {
         output: {
-          screenshot: String(screenshot.buffer),
+          screenshot: screenshotBase64,
         },
       }
     } catch (e) {
