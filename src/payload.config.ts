@@ -19,7 +19,6 @@ import { UpdateMediaCollectionTask } from '@/jobs/tasks/updateMediaCollectionTas
 import { CreateMediaCollectionTask } from '@/jobs/tasks/createMediaCollectionTask'
 import { ScreenshotWebpageTask } from '@/jobs/tasks/screenshotWebpageTask'
 import { CreateScreenshotAndUpdateMediaWorkflow } from '@/jobs/workflows/createScreenshotAndUpdateMediaWorkflow'
-import { env } from '../env'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -42,12 +41,11 @@ export default buildConfig({
         const draft = await draftMode()
         draft.enable()
 
-        const baseUrl = `https://${req.host}`
+        const httpProtocol = process.env.NODE_ENV === 'production' ? 'https://' : 'http://'
         const collectionPath = collectionConfig.slug === 'pages' ? '' : `/${collectionConfig.slug}`
         const dataPath = data.slug === 'home' ? '' : `/${String(data.slug)}`
 
-        console.warn('Draft Mode: ', draft.isEnabled)
-        return `${baseUrl}${collectionPath}${dataPath}`
+        return `${httpProtocol}${req.host}${collectionPath}${dataPath}`
       },
     },
   },
@@ -65,7 +63,7 @@ export default buildConfig({
   ],
   globals: [SiteSettings],
   editor: lexicalEditor(),
-  secret: env.PAYLOAD_SECRET,
+  secret: process.env.PAYLOAD_SECRET ?? '',
   graphQL: {
     disable: true,
     disablePlaygroundInProduction: true,
@@ -75,7 +73,7 @@ export default buildConfig({
   },
   db: vercelPostgresAdapter({
     pool: {
-      connectionString: env.POSTGRES_URL,
+      connectionString: process.env.POSTGRES_URL ?? '',
     },
   }),
   sharp,
@@ -85,7 +83,7 @@ export default buildConfig({
       collections: {
         media: true,
       },
-      token: env.BLOB_READ_WRITE_TOKEN,
+      token: process.env.BLOB_READ_WRITE_TOKEN ?? '',
     }),
     seoPlugin({
       collections: ['pages', 'blog'],

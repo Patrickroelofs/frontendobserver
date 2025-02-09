@@ -78,11 +78,7 @@ const BlogCollection: CollectionConfig = {
     },
   ],
   versions: {
-    drafts: {
-      autosave: {
-        interval: 375,
-      },
-    },
+    drafts: true,
   },
   hooks: {
     afterChange: [
