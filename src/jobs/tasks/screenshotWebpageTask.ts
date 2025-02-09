@@ -22,10 +22,6 @@ const ScreenshotWebpageTask = {
     const { url } = input
 
     try {
-      const validatedUrl = new URL(url)
-
-      console.log('Taking screenshot of', validatedUrl)
-
       const browser = await playwright.launch({
         args: chromium.args,
         headless: Boolean(chromium.headless),
@@ -45,7 +41,6 @@ const ScreenshotWebpageTask = {
         },
       }
     } catch (e) {
-      console.error('Failed to take screenshot', e)
       throw new Error('Failed to take screenshot')
     }
   },

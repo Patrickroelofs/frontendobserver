@@ -19,7 +19,6 @@ import { UpdateMediaCollectionTask } from '@/jobs/tasks/updateMediaCollectionTas
 import { CreateMediaCollectionTask } from '@/jobs/tasks/createMediaCollectionTask'
 import { ScreenshotWebpageTask } from '@/jobs/tasks/screenshotWebpageTask'
 import { CreateScreenshotAndUpdateMediaWorkflow } from '@/jobs/workflows/createScreenshotAndUpdateMediaWorkflow'
-import { ThirdPartyCollection } from '@/collections/thirdPartyCollection'
 import { env } from '../env'
 
 const filename = fileURLToPath(import.meta.url)
@@ -62,7 +61,6 @@ export default buildConfig({
     BlogCollection,
     AuthorsCollection,
     UsersCollection,
-    ThirdPartyCollection,
     MediaCollection,
   ],
   globals: [SiteSettings],

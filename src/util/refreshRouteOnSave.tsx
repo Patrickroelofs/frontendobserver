@@ -13,7 +13,7 @@ function RefreshRouteOnSave(): ReactElement {
       refresh={() => {
         router.refresh()
       }}
-      serverURL={env.VERCEL_PROJECT_PRODUCTION_URL}
+      serverURL={`https://${env.VERCEL_PROJECT_PRODUCTION_URL}`}
     />
   )
 }
