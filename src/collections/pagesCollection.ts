@@ -52,15 +52,11 @@ export const PagesCollection: CollectionConfig = {
       }: {
         doc: {
           slug: string
+          _status: string
         }
       }) => {
-        if (doc.slug) {
-          console.warn(`Page revalidating at: /${doc.slug}`)
-          if (doc.slug === 'home') {
-            revalidatePath('/')
-          } else {
-            revalidatePath(`/${doc.slug}`)
-          }
+        if (doc.slug && doc._status === 'published') {
+          revalidatePath('/', 'layout')
         }
       },
     ],

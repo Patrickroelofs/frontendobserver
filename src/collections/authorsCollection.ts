@@ -66,8 +66,7 @@ const AuthorsCollection: CollectionConfig = {
         }
       }) => {
         if (doc.slug) {
-          console.warn(`Page revalidating at: /author/${doc.slug}`)
-          revalidatePath(`/author/${doc.slug}`)
+          revalidatePath('/', 'layout')
         }
       },
     ],

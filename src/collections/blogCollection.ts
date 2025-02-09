@@ -87,11 +87,11 @@ const BlogCollection: CollectionConfig = {
       }: {
         doc: {
           slug: string
+          _status: string
         }
       }) => {
-        if (doc.slug) {
-          console.warn(`Page revalidating at: /blog/${doc.slug}`)
-          revalidatePath(`/blog/${doc.slug}`)
+        if (doc.slug && doc._status === 'published') {
+          revalidatePath('/', 'layout')
         }
       },
     ],
