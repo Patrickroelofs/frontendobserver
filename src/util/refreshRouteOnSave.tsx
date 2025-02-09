@@ -13,7 +13,7 @@ function RefreshRouteOnSave(): ReactElement {
       refresh={() => {
         router.refresh()
       }}
-      serverURL={env.NEXT_PUBLIC_SERVER_URL}
+      serverURL={env.NEXT_PUBLIC_SERVER_URL || env.VERCEL_PROJECT_PRODUCTION_URL}
     />
   )
 }
