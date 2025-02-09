@@ -6,10 +6,11 @@ export const env = createEnv({
     POSTGRES_URL: z.string().min(1),
     PAYLOAD_SECRET: z.string().min(1),
     BLOB_READ_WRITE_TOKEN: z.string().min(1),
+  },
+  clientPrefix: '',
+  client: {
     VERCEL_PROJECT_PRODUCTION_URL: z.string().min(1),
   },
-  clientPrefix: 'NEXT_PUBLIC_',
-  client: {},
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
 })
