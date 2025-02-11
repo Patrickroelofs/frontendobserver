@@ -1,14 +1,14 @@
 'use client'
 
 import { type ReactElement, useCallback, useState } from 'react'
-import Image from 'next/image'
 import { CaretLeft, CaretRight } from '@phosphor-icons/react/dist/ssr'
+import { Image } from '@/components/image'
 import { type CarouselType, type Media } from '@/payload-types'
 
 function CarouselClient(props: CarouselType): ReactElement {
   const { images } = props as {
     images: {
-      image: Media
+      image: Media | number
       caption?: string
       id?: string
     }[]
@@ -33,12 +33,7 @@ function CarouselClient(props: CarouselType): ReactElement {
         {images.map((img) => (
           <div className="relative w-full h-[400px] lg:h-[800px] shrink-0" key={img.id}>
             <div>
-              <Image
-                src={img.image.url ?? ''}
-                alt={img.image.alt}
-                fill
-                className="w-full h-auto object-cover"
-              />
+              <Image media={img.image} fill className="w-full h-auto object-cover" />
             </div>
             <div className="absolute z-10 text-lg left-0 bg-black text-white bottom-12 p-4 max-w-lg">
               <p className="line-clamp-2 text-pretty">{img.caption}</p>

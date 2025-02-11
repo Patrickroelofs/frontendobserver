@@ -8,12 +8,6 @@ import { CarouselBlock } from '@/blocks/Carousel/carouselBlock'
 
 export const PagesCollection: CollectionConfig = {
   slug: 'pages',
-  access: {
-    create: () => true,
-    delete: () => true,
-    update: () => true,
-    read: () => true,
-  },
   admin: {
     group: 'Content',
     description: 'A page on the website',

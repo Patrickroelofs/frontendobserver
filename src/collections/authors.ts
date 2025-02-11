@@ -4,12 +4,6 @@ import { slugField } from '@/fields/slug'
 
 const AuthorsCollection: CollectionConfig = {
   slug: 'authors',
-  access: {
-    create: () => true,
-    delete: () => true,
-    update: () => true,
-    read: () => true,
-  },
   admin: {
     group: 'Content',
     useAsTitle: 'name',

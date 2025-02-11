@@ -7,10 +7,6 @@ export const SiteSettings: GlobalConfig = {
     description: 'Site Settings',
     group: 'Administration',
   },
-  access: {
-    update: () => true,
-    read: () => true,
-  },
   fields: [
     {
       name: 'siteName',

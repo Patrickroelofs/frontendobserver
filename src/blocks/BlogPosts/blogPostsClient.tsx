@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
 import { type PaginatedDocs } from 'payload'
 import { type Blog, type Media } from '@/payload-types'
-import { BlogCard } from '@/components/ blogCard'
+import { BlogCard } from '@/components/blogCard'
 
 function BlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
   return (

@@ -7,12 +7,6 @@ export const MediaCollection: CollectionConfig = {
     group: 'Media',
     description: 'Media files',
   },
-  access: {
-    create: () => true,
-    delete: () => true,
-    update: () => true,
-    read: () => true,
-  },
   fields: [
     {
       name: 'alt',

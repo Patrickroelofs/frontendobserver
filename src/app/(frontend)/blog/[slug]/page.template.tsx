@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
-import Image from 'next/image'
-import { type Blog, type Media } from '@/payload-types'
+import { Image } from '@/components/image'
+import { type Blog } from '@/payload-types'
 import { Blocks } from '@/blocks/blocks'
 import { Author } from '@/components/author'
 
@@ -9,21 +9,16 @@ interface BlogProps {
 }
 
 function BlogTemplate(props: BlogProps): ReactElement {
-  const { title, blocks, authors } = props.page
-  const { coverImage } = props.page as {
-    coverImage: Media
-  }
+  const { title, blocks, authors, coverImage } = props.page
 
   return (
     <div>
       <header className="border-b-2 border-black">
         <div className="relative w-full h-[240px] md:h-[580px]">
           <Image
+            media={coverImage}
             placeholder="blur"
             className="object-cover bg-center"
-            src={coverImage.url ?? ''}
-            blurDataURL={coverImage.blurData ?? ''}
-            alt={coverImage.alt}
             fill
             priority
           />

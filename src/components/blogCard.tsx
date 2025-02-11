@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { ArrowBendDownRight } from '@phosphor-icons/react/dist/ssr'
 import { type ReactElement } from 'react'
 import { type Media } from '@/payload-types'
+import { Image } from '@/components/image'
 
 interface BlogCardType {
   slug: string
@@ -16,12 +16,7 @@ function BlogCard(props: BlogCardType): ReactElement {
     <article className="border-2 border-black group">
       <Link href={`/blog/${props.slug}`} className="flex flex-col h-full">
         <div className="relative w-full h-56">
-          <Image
-            fill
-            src={props.coverImage.url ?? ''}
-            alt={props.coverImage.alt}
-            className="object-cover object-center"
-          />
+          <Image fill media={props.coverImage} className="object-cover object-center" />
           <div className="bg-black z-10 absolute bottom-4 py-1 px-2 text-white">
             <span>Blog Article</span>
           </div>
