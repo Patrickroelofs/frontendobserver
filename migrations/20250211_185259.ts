@@ -14,14 +14,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   DROP TABLE "_showcase_v" CASCADE;
   DROP TABLE "payload_jobs_log" CASCADE;
   DROP TABLE "payload_jobs" CASCADE;
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_showcase_fk";
-  
-  ALTER TABLE "payload_locked_documents_rels" DROP CONSTRAINT "payload_locked_documents_rels_payload_jobs_fk";
-  
-  DROP INDEX IF EXISTS "payload_locked_documents_rels_showcase_id_idx";
-  DROP INDEX IF EXISTS "payload_locked_documents_rels_payload_jobs_id_idx";
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "showcase_id";
-  ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "payload_jobs_id";
   DROP TYPE "public"."enum_showcase_status";
   DROP TYPE "public"."enum__showcase_v_version_status";
   DROP TYPE "public"."enum_payload_jobs_log_task_slug";
