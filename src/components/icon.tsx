@@ -1,20 +1,24 @@
-import { type ReactElement } from 'react'
+import { type ComponentProps, type ComponentType, type ReactElement } from 'react'
 import * as PhosphorIcons from '@phosphor-icons/react/dist/ssr'
 
+type IconName = keyof typeof PhosphorIcons
+
 interface IconType {
-  name: unknown
+  name: IconName
+}
+
+function isValidIcon(name: string): name is IconName {
+  return name in PhosphorIcons
 }
 
 function Icon(props: IconType): ReactElement | null {
-  // @ts-expect-error - we're using the name prop to dynamically select the icon
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- we're using the name prop to dynamically select the icon
-  const IconComponent = PhosphorIcons[props.name as string]
+  if (!isValidIcon(props.name)) return null
 
-  if (!IconComponent) {
-    return null
-  }
+  const IconComponent = PhosphorIcons[props.name] as ComponentType<
+    Omit<ComponentProps<(typeof PhosphorIcons)[IconName]>, 'weights'>
+  >
 
-  return <IconComponent size={32} />
+  return <IconComponent size={32} weight="duotone" />
 }
 
 export { Icon }
