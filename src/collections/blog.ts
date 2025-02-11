@@ -1,4 +1,4 @@
-import { type CollectionConfig, type CollectionSlug, type Field } from 'payload'
+import { type CollectionConfig, type CollectionSlug } from 'payload'
 import { revalidatePath } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { RichTextBlock } from '@/blocks/RichText/richTextBlock'
