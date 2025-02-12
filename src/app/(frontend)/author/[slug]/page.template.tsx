@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react'
-import { Image } from '@/components/image'
+import { Image } from '@/components/helpers/image'
 import { type Author } from '@/payload-types'
 import { RichText } from '@/blocks/RichText/richText'
 

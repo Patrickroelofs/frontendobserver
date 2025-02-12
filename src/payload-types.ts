@@ -284,7 +284,6 @@ export interface Blog {
  */
 export interface Author {
   id: number;
-  isCompany?: boolean | null;
   slug: string;
   image?: (number | null) | Media;
   coverImage?: (number | null) | Media;
@@ -793,7 +792,6 @@ export interface CodeTypeSelect<T extends boolean = true> {
  * via the `definition` "authors_select".
  */
 export interface AuthorsSelect<T extends boolean = true> {
-  isCompany?: T;
   slug?: T;
   image?: T;
   coverImage?: T;

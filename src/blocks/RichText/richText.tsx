@@ -4,11 +4,12 @@ import { type SerializedEditorState } from '@payloadcms/richtext-lexical/lexical
 import { type RichTextType } from '@/payload-types'
 
 function RichText(props: RichTextType): ReactElement {
-  const { richText } = props as {
-    richText: SerializedEditorState
-  }
-
-  return <LexicalRichText data={richText} className="prose prose-base w-full mx-auto break-words" />
+  return (
+    <LexicalRichText
+      data={props.richText as SerializedEditorState}
+      className="prose prose-base w-full mx-auto break-words"
+    />
+  )
 }
 
 export { RichText }

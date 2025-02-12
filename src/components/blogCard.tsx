@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { ArrowBendDownRight } from '@phosphor-icons/react/dist/ssr'
 import { type ReactElement } from 'react'
 import { type Media } from '@/payload-types'
-import { Image } from '@/components/image'
+import { Image } from '@/components/helpers/image'
 
 interface BlogCardType {
   slug: string

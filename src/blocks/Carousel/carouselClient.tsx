@@ -2,7 +2,7 @@
 
 import { type ReactElement, useCallback, useState } from 'react'
 import { CaretLeft, CaretRight } from '@phosphor-icons/react/dist/ssr'
-import { Image } from '@/components/image'
+import { Image } from '@/components/helpers/image'
 import { type CarouselType, type Media } from '@/payload-types'
 
 function CarouselClient(props: CarouselType): ReactElement {

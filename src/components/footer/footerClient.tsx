@@ -1,8 +1,9 @@
 'use client'
 import React, { type ReactElement, useCallback } from 'react'
 import Link from 'next/link'
+import { RichText as LexicalRichText } from '@payloadcms/richtext-lexical/react'
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { type SiteSetting } from '@/payload-types'
-import { RichText } from '@/blocks/RichText/richText'
 import { Icon } from '@/components/icon'
 import { getNoteFrequency, playNote } from '@/util/audio'
 
@@ -16,7 +17,10 @@ function FooterClient(props: SiteSetting['footer'] & SiteSetting['social']): Rea
       <div className="container border-t-2 border-l-2 border-r-2 border-black">
         <div className="grid md:grid-cols-3">
           <div className="space-y-4 border-r-2 border-black p-4">
-            <RichText blockType="RichText" richText={props.text} />
+            <LexicalRichText
+              data={props.text as SerializedEditorState}
+              className="prose prose-base w-full mx-auto break-words"
+            />
             <nav className="flex flex-row gap-4">
               {props.socialMedia?.map((item) => (
                 <Link

@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
 import Link from 'next/link'
 import { type Author as AuthorType } from '@/payload-types'
-import { Image } from '@/components/image'
+import { Image } from '@/components/helpers/image'
 
 function Author(props: AuthorType): ReactElement {
   const { name, slug, shortBio, image } = props

@@ -21,7 +21,7 @@ export const spacingField: SpacingField = (overrides = {}) =>
       type: 'select',
       interfaceName: 'SpacingType',
       options: SpacingList,
-      defaultValue: '',
+      defaultValue: 'py-4',
       required: true,
     },
     overrides,

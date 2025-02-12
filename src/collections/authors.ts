@@ -11,15 +11,6 @@ const AuthorsCollection: CollectionConfig = {
     defaultColumns: ['name', 'isCompany'],
   },
   fields: [
-    {
-      name: 'isCompany',
-      type: 'checkbox',
-      label: 'This author is a company.',
-      defaultValue: false,
-      admin: {
-        position: 'sidebar',
-      },
-    },
     slugField({
       trackingField: 'name',
     }),

@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react'
-import { Image } from '@/components/image'
+import { Image } from '@/components/helpers/image'
 import { type HeroType } from '@/payload-types'
 
 function Hero(props: HeroType): ReactElement {
