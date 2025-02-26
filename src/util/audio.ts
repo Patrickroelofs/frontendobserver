@@ -26,7 +26,7 @@ function playNote(frequency: number): void {
 }
 
 function getNoteFrequency(index: number): number {
-  return 261.63 * Math.pow(2, index / 12);
+  return 261.63 * 2 ** (index / 12);
 }
 
 export { playNote, getNoteFrequency };

@@ -70,6 +70,7 @@ function CarouselClient(props: CarouselType): ReactElement {
         {images.map((_, index) => (
           <button
             type="button"
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             key={index}
             onClick={() => {
               setCurrentIndex(index);

@@ -55,6 +55,7 @@ function FooterClient(
             >
               {Array.from("Frontend Observer").map((char, index) => (
                 <span
+                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                   key={index}
                   className="inline-block transition-all duration-300 ease-in-out hover:-translate-y-2"
                   onMouseEnter={() => {

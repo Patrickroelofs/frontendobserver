@@ -13,6 +13,7 @@ async function Code(props: CodeType): Promise<ReactElement> {
   return (
     <div
       className="p-4 bg-[#1E1E1E] text-sm overflow-x-auto"
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
       dangerouslySetInnerHTML={{
         __html: html,
       }}
