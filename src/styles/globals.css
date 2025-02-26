@@ -1,11 +1,11 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @theme {
   --color-ginger: rgba(249, 228, 214, 1);
   --color-redleather: rgba(173, 76, 78, 1);
-  --font-sans: 'Inter', sans-serif;
-  --font-serif: 'Literata Variable', serif;
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Literata Variable", serif;
 }
 
 @layer base {

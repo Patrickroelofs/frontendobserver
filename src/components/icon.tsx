@@ -1,24 +1,24 @@
-import { type ComponentProps, type ComponentType, type ReactElement } from 'react'
-import * as PhosphorIcons from '@phosphor-icons/react/dist/ssr'
+import * as PhosphorIcons from "@phosphor-icons/react/dist/ssr";
+import type { ComponentProps, ComponentType, ReactElement } from "react";
 
-type IconName = keyof typeof PhosphorIcons
+type IconName = keyof typeof PhosphorIcons;
 
 interface IconType {
-  name: IconName
+  name: IconName;
 }
 
 function isValidIcon(name: string): name is IconName {
-  return name in PhosphorIcons
+  return name in PhosphorIcons;
 }
 
 function Icon(props: IconType): ReactElement | null {
-  if (!isValidIcon(props.name)) return null
+  if (!isValidIcon(props.name)) return null;
 
   const IconComponent = PhosphorIcons[props.name] as ComponentType<
-    Omit<ComponentProps<(typeof PhosphorIcons)[IconName]>, 'weights'>
-  >
+    Omit<ComponentProps<(typeof PhosphorIcons)[IconName]>, "weights">
+  >;
 
-  return <IconComponent size={32} weight="duotone" />
+  return <IconComponent size={32} weight="duotone" />;
 }
 
-export { Icon }
+export { Icon };

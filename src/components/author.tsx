@@ -1,13 +1,16 @@
-import { type ReactElement } from 'react'
-import Link from 'next/link'
-import { type Author as AuthorType } from '@/payload-types'
-import { Image } from '@/components/helpers/image'
+import { Image } from "@/components/helpers/image";
+import type { Author as AuthorType } from "@/payload-types";
+import Link from "next/link";
+import type { ReactElement } from "react";
 
 function Author(props: AuthorType): ReactElement {
-  const { name, slug, shortBio, image } = props
+  const { name, slug, shortBio, image } = props;
 
   return (
-    <Link href={`/author/${slug}`} className="flex flex-row gap-4 items-center text-lg">
+    <Link
+      href={`/author/${slug}`}
+      className="flex flex-row gap-4 items-center text-lg"
+    >
       {image ? (
         <Image media={image} width={85} height={85} />
       ) : (
@@ -20,7 +23,7 @@ function Author(props: AuthorType): ReactElement {
         <span className="block text-sm">{shortBio}</span>
       </p>
     </Link>
-  )
+  );
 }
 
-export { Author }
+export { Author };

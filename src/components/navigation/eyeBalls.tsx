@@ -1,117 +1,130 @@
-'use client'
+"use client";
 
-import { type ReactElement, useEffect, useRef, useState } from 'react'
+import { type ReactElement, useEffect, useRef, useState } from "react";
 
 function EyeBalls(): ReactElement {
-  const svgRef = useRef<SVGSVGElement>(null)
-  const eyeBallLeftRef = useRef<SVGPathElement>(null)
-  const eyeBallRightRef = useRef<SVGPathElement>(null)
-  const [leftEyePosition, setLeftEyePosition] = useState({ x: 0, y: 0 })
-  const [rightEyePosition, setRightEyePosition] = useState({ x: 0, y: 0 })
-  const [isSelected, setIsSelected] = useState(false)
-  const [isShaking, setIsShaking] = useState(false)
-  const [shakeOffset, setShakeOffset] = useState({ x: 0, y: 0 })
+  const svgRef = useRef<SVGSVGElement>(null);
+  const eyeBallLeftRef = useRef<SVGPathElement>(null);
+  const eyeBallRightRef = useRef<SVGPathElement>(null);
+  const [leftEyePosition, setLeftEyePosition] = useState({ x: 0, y: 0 });
+  const [rightEyePosition, setRightEyePosition] = useState({ x: 0, y: 0 });
+  const [isSelected, setIsSelected] = useState(false);
+  const [isShaking, setIsShaking] = useState(false);
+  const [shakeOffset, setShakeOffset] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent): void => {
       if (svgRef.current && eyeBallLeftRef.current && eyeBallRightRef.current) {
-        const eyeBallLeftRect = eyeBallLeftRef.current.getBoundingClientRect()
-        const eyeBallRightRect = eyeBallRightRef.current.getBoundingClientRect()
+        const eyeBallLeftRect = eyeBallLeftRef.current.getBoundingClientRect();
+        const eyeBallRightRect =
+          eyeBallRightRef.current.getBoundingClientRect();
 
         const calculateEyePosition = (eyeBallRect: DOMRect) => {
-          const eyeBallCenterX = eyeBallRect.left + eyeBallRect.width / 2
-          const eyeBallCenterY = eyeBallRect.top + eyeBallRect.height / 2
+          const eyeBallCenterX = eyeBallRect.left + eyeBallRect.width / 2;
+          const eyeBallCenterY = eyeBallRect.top + eyeBallRect.height / 2;
 
-          const angle = Math.atan2(event.clientY - eyeBallCenterY, event.clientX - eyeBallCenterX)
+          const angle = Math.atan2(
+            event.clientY - eyeBallCenterY,
+            event.clientX - eyeBallCenterX,
+          );
           const distance = Math.min(
             eyeBallRect.width / 2,
-            Math.hypot(event.clientX - eyeBallCenterX, event.clientY - eyeBallCenterY),
-          )
+            Math.hypot(
+              event.clientX - eyeBallCenterX,
+              event.clientY - eyeBallCenterY,
+            ),
+          );
 
           return {
             x: Math.cos(angle) * distance,
             y: Math.sin(angle) * distance,
-          }
-        }
+          };
+        };
 
-        setLeftEyePosition(calculateEyePosition(eyeBallLeftRect))
-        setRightEyePosition(calculateEyePosition(eyeBallRightRect))
+        setLeftEyePosition(calculateEyePosition(eyeBallLeftRect));
+        setRightEyePosition(calculateEyePosition(eyeBallRightRect));
       }
-    }
+    };
 
     const handleSelectStart = (): void => {
-      setIsSelected(true)
-    }
+      setIsSelected(true);
+    };
 
     const handleSelectEnd = (): void => {
-      setIsSelected(false)
-    }
+      setIsSelected(false);
+    };
 
     const handleHoverStart = (event: MouseEvent): void => {
       if (event.target instanceof Element) {
-        let currentElement: Element | null = event.target
+        let currentElement: Element | null = event.target;
 
-        while (currentElement && !['a', 'button'].includes(currentElement.tagName.toLowerCase())) {
-          currentElement = currentElement.parentElement
+        while (
+          currentElement &&
+          !["a", "button"].includes(currentElement.tagName.toLowerCase())
+        ) {
+          currentElement = currentElement.parentElement;
         }
 
-        if (currentElement && ['a', 'button'].includes(currentElement.tagName.toLowerCase())) {
-          setIsShaking(true)
+        if (
+          currentElement &&
+          ["a", "button"].includes(currentElement.tagName.toLowerCase())
+        ) {
+          setIsShaking(true);
         }
       }
-    }
+    };
 
     const handleHoverEnd = (): void => {
-      setIsShaking(false)
-    }
+      setIsShaking(false);
+    };
 
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('selectstart', handleSelectStart)
-    window.addEventListener('selectend', handleSelectEnd)
-    window.addEventListener('mouseup', handleSelectEnd)
-    window.addEventListener('mouseover', handleHoverStart)
-    window.addEventListener('mouseout', handleHoverEnd)
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("selectstart", handleSelectStart);
+    window.addEventListener("selectend", handleSelectEnd);
+    window.addEventListener("mouseup", handleSelectEnd);
+    window.addEventListener("mouseover", handleHoverStart);
+    window.addEventListener("mouseout", handleHoverEnd);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('selectstart', handleSelectStart)
-      window.removeEventListener('selectend', handleSelectEnd)
-      window.removeEventListener('mouseup', handleSelectEnd)
-      window.removeEventListener('mouseover', handleHoverStart)
-      window.removeEventListener('mouseout', handleHoverEnd)
-    }
-  }, [])
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("selectstart", handleSelectStart);
+      window.removeEventListener("selectend", handleSelectEnd);
+      window.removeEventListener("mouseup", handleSelectEnd);
+      window.removeEventListener("mouseover", handleHoverStart);
+      window.removeEventListener("mouseout", handleHoverEnd);
+    };
+  }, []);
 
   useEffect(() => {
-    let animationFrameId: number
+    let animationFrameId: number;
 
     const shakeEyeballs = () => {
       if (isShaking) {
         setShakeOffset({
           x: (Math.random() - 0.5) * 4,
           y: (Math.random() - 0.5) * 4,
-        })
-        animationFrameId = requestAnimationFrame(shakeEyeballs)
+        });
+        animationFrameId = requestAnimationFrame(shakeEyeballs);
       } else {
-        setShakeOffset({ x: 0, y: 0 })
+        setShakeOffset({ x: 0, y: 0 });
       }
-    }
+    };
 
     if (isShaking) {
-      shakeEyeballs()
+      shakeEyeballs();
     }
 
     return () => {
       if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId)
+        cancelAnimationFrame(animationFrameId);
       }
-    }
-  }, [isShaking])
+    };
+  }, [isShaking]);
 
   return (
     <svg
       className={`absolute top-8 drop-shadow-xl block transition-transform duration-300 ${
-        isSelected ? 'scale-[1.35]' : ''
+        isSelected ? "scale-[1.35]" : ""
       }`}
       ref={svgRef}
       width="85"
@@ -165,7 +178,7 @@ function EyeBalls(): ReactElement {
         />
       </g>
     </svg>
-  )
+  );
 }
 
-export { EyeBalls }
+export { EyeBalls };

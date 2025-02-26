@@ -1,20 +1,20 @@
-import { type ComponentType, type ReactElement } from 'react'
-import {
-  type AboutSectionType,
-  type BlogPostsType,
-  type CarouselType,
-  type CodeType,
-  type HeroType,
-  type RichTextType,
-  type TitleWithBlocksType,
-} from '@/payload-types'
-import { RichText } from '@/blocks/RichText/richText'
-import { Code } from '@/blocks/Code/code'
-import { Hero } from '@/blocks/Hero/hero'
-import { AboutSection } from '@/blocks/AboutSection/aboutSection'
-import { TitleWithBlocks } from '@/blocks/TitleWithBlocks/titleWithBlocks'
-import { BlogPosts } from '@/blocks/BlogPosts/blogPosts'
-import { Carousel } from '@/blocks/Carousel/carousel'
+import { AboutSection } from "@/blocks/AboutSection/aboutSection";
+import { BlogPosts } from "@/blocks/BlogPosts/blogPosts";
+import { Carousel } from "@/blocks/Carousel/carousel";
+import { Code } from "@/blocks/Code/code";
+import { Hero } from "@/blocks/Hero/hero";
+import { RichText } from "@/blocks/RichText/richText";
+import { TitleWithBlocks } from "@/blocks/TitleWithBlocks/titleWithBlocks";
+import type {
+  AboutSectionType,
+  BlogPostsType,
+  CarouselType,
+  CodeType,
+  HeroType,
+  RichTextType,
+  TitleWithBlocksType,
+} from "@/payload-types";
+import type { ComponentType, ReactElement } from "react";
 
 interface BlocksProps {
   blocks:
@@ -28,7 +28,7 @@ interface BlocksProps {
         | CarouselType
       )[]
     | null
-    | undefined
+    | undefined;
 }
 
 const blockComponents = {
@@ -39,28 +39,28 @@ const blockComponents = {
   TitleWithBlocks,
   BlogPosts,
   Carousel,
-}
+};
 
 function Blocks({ blocks }: BlocksProps): ReactElement | null {
   if (blocks === null || blocks === undefined) {
-    return null
+    return null;
   }
 
   return (
     <>
       {blocks.map((block) => {
-        const { blockType } = block
+        const { blockType } = block;
 
         if (blockType in blockComponents) {
-          const BlockComponent = blockComponents[blockType] as ComponentType
+          const BlockComponent = blockComponents[blockType] as ComponentType;
 
-          return <BlockComponent key={block.id} {...block} />
+          return <BlockComponent key={block.id} {...block} />;
         }
 
-        return null
+        return null;
       })}
     </>
-  )
+  );
 }
 
-export { Blocks }
+export { Blocks };

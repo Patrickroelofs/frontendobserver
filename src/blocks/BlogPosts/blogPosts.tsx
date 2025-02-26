@@ -1,23 +1,23 @@
-import { type ReactElement } from 'react'
-import { payload } from '@/util/getPayloadConfig'
-import { type BlogPostsType } from '@/payload-types'
-import { BlogPostsClient } from '@/blocks/BlogPosts/blogPostsClient'
+import { BlogPostsClient } from "@/blocks/BlogPosts/blogPostsClient";
+import type { BlogPostsType } from "@/payload-types";
+import { payload } from "@/util/getPayloadConfig";
+import type { ReactElement } from "react";
 
 async function BlogPosts(props: BlogPostsType): Promise<ReactElement> {
   const blogPosts = await payload.find({
-    collection: 'blog',
+    collection: "blog",
     limit: props.limit === 0 ? undefined : props.limit,
     where: {
       featured: {
         equals: true,
       },
       _status: {
-        equals: 'published',
+        equals: "published",
       },
     },
-  })
+  });
 
-  return <BlogPostsClient {...blogPosts} />
+  return <BlogPostsClient {...blogPosts} />;
 }
 
-export { BlogPosts }
+export { BlogPosts };

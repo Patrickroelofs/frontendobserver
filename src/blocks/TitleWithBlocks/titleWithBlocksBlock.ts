@@ -1,63 +1,63 @@
-import type { Block } from 'payload'
-import { BlogPostsBlock } from '@/blocks/BlogPosts/blogPostsBlock'
+import { BlogPostsBlock } from "@/blocks/BlogPosts/blogPostsBlock";
+import type { Block } from "payload";
 
 export const TitleWithBlocksBlock: Block = {
-  slug: 'TitleWithBlocks',
-  interfaceName: 'TitleWithBlocksType',
+  slug: "TitleWithBlocks",
+  interfaceName: "TitleWithBlocksType",
   fields: [
     {
-      name: 'title',
-      label: 'Title',
-      type: 'text',
+      name: "title",
+      label: "Title",
+      type: "text",
       required: true,
     },
     {
-      name: 'blocks',
-      label: 'Blocks',
-      type: 'blocks',
+      name: "blocks",
+      label: "Blocks",
+      type: "blocks",
       required: true,
       blocks: [BlogPostsBlock],
     },
     {
-      label: 'button',
-      type: 'collapsible',
+      label: "button",
+      type: "collapsible",
       fields: [
         {
-          name: 'showButton',
-          type: 'checkbox',
+          name: "showButton",
+          type: "checkbox",
           defaultValue: false,
         },
         {
-          name: 'buttonText',
-          type: 'text',
+          name: "buttonText",
+          type: "text",
           required: false,
           admin: {
             condition: (
               _,
               siblingData: Partial<{
-                showButton: boolean
+                showButton: boolean;
               }>,
             ): boolean => {
-              return siblingData.showButton ?? false
+              return siblingData.showButton ?? false;
             },
           },
         },
         {
-          name: 'buttonLink',
-          type: 'text',
+          name: "buttonLink",
+          type: "text",
           required: false,
           admin: {
             condition: (
               _,
               siblingData: Partial<{
-                showButton: boolean
+                showButton: boolean;
               }>,
             ): boolean => {
-              return siblingData.showButton ?? false
+              return siblingData.showButton ?? false;
             },
           },
         },
       ],
     },
   ],
-}
+};

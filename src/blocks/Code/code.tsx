@@ -1,14 +1,14 @@
-import { type ReactElement } from 'react'
-import { codeToHtml } from 'shiki'
-import { type CodeType } from '@/payload-types'
+import type { CodeType } from "@/payload-types";
+import type { ReactElement } from "react";
+import { codeToHtml } from "shiki";
 
 async function Code(props: CodeType): Promise<ReactElement> {
-  const { code, codeLanguage } = props
+  const { code, codeLanguage } = props;
 
   const html = await codeToHtml(code, {
     lang: codeLanguage,
-    theme: 'dark-plus',
-  })
+    theme: "dark-plus",
+  });
 
   return (
     <div
@@ -17,7 +17,7 @@ async function Code(props: CodeType): Promise<ReactElement> {
         __html: html,
       }}
     />
-  )
+  );
 }
 
-export { Code }
+export { Code };
