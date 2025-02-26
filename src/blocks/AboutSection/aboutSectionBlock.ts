@@ -1,60 +1,60 @@
-import { type Block } from 'payload'
+import type { Block } from "payload";
 
 export const AboutSectionBlock: Block = {
-  slug: 'AboutSection',
-  interfaceName: 'AboutSectionType',
+  slug: "AboutSection",
+  interfaceName: "AboutSectionType",
   fields: [
     {
-      name: 'title',
-      type: 'text',
+      name: "title",
+      type: "text",
       required: true,
-      defaultValue: 'About',
+      defaultValue: "About",
     },
     {
-      name: 'content',
-      type: 'richText',
+      name: "content",
+      type: "richText",
       required: true,
     },
     {
-      label: 'button',
-      type: 'collapsible',
+      label: "button",
+      type: "collapsible",
       fields: [
         {
-          name: 'showButton',
-          type: 'checkbox',
+          name: "showButton",
+          type: "checkbox",
           defaultValue: false,
         },
         {
-          name: 'buttonText',
-          type: 'text',
+          name: "buttonText",
+          type: "text",
           required: false,
           admin: {
             condition: (
               _,
               siblingData: Partial<{
-                showButton: boolean
+                showButton: boolean;
               }>,
             ): boolean => {
-              return siblingData.showButton ?? false
+              return siblingData.showButton ?? false;
             },
           },
         },
         {
-          name: 'buttonLink',
-          type: 'text',
+          name: "buttonLink",
+          type: "text",
           required: false,
           admin: {
             condition: (
               _,
               siblingData: Partial<{
-                showButton: boolean
+                showButton: boolean;
               }>,
             ): boolean => {
-              return siblingData.showButton ?? false
+              return siblingData.showButton ?? false;
             },
           },
         },
       ],
     },
   ],
-}
+};

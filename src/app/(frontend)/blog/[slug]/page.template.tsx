@@ -1,15 +1,15 @@
-import { type ReactElement } from 'react'
-import { Image } from '@/components/helpers/image'
-import { type Blog } from '@/payload-types'
-import { Blocks } from '@/blocks/blocks'
-import { Author } from '@/components/author'
+import { Blocks } from "@/blocks/blocks";
+import { Author } from "@/components/author";
+import { Image } from "@/components/helpers/image";
+import type { Blog } from "@/payload-types";
+import type { ReactElement } from "react";
 
 interface BlogProps {
-  page: Blog
+  page: Blog;
 }
 
 function BlogTemplate(props: BlogProps): ReactElement {
-  const { title, blocks, authors, coverImage } = props.page
+  const { title, blocks, authors, coverImage } = props.page;
 
   return (
     <div>
@@ -34,15 +34,15 @@ function BlogTemplate(props: BlogProps): ReactElement {
         <div className="row-start-1 md:row-start-none md:col-start-3 md:col-end-3">
           <div className="border-b-2 border-black sticky top-[67px]">
             {authors.map((author) => {
-              if (typeof author === 'number') return null
+              if (typeof author === "number") return null;
 
-              return <Author key={author.id} {...author} />
+              return <Author key={author.id} {...author} />;
             })}
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export { BlogTemplate }
+export { BlogTemplate };

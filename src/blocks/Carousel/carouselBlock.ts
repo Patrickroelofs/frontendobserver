@@ -1,36 +1,36 @@
-import { type Block } from 'payload'
+import type { Block } from "payload";
 
 export const CarouselBlock: Block = {
-  slug: 'Carousel',
-  interfaceName: 'CarouselType',
+  slug: "Carousel",
+  interfaceName: "CarouselType",
   labels: {
-    singular: 'Carousel',
-    plural: 'Carousels',
+    singular: "Carousel",
+    plural: "Carousels",
   },
   fields: [
     {
-      name: 'images',
-      type: 'array',
-      label: 'Carousel Images',
+      name: "images",
+      type: "array",
+      label: "Carousel Images",
       minRows: 1,
       maxRows: 10,
       labels: {
-        singular: 'Image',
-        plural: 'Images',
+        singular: "Image",
+        plural: "Images",
       },
       fields: [
         {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
+          name: "image",
+          type: "upload",
+          relationTo: "media",
           required: true,
         },
         {
-          name: 'caption',
-          type: 'text',
+          name: "caption",
+          type: "text",
           required: false,
         },
       ],
     },
   ],
-}
+};

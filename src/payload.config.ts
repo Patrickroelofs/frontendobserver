@@ -1,21 +1,21 @@
-import { fileURLToPath } from 'node:url'
-import path from 'node:path'
-import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { buildConfig } from 'payload'
-import sharp from 'sharp'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
-import { seoPlugin } from '@payloadcms/plugin-seo'
-import { SiteSettings } from '@/globals/siteSettings'
-import { UsersCollection } from '@/collections/users'
-import { PagesCollection } from '@/collections/pages'
-import { BlogCollection } from '@/collections/blog'
-import { AuthorsCollection } from '@/collections/authors'
-import { MediaCollection } from '@/collections/media'
-import { type Blog, type Page } from '@/payload-types'
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { postgresAdapter } from "@payloadcms/db-postgres";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { buildConfig } from "payload";
+import sharp from "sharp";
 
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+import { AuthorsCollection } from "@/collections/authors";
+import { BlogCollection } from "@/collections/blog";
+import { MediaCollection } from "@/collections/media";
+import { PagesCollection } from "@/collections/pages";
+import { UsersCollection } from "@/collections/users";
+import { SiteSettings } from "@/globals/siteSettings";
+import type { Blog, Page } from "@/payload-types";
+import { seoPlugin } from "@payloadcms/plugin-seo";
+
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 export default buildConfig({
   admin: {
@@ -33,43 +33,39 @@ export default buildConfig({
   ],
   globals: [SiteSettings],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET ?? '',
+  secret: process.env.PAYLOAD_SECRET ?? "",
   graphQL: {
     disable: true,
     disablePlaygroundInProduction: true,
   },
   typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
+    outputFile: path.resolve(dirname, "payload-types.ts"),
   },
-  db: vercelPostgresAdapter({
+  db: postgresAdapter({
     pool: {
-      connectionString: process.env.POSTGRES_URL ?? '',
+      connectionString:
+        process.env.IS_BUILD === "true"
+          ? process.env.DATABASE_PUBLIC_URL
+          : process.env.DATABASE_URL,
     },
   }),
   sharp,
   plugins: [
-    vercelBlobStorage({
-      enabled: true,
-      collections: {
-        media: true,
-      },
-      token: process.env.BLOB_READ_WRITE_TOKEN ?? '',
-    }),
     seoPlugin({
       collections: [PagesCollection.slug, BlogCollection.slug],
       uploadsCollection: MediaCollection.slug,
-      interfaceName: 'SeoType',
+      interfaceName: "SeoType",
       tabbedUI: true,
       generateTitle: ({ doc }) => {
-        const { title } = doc as Page | Blog
+        const { title } = doc as Page | Blog;
 
-        return `${String(title)} | Frontend Observer`
+        return `${String(title)} | Frontend Observer`;
       },
       generateDescription: ({ doc }) => {
-        const { description } = doc as Page | Blog
+        const { description } = doc as Page | Blog;
 
-        return String(description)
+        return String(description);
       },
     }),
   ],
-})
+});

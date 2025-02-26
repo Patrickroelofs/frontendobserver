@@ -1,67 +1,67 @@
-import type { GlobalConfig } from 'payload'
-import { iconField } from '@/fields/icons'
+import { iconField } from "@/fields/icons";
+import type { GlobalConfig } from "payload";
 
 export const SiteSettings: GlobalConfig = {
-  slug: 'siteSettings',
+  slug: "siteSettings",
   admin: {
-    description: 'Site Settings',
-    group: 'Administration',
+    description: "Site Settings",
+    group: "Administration",
   },
   fields: [
     {
-      name: 'siteName',
-      type: 'text',
+      name: "siteName",
+      type: "text",
       required: true,
     },
     {
-      type: 'tabs',
+      type: "tabs",
       tabs: [
         {
-          name: 'social',
+          name: "social",
           fields: [
             {
-              name: 'socialMedia',
-              type: 'array',
+              name: "socialMedia",
+              type: "array",
               fields: [
                 iconField(),
                 {
-                  name: 'label',
-                  type: 'text',
+                  name: "label",
+                  type: "text",
                   required: true,
                 },
                 {
-                  name: 'link',
-                  type: 'text',
+                  name: "link",
+                  type: "text",
                 },
               ],
             },
           ],
         },
         {
-          name: 'navigation',
+          name: "navigation",
           fields: [
             {
-              name: 'links',
-              type: 'array',
+              name: "links",
+              type: "array",
               required: true,
               fields: [
                 {
-                  type: 'row',
+                  type: "row",
                   fields: [
                     {
-                      name: 'label',
-                      type: 'text',
+                      name: "label",
+                      type: "text",
                       required: true,
                       admin: {
-                        width: '50%',
+                        width: "50%",
                       },
                     },
                     {
-                      name: 'link',
-                      type: 'text',
+                      name: "link",
+                      type: "text",
                       required: true,
                       admin: {
-                        width: '50%',
+                        width: "50%",
                       },
                     },
                   ],
@@ -71,34 +71,34 @@ export const SiteSettings: GlobalConfig = {
           ],
         },
         {
-          name: 'footer',
+          name: "footer",
           fields: [
             {
-              name: 'text',
-              type: 'richText',
+              name: "text",
+              type: "richText",
             },
             {
-              name: 'links',
-              type: 'array',
+              name: "links",
+              type: "array",
               required: true,
               fields: [
                 {
-                  type: 'row',
+                  type: "row",
                   fields: [
                     {
-                      name: 'label',
-                      type: 'text',
+                      name: "label",
+                      type: "text",
                       required: true,
                       admin: {
-                        width: '50%',
+                        width: "50%",
                       },
                     },
                     {
-                      name: 'link',
-                      type: 'text',
+                      name: "link",
+                      type: "text",
                       required: true,
                       admin: {
-                        width: '50%',
+                        width: "50%",
                       },
                     },
                   ],
@@ -110,4 +110,4 @@ export const SiteSettings: GlobalConfig = {
       ],
     },
   ],
-}
+};

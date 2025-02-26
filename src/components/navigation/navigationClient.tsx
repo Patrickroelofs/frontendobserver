@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import { type ReactElement } from 'react'
-import { type SiteSetting } from '@/payload-types'
-import { EyeBalls } from '@/components/navigation/eyeBalls'
+import { EyeBalls } from "@/components/navigation/eyeBalls";
+import type { SiteSetting } from "@/payload-types";
+import Link from "next/link";
+import type { ReactElement } from "react";
 
-function NavigationClient(props: SiteSetting['navigation']): ReactElement {
+function NavigationClient(props: SiteSetting["navigation"]): ReactElement {
   return (
     <nav className="sticky top-0 mt-12 z-50">
       <div className="relative container mx-auto grid grid-cols-3 border-2 bg-ginger border-black py-4 items-center">
@@ -24,13 +24,13 @@ function NavigationClient(props: SiteSetting['navigation']): ReactElement {
                     {item.label}
                   </Link>
                 </li>
-              )
+              );
             })}
           </ul>
         </div>
       </div>
     </nav>
-  )
+  );
 }
 
-export { NavigationClient }
+export { NavigationClient };
