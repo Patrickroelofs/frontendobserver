@@ -1,15 +1,15 @@
-import { type ReactElement } from 'react'
-import { type PaginatedDocs } from 'payload'
-import { type Blog, type Media } from '@/payload-types'
-import { BlogCard } from '@/components/blogCard'
+import { BlogCard } from "@/components/blogCard";
+import type { Blog, Media } from "@/payload-types";
+import type { PaginatedDocs } from "payload";
+import type { ReactElement } from "react";
 
 function BlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       {props.docs.map((post) => {
         const { coverImage } = post as {
-          coverImage: Media
-        }
+          coverImage: Media;
+        };
 
         return (
           <BlogCard
@@ -19,10 +19,10 @@ function BlogPostsClient(props: PaginatedDocs<Blog>): ReactElement {
             excerpt={post.description}
             name={post.title}
           />
-        )
+        );
       })}
     </div>
-  )
+  );
 }
 
-export { BlogPostsClient }
+export { BlogPostsClient };

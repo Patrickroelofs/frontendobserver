@@ -1,13 +1,13 @@
-import { type ReactElement } from 'react'
-import { type Page } from '@/payload-types'
-import { Blocks } from '@/blocks/blocks'
+import { Blocks } from "@/blocks/blocks";
+import type { Page } from "@/payload-types";
+import type { ReactElement } from "react";
 
 interface PageProps {
-  page: Page
+  page: Page;
 }
 
 function PageTemplate(props: PageProps): ReactElement {
-  return <Blocks blocks={props.page.blocks} />
+  return <Blocks blocks={props.page.blocks} />;
 }
 
-export { PageTemplate }
+export { PageTemplate };

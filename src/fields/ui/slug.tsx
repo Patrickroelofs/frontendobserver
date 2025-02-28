@@ -1,42 +1,49 @@
-'use client'
+"use client";
 
-import React, { type ChangeEvent, type ReactElement, useEffect, useRef } from 'react'
-import { TextInput, useField } from '@payloadcms/ui'
-import { toKebabCase } from 'payload/shared'
+import { TextInput, useField } from "@payloadcms/ui";
+import { toKebabCase } from "payload/shared";
+import React, {
+  type ChangeEvent,
+  type ReactElement,
+  useEffect,
+  useRef,
+} from "react";
 
 export interface SlugInputProps {
-  trackingField: string
+  trackingField: string;
 }
 
 function SlugInput(props: SlugInputProps): ReactElement {
-  const { trackingField } = props
+  const { trackingField } = props;
 
-  const { value: slugValue = '', setValue: setSlugValue } = useField<string>({
-    path: 'slug',
-  })
+  const { value: slugValue = "", setValue: setSlugValue } = useField<string>({
+    path: "slug",
+  });
 
   const { value: trackingFieldValue } = useField<string>({
     path: trackingField,
-  })
+  });
 
-  const prevTrackingFieldValueRef = useRef(trackingFieldValue)
-  const stopTrackingRef = useRef(false)
+  const prevTrackingFieldValueRef = useRef(trackingFieldValue);
+  const stopTrackingRef = useRef(false);
 
   useEffect(() => {
     if (!trackingField || stopTrackingRef.current) {
-      return
+      return;
     }
     if (trackingFieldValue === prevTrackingFieldValueRef.current) {
-      return
+      return;
     }
-    const prevSlugValue = toKebabCase(prevTrackingFieldValueRef.current || '') as string
+    const prevSlugValue = toKebabCase(
+      prevTrackingFieldValueRef.current || "",
+    ) as string;
 
-    prevTrackingFieldValueRef.current = trackingFieldValue
+    prevTrackingFieldValueRef.current = trackingFieldValue;
     if (prevSlugValue !== slugValue) {
-      return
+      return;
     }
-    setSlugValue(toKebabCase(trackingFieldValue))
-  }, [setSlugValue, slugValue, trackingField, trackingFieldValue])
+    setSlugValue(toKebabCase(trackingFieldValue));
+  }, [setSlugValue, slugValue, trackingField, trackingFieldValue]);
 
   return (
     <div className="slugFieldWrapper">
@@ -51,12 +58,12 @@ function SlugInput(props: SlugInputProps): ReactElement {
         }
         value={slugValue}
         onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          setSlugValue(e.target.value)
-          stopTrackingRef.current = true
+          setSlugValue(e.target.value);
+          stopTrackingRef.current = true;
         }}
       />
     </div>
-  )
+  );
 }
 
-export { SlugInput }
+export { SlugInput };

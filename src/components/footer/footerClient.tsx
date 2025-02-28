@@ -1,16 +1,18 @@
-'use client'
-import React, { type ReactElement, useCallback } from 'react'
-import Link from 'next/link'
-import { RichText as LexicalRichText } from '@payloadcms/richtext-lexical/react'
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
-import { type SiteSetting } from '@/payload-types'
-import { Icon } from '@/components/icon'
-import { getNoteFrequency, playNote } from '@/util/audio'
+"use client";
+import { Icon } from "@/components/icon";
+import type { SiteSetting } from "@/payload-types";
+import { getNoteFrequency, playNote } from "@/util/audio";
+import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
+import { RichText as LexicalRichText } from "@payloadcms/richtext-lexical/react";
+import Link from "next/link";
+import React, { type ReactElement, useCallback } from "react";
 
-function FooterClient(props: SiteSetting['footer'] & SiteSetting['social']): ReactElement {
+function FooterClient(
+  props: SiteSetting["footer"] & SiteSetting["social"],
+): ReactElement {
   const handleMouseEnter = useCallback((index: number) => {
-    playNote(getNoteFrequency(index))
-  }, [])
+    playNote(getNoteFrequency(index));
+  }, []);
 
   return (
     <footer>
@@ -25,7 +27,7 @@ function FooterClient(props: SiteSetting['footer'] & SiteSetting['social']): Rea
               {props.socialMedia?.map((item) => (
                 <Link
                   key={item.id}
-                  href={item.link ?? ''}
+                  href={item.link ?? ""}
                   target="_blank"
                   className="hover:underline inline-flex text-lg items-center gap-2"
                 >
@@ -44,19 +46,20 @@ function FooterClient(props: SiteSetting['footer'] & SiteSetting['social']): Rea
                       {item.label}
                     </Link>
                   </li>
-                )
+                );
               })}
             </ul>
             <Link
               href="#"
               className="text-4xl xl:text-6xl 2xl:text-8xl font-black text-center mb-6"
             >
-              {Array.from('Frontend Observer').map((char, index) => (
+              {Array.from("Frontend Observer").map((char, index) => (
                 <span
+                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                   key={index}
                   className="inline-block transition-all duration-300 ease-in-out hover:-translate-y-2"
                   onMouseEnter={() => {
-                    handleMouseEnter(index)
+                    handleMouseEnter(index);
                   }}
                 >
                   {char}
@@ -67,7 +70,7 @@ function FooterClient(props: SiteSetting['footer'] & SiteSetting['social']): Rea
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
-export { FooterClient }
+export { FooterClient };

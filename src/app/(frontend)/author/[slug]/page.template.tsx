@@ -1,14 +1,14 @@
-import { type ReactElement } from 'react'
-import { Image } from '@/components/helpers/image'
-import { type Author } from '@/payload-types'
-import { RichText } from '@/blocks/RichText/richText'
+import { RichText } from "@/blocks/RichText/richText";
+import { Image } from "@/components/helpers/image";
+import type { Author } from "@/payload-types";
+import type { ReactElement } from "react";
 
 interface AuthorProps {
-  page: Author
+  page: Author;
 }
 
 function AuthorTemplate(props: AuthorProps): ReactElement {
-  const { name, coverImage, image } = props.page
+  const { name, coverImage, image } = props.page;
 
   return (
     <>
@@ -37,7 +37,7 @@ function AuthorTemplate(props: AuthorProps): ReactElement {
         <RichText blockType="RichText" richText={props.page.bio} />
       </main>
     </>
-  )
+  );
 }
 
-export { AuthorTemplate }
+export { AuthorTemplate };

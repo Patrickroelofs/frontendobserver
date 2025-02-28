@@ -1,28 +1,30 @@
-'use client'
+"use client";
 
-import { type ReactElement, useCallback, useState } from 'react'
-import { CaretLeft, CaretRight } from '@phosphor-icons/react/dist/ssr'
-import { Image } from '@/components/helpers/image'
-import { type CarouselType, type Media } from '@/payload-types'
+import { Image } from "@/components/helpers/image";
+import type { CarouselType, Media } from "@/payload-types";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react/dist/ssr";
+import { type ReactElement, useCallback, useState } from "react";
 
 function CarouselClient(props: CarouselType): ReactElement {
   const { images } = props as {
     images: {
-      image: Media | number
-      caption?: string
-      id?: string
-    }[]
-  }
+      image: Media | number;
+      caption?: string;
+      id?: string;
+    }[];
+  };
 
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length)
-  }, [images.length])
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  }, [images.length]);
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length)
-  }, [images.length])
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length,
+    );
+  }, [images.length]);
 
   return (
     <div className="relative w-full mx-auto overflow-hidden">
@@ -31,9 +33,16 @@ function CarouselClient(props: CarouselType): ReactElement {
         style={{ transform: `translateX(-${String(currentIndex * 100)}%)` }}
       >
         {images.map((img) => (
-          <div className="relative w-full h-[400px] lg:h-[800px] shrink-0" key={img.id}>
+          <div
+            className="relative w-full h-[400px] lg:h-[800px] shrink-0"
+            key={img.id}
+          >
             <div>
-              <Image media={img.image} fill className="w-full h-auto object-cover" />
+              <Image
+                media={img.image}
+                fill
+                className="w-full h-auto object-cover"
+              />
             </div>
             <div className="absolute z-10 text-lg left-0 bg-black text-white bottom-12 p-4 max-w-lg">
               <p className="line-clamp-2 text-pretty">{img.caption}</p>
@@ -61,17 +70,18 @@ function CarouselClient(props: CarouselType): ReactElement {
         {images.map((_, index) => (
           <button
             type="button"
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             key={index}
             onClick={() => {
-              setCurrentIndex(index)
+              setCurrentIndex(index);
             }}
-            className={`w-3 h-3 rounded-full outline outline-white bg-black ${index === currentIndex ? 'outline-4' : ' outline-2  opacity-50'}`}
+            className={`w-3 h-3 rounded-full outline outline-white bg-black ${index === currentIndex ? "outline-4" : " outline-2  opacity-50"}`}
             aria-label={`Go to slide ${String(index + 1)}`}
           />
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export { CarouselClient }
+export { CarouselClient };

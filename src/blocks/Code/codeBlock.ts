@@ -1,16 +1,16 @@
-import { type Block } from 'payload'
-import { grammars } from 'tm-grammars'
-import { spacingField } from '@/fields/spacing'
+import { spacingField } from "@/fields/spacing";
+import type { Block } from "payload";
+import { grammars } from "tm-grammars";
 
 export const CodeBlock: Block = {
-  slug: 'Code',
-  interfaceName: 'CodeType',
+  slug: "Code",
+  interfaceName: "CodeType",
   fields: [
     spacingField(),
     {
-      name: 'codeLanguage',
-      label: 'Code Language',
-      type: 'select',
+      name: "codeLanguage",
+      label: "Code Language",
+      type: "select",
       required: true,
       options: grammars.map((grammar) => ({
         label: grammar.displayName,
@@ -18,10 +18,10 @@ export const CodeBlock: Block = {
       })),
     },
     {
-      name: 'code',
-      label: 'Code',
-      type: 'code',
+      name: "code",
+      label: "Code",
+      type: "code",
       required: true,
     },
   ],
-}
+};
