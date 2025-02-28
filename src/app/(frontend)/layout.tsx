@@ -6,7 +6,6 @@ import "@fontsource-variable/literata/wght-italic.css";
 
 import { Footer } from "@/components/footer/footer";
 import { Navigation } from "@/components/navigation/navigation";
-import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import React, { type ReactElement, type ReactNode } from "react";
 
@@ -21,7 +20,6 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        <Analytics />
       </body>
     </html>
   );
