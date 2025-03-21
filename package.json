@@ -34,7 +34,7 @@
     "class-variance-authority": "^0.7.1",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.1",
-    "next": "^15.1.5",
+    "next": "^15.2.3",
     "payload": "3.25.0",
     "plaiceholder": "^3.0.0",
     "react": "19.0.0",
